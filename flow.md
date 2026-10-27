@@ -24,3 +24,21 @@ flowchart TD
   N --> O{"push result"}
   O -->|"main -> main, tracking set"| P["Pushed. Next: user imports repo in Netlify"]
 ```
+
+## 2026-10-27 — Punchier copy, roadmap projects, flare cursor, lighter theme
+
+```mermaid
+flowchart TD
+  A["lib/content.ts<br/>shorter impact-first copy"] --> B["lib/gsap.ts<br/>+ MotionPath, ScrambleText"]
+  B --> C["Work.tsx → roadmap<br/>SVG road, traveller dot, milestones"]
+  C --> D["Cursor.tsx → canvas lens flare<br/>tail, halo, ghosts, sparks"]
+  D --> E["Hero rotator, 2-row Marquee,<br/>Motion: aurora, progress, scramble"]
+  E --> F["globals.css rewrite<br/>lighter palette, old rail CSS removed"]
+  F --> G{"npm run build"}
+  G -->|"pass"| H{"Playwright screenshots<br/>desktop / mobile / reduced"}
+  H -->|"mobile: metric overlaps card"| I["Metric parallax desktop-only"]
+  I --> J{"re-shoot mobile"}
+  J -->|"clean, 0 console errors"| K["Left uncommitted"]
+  K --> L{"Reword pushed root commit?"}
+  L -->|"force-push blocked by permission classifier"| M["Blocked: user runs reword + commit + push"]
+```

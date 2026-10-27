@@ -19,7 +19,7 @@ export default function Contact() {
 
   return (
     <section className="contact" id="contact">
-      <p className="label">(Contact)</p>
+      <p className="label" data-scramble>(Hiring? Let&apos;s talk)</p>
       <h2 className="contact__title" data-reveal="line">
         <Lines lines={["Let's build", <><em className="serif">something</em> that ships.</>]} />
       </h2>

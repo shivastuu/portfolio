@@ -35,3 +35,25 @@ flowchart TD
 - Every animation gated behind `prefers-reduced-motion: no-preference`; reduced-motion users get a static, fully readable page.
 - Custom cursor + magnetic buttons only on fine pointers; native cursor stays if JS fails.
 - No OG image / case-study pages yet — add when there are screenshots or write-ups to show.
+
+## 2026-10-27 — Punchier copy, roadmap projects, more motion
+
+```mermaid
+flowchart TD
+  Q1{"Copy too long for a recruiter skim?"} -->|"Cut to 2 short impact-first bullets<br/>per project, outcome headline on top"| A1["Chosen<br/>still resume facts only"]
+  Q1 -->|"Keep 3 detailed bullets"| R1["Rejected<br/>user: text feels too big"]
+
+  Q2{"Projects layout?"} -->|"Vertical roadmap: SVG path draws on scroll,<br/>traveller dot, milestones unlock"| A2["Chosen<br/>user asked for roadmap"]
+  Q2 -->|"Keep pinned horizontal rail"| R2["Rejected<br/>replaced by roadmap"]
+  Q2 -->|"Dated milestones"| R3["Rejected<br/>resume has no per-project dates"]
+
+  Q3{"Extra motion?"} -->|"Hero word rotator, scramble labels,<br/>2-row counter marquee, card tilt,<br/>page progress bar"| A3["Chosen<br/>GSAP plugins already installed"]
+  Q3 -->|"WebGL / 3D"| R4["Rejected<br/>bundle + phone perf"]
+
+  classDef chosen fill:#d4edda,stroke:#28a745,color:#000
+  classDef rejected fill:#f8d7da,stroke:#dc3545,color:#000
+  class A1,A2,A3 chosen
+  class R1,R2,R3,R4 rejected
+```
+
+- Path is generated from measured milestone positions, so it follows the layout on desktop (centre spine) and mobile (left rail).
