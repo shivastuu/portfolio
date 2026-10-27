@@ -39,7 +39,7 @@ export default function About() {
 
   return (
     <section ref={root} className="about" id="about">
-      <p className="label">(About)</p>
+      <p className="label" data-scramble>(About)</p>
       <p className="about__text">
         {words.map(({ w, em }, i) => (
           <span key={i} className={em ? "w serif accent" : "w"}>

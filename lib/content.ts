@@ -8,111 +8,111 @@ export const links = {
 };
 
 export const hero = {
-  eyebrow: "Software Engineer — Niyo, Bangalore",
+  eyebrow: "Software Engineer at Niyo — Bangalore",
   status: "Open to frontend & mobile roles",
-  lede: "Frontend & mobile engineer building payments, KYC onboarding and encrypted SDKs across React, React Native and Flutter.",
+  lede: "Frontend & mobile engineer on React, React Native and Flutter.",
+  rotator: ["payment flows", "KYC journeys", "encrypted SDKs", "design systems"],
 };
 
 export const marquee = [
   "TypeScript", "React", "React Native", "Flutter", "Dart", "TanStack Query",
-  "Zustand", "BLoC", "Reanimated", "WebCrypto", "gRPC-Web", "Micro-frontends",
+  "Zustand", "BLoC", "Reanimated", "WebCrypto", "gRPC-Web", "single-spa",
+];
+
+export const domains = [
+  "Payments", "KYC onboarding", "Encryption", "Design systems", "Micro-frontends",
+  "Offline-first", "Server-driven UI", "Performance", "AI security",
 ];
 
 // *wrapped* words render in the accent serif.
 export const about =
-  "I build production fintech end to end — the bill payment that *fails closed,* the KYC flow that turns *twelve backend states* into six clear screens, the SDK that drops from *2.9 MB to 651 KB.* Reliability and security first. Then the polish.";
+  "I ship fintech where a bug costs real money. Payments that *fail closed.* KYC that turns *12 backend states* into 6 clear screens. SDKs *78% lighter.*";
 
 export const stats = [
-  { from: 0, to: 3, suffix: "", label: "Platforms in production — web, React Native, Flutter" },
-  { from: 0, to: 20, suffix: "", label: "Internal apps on the tree-shakeable design system" },
-  { from: 0, to: 78, suffix: "%", label: "Smaller Video KYC SDK, 2.9 MB → 651 KB" },
-  { from: 59.5, to: 0, suffix: "%", label: "LLM attack success after hardening (RedCell)" },
+  { from: 0, to: 3, suffix: "", label: "Platforms shipped to production" },
+  { from: 0, to: 20, suffix: "", label: "Apps on a design system I made tree-shakeable" },
+  { from: 0, to: 78, suffix: "%", label: "Lighter Video KYC SDK" },
+  { from: 59.5, to: 0, suffix: "%", label: "LLM attacks landing, down from 59.5%" },
 ];
 
 export const projects = [
   {
-    title: "Co-Branded Credit Card Module",
+    title: "Co-Branded Credit Card",
     kind: "Mobile · Flutter",
     hue: 75,
     big: "Fail-closed",
-    caption: "Bill payments that can't go out twice",
+    caption: "Bill pay that can't charge twice",
     points: [
-      "Flutter plugin hosting a React PWA over a JavaScript bridge, wired to native bank SDKs and live bank APIs.",
-      "In-app BBPS bill payment with fail-closed status polling, shipped behind a Remote Config flag — no app release.",
-      "Faster transaction lists: BLoC rebuilds scoped per tab, per-frame blur removed.",
+      "Flutter plugin running a React PWA over a JS bridge, wired to live bank SDKs.",
+      "BBPS bill pay that can't pay twice — shipped behind a flag, no app release.",
     ],
-    stack: ["Flutter", "Dart", "BLoC", "GetX", "Kotlin", "Remote Config"],
+    stack: ["Flutter", "Kotlin", "BLoC", "Remote Config"],
   },
   {
     title: "Credit Card Onboarding PWA",
     kind: "Web · PWA",
     hue: 262,
     big: "12 → 6",
-    caption: "CKYC states routed to clear screens",
+    caption: "CKYC states → clear screens",
     points: [
-      "Empty repo to production with a teammate; owned the PAN, Video KYC and CKYC flows.",
-      "Status router mapping 12 CKYC states to 6 screens.",
-      "Strapi-driven config so ops change downtime notices and Video KYC agent hours without a redeploy.",
+      "Empty repo to production; owned the PAN, Video KYC and CKYC flows.",
+      "Ops change downtime notices and agent hours from the CMS — no redeploy.",
     ],
-    stack: ["React", "TypeScript", "Vite", "Workbox", "Zustand", "Sentry", "Strapi"],
+    stack: ["React", "TypeScript", "Workbox", "Strapi"],
   },
   {
-    title: "Auth, KYC & Platform SDKs",
+    title: "Auth & Encryption SDKs",
     kind: "Platform · SDKs",
-    hue: 158,
+    hue: 168,
     big: "−78%",
     caption: "Video KYC SDK, 2.9 MB → 651 KB",
     points: [
-      "OTP login and PAN verification SDKs with HttpOnly-cookie sessions and single-flight token refresh across tabs (Web Locks API).",
-      "End-to-end encrypted telemetry over gRPC-Web with an IndexedDB offline queue and the RSA key wrap WebCrypto lacks.",
-      "Top contributor to the encrypted HTTP SDK; made the shared design system tree-shakeable for 20 apps.",
+      "OTP login with HttpOnly sessions and one token refresh shared across tabs.",
+      "Top contributor to the E2E-encrypted HTTP SDK; built encrypted telemetry over gRPC-Web.",
     ],
-    stack: ["React", "TypeScript", "WebCrypto", "Web Locks", "gRPC-Web"],
+    stack: ["TypeScript", "WebCrypto", "Web Locks", "gRPC-Web"],
   },
   {
     title: "Forex Compliance Workbench",
     kind: "Web · Micro-frontends",
     hue: 28,
     big: "Maker–checker",
-    caption: "Approvals with permission-gated PII",
+    caption: "Approvals with gated PII",
     points: [
       "Micro-frontend consoles for customer risk scoring and KYC review.",
-      "Maker-checker approvals with permission-gated PII.",
-      "Modular per-domain API layer with correlation IDs.",
+      "Permission-gated PII and correlation IDs across the API layer.",
     ],
-    stack: ["React", "TypeScript", "single-spa", "Redux-Saga", "Tailwind"],
+    stack: ["React", "single-spa", "Redux-Saga", "Tailwind"],
   },
   {
     title: "React Native App",
     kind: "Mobile · React Native",
     hue: 205,
     big: "13",
-    caption: "Server-driven home sections, no app release",
+    caption: "Home sections the product team edits live",
     points: [
-      "Homepage as server-driven UI: 13 CMS-configured sections with offline fallbacks.",
-      "Partner-bank debit card controls — lock, block, channel toggles, limits — with OTP-verified changes.",
-      "WebView session seeding for embedded web apps.",
+      "Server-driven home: 13 CMS sections, reordered without an app release.",
+      "Debit card lock, block and limits — every change OTP-verified.",
     ],
-    stack: ["Expo", "TypeScript", "TanStack Query", "Zustand", "Reanimated", "Jest"],
+    stack: ["Expo", "TanStack Query", "Reanimated", "Zustand"],
   },
   {
     title: "RedCell",
     kind: "Side project · AI security",
-    hue: 352,
+    hue: 330,
     big: "59.5% → 0%",
-    caption: "Attack success on a fixed 42-attack replay",
+    caption: "Attack success after hardening",
     points: [
-      "Autonomous multi-agent red team that attacks tool-using LLM agents with prompt injection and policy evasion.",
-      "Every breach confirmed by deterministic checks, not by another model.",
-      "Layered defences cut attack success to 0% offline (31% under adaptive attacks), guarded by a CI gate.",
+      "Multi-agent red team that attacks tool-using LLM agents; every breach verified deterministically.",
+      "Layered defences + a CI gate: 0% on a 42-attack replay (31% adaptive).",
     ],
     stack: ["Python", "LangGraph", "FastMCP", "Claude API"],
   },
 ];
 
 export const experience = [
-  { when: "Aug 2025 — Now", role: "Software Development Engineer I", org: "Niyo", note: "Cards, forex and partner-bank products across web, React Native and Flutter." },
-  { when: "Jan — Jul 2025", role: "Project Trainee", org: "Niyo", note: "Converted to full-time SDE-1." },
+  { when: "Aug 2025 — Now", role: "Software Development Engineer I", org: "Niyo", note: "Cards, forex & partner-bank products — web, React Native, Flutter." },
+  { when: "Jan — Jul 2025", role: "Project Trainee", org: "Niyo", note: "Converted to full-time." },
   { when: "2021 — 2025", role: "B.E., Electronics & Communication", org: "Thapar Institute of Engineering & Technology", note: "Patiala, Punjab." },
 ];
 

@@ -24,7 +24,7 @@ export default function Experience() {
 
   return (
     <section ref={root} className="experience" id="experience">
-      <p className="label">(Experience)</p>
+      <p className="label" data-scramble>(Experience)</p>
       <h2 className="h2" data-reveal="line">
         <Lines lines={["Where I've", <em className="serif">been building</em>]} />
       </h2>
