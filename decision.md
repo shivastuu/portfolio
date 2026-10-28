@@ -57,3 +57,19 @@ flowchart TD
 ```
 
 - Path is generated from measured milestone positions, so it follows the layout on desktop (centre spine) and mobile (left rail).
+
+## 2026-10-28 — Align portfolio with the product-engineer resume
+
+```mermaid
+flowchart TD
+  Q1{"Positioning?"} -->|"Product-minded: React UIs → Python LLM tooling,<br/>status keeps frontend & mobile"| A1["Chosen<br/>matches new resume, still fits UI roles"]
+  Q1 -->|"Rewrite only for AnswerThis"| R1["Rejected<br/>site is shared with every application"]
+  Q2{"New keywords?"} -->|"Next.js, Tailwind, Python, LangGraph,<br/>Claude API, Core Web Vitals"| A2["Chosen<br/>all backed by resume / notes"]
+  Q2 -->|"FastAPI, Postgres, vector DB, Docker"| R2["Rejected<br/>no real experience"]
+  Q3{"Downloadable resume?"} -->|"Swap to tailored PDF"| A3["Chosen<br/>superset of SDE version, adds portfolio link"]
+
+  classDef chosen fill:#d4edda,stroke:#28a745,color:#000
+  classDef rejected fill:#f8d7da,stroke:#dc3545,color:#000
+  class A1,A2,A3 chosen
+  class R1,R2 rejected
+```

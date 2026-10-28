@@ -10,9 +10,9 @@ const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif" });
 
 export const metadata: Metadata = {
-  title: "Shivastu Shrivastava — Frontend & Mobile Engineer",
+  title: "Shivastu Shrivastava — Software Engineer",
   description:
-    "Frontend & mobile engineer at Niyo building payments, KYC onboarding and encrypted SDKs across React, React Native and Flutter.",
+    "Product-minded engineer at Niyo shipping React UIs, mobile apps and Python LLM tooling — payments, KYC and encrypted SDKs, end to end.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

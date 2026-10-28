@@ -42,3 +42,14 @@ flowchart TD
   K --> L{"Reword pushed root commit?"}
   L -->|"force-push blocked by permission classifier"| M["Blocked: user runs reword + commit + push"]
 ```
+
+## 2026-10-28 — Align portfolio with the product-engineer resume
+
+```mermaid
+flowchart TD
+  A["lib/content.ts<br/>lede, rotator, marquee, about,<br/>SDK + RedCell bullets, skills"] --> B["app/layout.tsx<br/>title + description"]
+  B --> C["public/ resume PDF<br/>→ tailored pdfLaTeX build"]
+  C --> D{"npm run build"}
+  D -->|"pass"| E{"Playwright: hero + skills"}
+  E -->|"clean, 0 console errors"| F["commit + push → Netlify redeploy"]
+```
