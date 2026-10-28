@@ -9,24 +9,24 @@ export const links = {
 
 export const hero = {
   eyebrow: "Software Engineer at Niyo — Bangalore",
-  status: "Open to frontend & mobile roles",
-  lede: "Frontend & mobile engineer on React, React Native and Flutter.",
-  rotator: ["payment flows", "KYC journeys", "encrypted SDKs", "design systems"],
+  status: "Open to product, frontend & mobile roles",
+  lede: "Product-minded engineer — React UIs, mobile apps and Python LLM tooling, end to end.",
+  rotator: ["payment flows", "KYC journeys", "encrypted SDKs", "LLM agent pipelines", "design systems"],
 };
 
 export const marquee = [
-  "TypeScript", "React", "React Native", "Flutter", "Dart", "TanStack Query",
-  "Zustand", "BLoC", "Reanimated", "WebCrypto", "gRPC-Web", "single-spa",
+  "TypeScript", "React", "Next.js", "React Native", "Flutter", "Python",
+  "LangGraph", "Tailwind CSS", "TanStack Query", "Zustand", "WebCrypto", "gRPC-Web",
 ];
 
 export const domains = [
   "Payments", "KYC onboarding", "Encryption", "Design systems", "Micro-frontends",
-  "Offline-first", "Server-driven UI", "Performance", "AI security",
+  "Offline-first", "Server-driven UI", "Performance", "LLM agents", "AI security",
 ];
 
 // *wrapped* words render in the accent serif.
 export const about =
-  "I ship fintech where a bug costs real money. Payments that *fail closed.* KYC that turns *12 backend states* into 6 clear screens. SDKs *78% lighter.*";
+  "I own features end to end, from React UIs to Python LLM agents. Payments that *fail closed.* KYC that turns *12 backend states* into 6 clear screens. SDKs *78% lighter.*";
 
 export const stats = [
   { from: 0, to: 3, suffix: "", label: "Platforms shipped to production" },
@@ -68,7 +68,7 @@ export const projects = [
     caption: "Video KYC SDK, 2.9 MB → 651 KB",
     points: [
       "OTP login with HttpOnly sessions and one token refresh shared across tabs.",
-      "Top contributor to the E2E-encrypted HTTP SDK; built encrypted telemetry over gRPC-Web.",
+      "Top contributor to the E2E-encrypted HTTP SDK; built encrypted telemetry capturing Core Web Vitals.",
     ],
     stack: ["TypeScript", "WebCrypto", "Web Locks", "gRPC-Web"],
   },
@@ -103,8 +103,8 @@ export const projects = [
     big: "59.5% → 0%",
     caption: "Attack success after hardening",
     points: [
-      "Multi-agent red team that attacks tool-using LLM agents; every breach verified deterministically.",
-      "Layered defences + a CI gate: 0% on a 42-attack replay (31% adaptive).",
+      "Multi-agent LLM pipeline in LangGraph that red-teams tool-using LLM agents; every breach verified deterministically.",
+      "Layered defences + a CI/CD gate: 0% on a 42-attack replay (31% adaptive).",
     ],
     stack: ["Python", "LangGraph", "FastMCP", "Claude API"],
   },
@@ -117,7 +117,7 @@ export const experience = [
 ];
 
 export const skills = [
-  { group: "Languages", items: ["TypeScript", "JavaScript", "Dart", "Python"] },
-  { group: "Frameworks & tools", items: ["React", "React Native", "Flutter", "Redux Toolkit", "TanStack Query", "BLoC", "Vite", "Webpack", "Jest", "Vitest", "Sentry", "Firebase", "CI/CD"] },
-  { group: "Concepts", items: ["Auth & session security", "Encryption", "Performance", "Micro-frontends", "Design systems", "Unit testing"] },
+  { group: "Languages", items: ["TypeScript", "JavaScript", "Python", "Dart", "HTML", "CSS"] },
+  { group: "Frameworks & tools", items: ["React", "Next.js", "React Native", "Flutter", "Tailwind CSS", "Redux Toolkit", "TanStack Query", "BLoC", "Vite", "Webpack", "Jest", "Vitest", "Sentry", "Firebase", "LangGraph", "Claude API", "CI/CD"] },
+  { group: "Concepts", items: ["REST APIs", "LLM agent pipelines", "Auth & session security", "Encryption", "Performance & monitoring", "Micro-frontends", "Design systems", "Server-driven UI", "UI/UX", "Unit testing"] },
 ];
