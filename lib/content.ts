@@ -2,6 +2,7 @@
 // The "Ask about me" AI answers only from this file and lib/resume.ts (netlify/functions/ask.mts), so keep both accurate.
 
 export const links = {
+  site: "https://shivastuu.netlify.app",
   email: "shivastuu@gmail.com",
   phone: "+91 7704025456",
   linkedin: "https://www.linkedin.com/in/shivastu-srivastava-811248212",
@@ -28,10 +29,10 @@ export const domains = [
 
 // *wrapped* words render in the accent serif.
 export const about =
-  "I own features end to end, from React UIs to Python LLM agents. Payments that *fail closed.* KYC that turns *12 backend states* into 6 clear screens. SDKs *78% lighter.*";
+  "I own features end to end, from *architecture* to *production monitoring.* Fail-closed *payment flows.* *KYC onboarding* in production. Embeddable *SDKs.* A *design system* 20 apps depend on.";
 
 export const stats = [
-  { from: 0, to: 3, suffix: "", label: "Platforms shipped to production" },
+  { from: 0, to: 8, suffix: "+", label: "Products & SDKs built at Niyo" },
   { from: 0, to: 20, suffix: "", label: "Apps on a design system I made tree-shakeable" },
   { from: 0, to: 78, suffix: "%", label: "Lighter Video KYC SDK" },
   { from: 59.5, to: 0, suffix: "%", label: "LLM attacks landing, down from 59.5%" },

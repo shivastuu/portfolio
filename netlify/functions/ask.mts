@@ -72,20 +72,24 @@ export default async (req: Request) => {
     .map((m) => ({ role: m.role, parts: [{ text: m.text.slice(0, MAX_CHARS) }] }));
   if (turns.at(-1)?.role !== "user") return json({ error: "bad_request" }, 400);
 
+  // One retry on a 5xx: the free tier now and then answers "overloaded", and those come back fast.
   let res: Response;
-  try {
-    res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-goog-api-key": key },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM }] },
-        contents: turns,
-        generationConfig: { maxOutputTokens: 1024 },
-      }),
-      signal: AbortSignal.timeout(20_000),
-    });
-  } catch {
-    return json({ error: "upstream" }, 502);
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-goog-api-key": key },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: SYSTEM }] },
+          contents: turns,
+          generationConfig: { maxOutputTokens: 1024 },
+        }),
+        signal: AbortSignal.timeout(9_000), // under Netlify's 10 s function limit
+      });
+    } catch {
+      return json({ error: "upstream" }, 502);
+    }
+    if (res.status < 500) break;
   }
   if (res.status === 429) return json({ error: "busy" }, 429);
   if (!res.ok) {

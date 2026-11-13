@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -13,10 +13,14 @@ type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 export const generateStaticParams = () => projects.map((p) => ({ slug: p.slug }));
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const { slug } = await params;
   const p = projects.find((x) => x.slug === slug);
-  return p ? { title: `${p.title} — Case study · Shivastu Shrivastava`, description: p.problem } : {};
+  if (!p) return {};
+  const title = `${p.title} — Case study · Shivastu Shrivastava`;
+  // A page-level openGraph replaces the layout's, so carry over the shared preview image.
+  const images = (await parent).openGraph?.images;
+  return { title, description: p.problem, openGraph: { title, description: p.problem, url: `/work/${p.slug}`, images } };
 }
 
 const pad = (n: number) => String(n).padStart(2, "0");
