@@ -3,7 +3,7 @@
 export const resume = `Shivastu Shrivastava. +91 7704025456 | shivastuu@gmail.com | LinkedIn | GitHub | Portfolio | Bangalore, India
 
 Summary
-Software Engineer with nearly 2 years owning fintech products end to end at Niyo: React, Next.js and TypeScript on the web, Flutter and React Native on mobile, from architecture to production monitoring.
+Software Engineer with 2 years owning fintech products end to end at Niyo: React, Next.js and TypeScript on the web, Flutter and React Native on mobile, from architecture to production monitoring.
 
 Experience
 Niyo – Indian Fintech: Cards, Forex and Partner-Bank Products, Bangalore, India
