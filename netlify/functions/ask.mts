@@ -82,7 +82,8 @@ export default async (req: Request) => {
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: SYSTEM }] },
           contents: turns,
-          generationConfig: { maxOutputTokens: 1024 },
+          // Minimal thinking: short factual answers don't need it, and it pushed replies toward the 10 s limit.
+          generationConfig: { maxOutputTokens: 1024, thinkingConfig: { thinkingLevel: "MINIMAL" } },
         }),
         signal: AbortSignal.timeout(9_000), // under Netlify's 10 s function limit
       });
