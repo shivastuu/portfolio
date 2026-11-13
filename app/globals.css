@@ -126,9 +126,12 @@ section > .label { margin-bottom: 32px; }
   border-radius: 50%;
   background: #fff;
   translate: -50% -50%;
-  transition: width 0.4s var(--ease), height 0.4s var(--ease), background 0.3s;
+  transition: width 0.4s var(--ease), height 0.4s var(--ease), background 0.3s, opacity 0.3s;
 }
-.cursor.is-hover span { width: 40px; height: 40px; background: transparent; }
+/* Over links the dot hides and the ring grows. The ring's transform belongs to GSAP (stretch), so no CSS transform here. */
+.cursor.is-hover:not(.cursor--ring) span { opacity: 0; }
+.cursor--ring span { width: 34px; height: 34px; border-width: 1px; background: transparent; }
+.cursor--ring.is-hover span { width: 54px; height: 54px; background: rgb(255 255 255 / 0.1); }
 html.has-cursor .cursor, html.has-cursor .sparks { display: block; }
 html.has-cursor, html.has-cursor * { cursor: none; }
 

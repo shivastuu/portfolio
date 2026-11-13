@@ -157,3 +157,16 @@ flowchart TD
   class A1,A2 chosen
   class R1 rejected
 ```
+
+## 2026-11-13 — Cursor ring, ownership copy, share card, stats
+
+```mermaid
+flowchart TD
+  Q1{"Cursor: some motion, no trail"} -->|"Lagging ring that stretches toward travel;<br/>grows on links; dot hides"| A1["Chosen"]
+  Q2{"About copy"} -->|"Ownership + keywords: architecture → production,<br/>payments, KYC, SDKs, design system"| A2["Chosen"]
+  Q3{"Extra polish"} -->|"OG share card (next/og, static) + sitemap + robots;<br/>one retry on Gemini 5xx"| A3["Chosen<br/>links shared to recruiters get a preview"]
+  Q4{"'3 platforms' read as 3 projects"} -->|"8+ products & SDKs built at Niyo"| A4["Chosen<br/>8 counted conservatively"]
+
+  classDef chosen fill:#d4edda,stroke:#28a745,color:#000
+  class A1,A2,A3,A4 chosen
+```

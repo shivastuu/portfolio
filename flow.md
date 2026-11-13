@@ -108,3 +108,14 @@ flowchart TD
   C -->|"pass"| D{"Chrome: move, hover, click, chat stub"}
   D -->|"canvas clears after burst,<br/>mailto + tel links, 0 errors"| E["commit + push"]
 ```
+
+## 2026-11-13 — Cursor ring, ownership copy, share card, stats
+
+```mermaid
+flowchart TD
+  A["Cursor.tsx ring + stretch, globals.css hover states"] --> B["content.ts about + stat, links.site<br/>ask.mts retry on 5xx"]
+  B --> C["opengraph-image.tsx, sitemap.ts, robots.ts,<br/>layout metadata, case-page og:image,<br/>netlify.toml PNG header"]
+  C --> D{"build + function checks"}
+  D -->|"pass; og tags on all pages"| E{"Chrome: ring moving/hover,<br/>about section, share card"}
+  E -->|"clean, 0 errors"| F["commit + push"]
+```
