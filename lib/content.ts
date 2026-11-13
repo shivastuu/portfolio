@@ -13,7 +13,7 @@ export const links = {
 export const hero = {
   eyebrow: "Software Engineer at Niyo — Bangalore",
   status: "Open to product, frontend & mobile roles",
-  lede: "Product-minded engineer — React UIs, mobile apps and Python LLM tooling, end to end.",
+  lede: "I build and own fintech products end to end: React & Next.js on the web, Flutter & React Native on mobile.",
   rotator: ["payment flows", "KYC journeys", "encrypted SDKs", "LLM agent pipelines", "design systems"],
 };
 
@@ -33,9 +33,9 @@ export const about =
 
 export const stats = [
   { from: 0, to: 8, suffix: "+", label: "Products & SDKs built at Niyo" },
-  { from: 0, to: 20, suffix: "", label: "Apps on a design system I made tree-shakeable" },
+  { from: 0, to: 20, suffix: "", label: "Apps on the design system I own" },
   { from: 0, to: 78, suffix: "%", label: "Lighter Video KYC SDK" },
-  { from: 59.5, to: 0, suffix: "%", label: "LLM attacks landing, down from 59.5%" },
+  { from: 0, to: 97, suffix: "", label: "Lighthouse performance on Slow 4G, with 100 accessibility" },
 ];
 
 // Card copy (big, caption, points, stack) shows on the home roadmap; the rest is the case study at /work/<slug>.
@@ -49,11 +49,11 @@ export const projects = [
     caption: "From an empty Flutter plugin to a live card module",
     points: [
       "Scaffolded the Flutter plugin and built most of the card module: homepage, transactions, card controls, activation and statements on live bank APIs.",
-      "React PWA running inside Flutter over a JS bridge, plus BBPS bill pay ready behind a remote flag.",
+      "React PWA running inside Flutter over a JS bridge, plus in-app BBPS bill pay launched via a remote flag.",
     ],
     stack: ["Flutter", "Dart", "Kotlin", "BLoC", "GetX", "Remote Config"],
     role: "Co-built with one teammate. I scaffolded the Flutter plugin and owned most of the card module after onboarding, from bank API integration to host-app release.",
-    status: "Card module live in the app. In-app bill pay is built; its flag is still off.",
+    status: "Live in the app, including in-app bill payment.",
     problem:
       "A partner bank's co-branded credit card needed a native home inside the company's super-app, right after users finished onboarding in a React web flow.",
     built: [
@@ -66,7 +66,7 @@ export const projects = [
     hard:
       "A payment the app can't confirm must never read as failed, because a user who sees \"failed\" after a debit may pay again. Every unknown result falls back to \"in process\", and the result screen polls the payment status every 30 seconds, up to 15 times, before settling on pending. The bank's native SDK also crashed on concurrent calls, so homepage requests run one at a time and are cached for every sub-screen.",
     result:
-      "The card lives inside the super-app on real bank data. Bill payment sits behind a Remote Config flag, so the in-app flow can be switched on without shipping an app release.",
+      "The card lives inside the super-app on real bank data, and in-app bill payment went live through a Remote Config flag, without shipping an app release.",
   },
   {
     slug: "onboarding-pwa",
@@ -76,11 +76,11 @@ export const projects = [
     big: "12 → 6",
     caption: "CKYC states → clear screens",
     points: [
-      "Empty repo to production; owned the PAN, Video KYC and CKYC flows.",
+      "Led it from empty repo to production; owned the PAN, Video KYC and CKYC flows.",
       "Ops change downtime notices and agent hours from the CMS — no redeploy.",
     ],
     stack: ["React", "TypeScript", "Workbox", "Strapi"],
-    role: "Built from an empty repo with one other frontend engineer. I owned the PAN, Video KYC, CKYC, consent and downtime screens.",
+    role: "Led it from an empty repo to production, working with one other frontend engineer. I owned the PAN, Video KYC, CKYC, consent and downtime screens.",
     status: "Live in production.",
     problem:
       "People applying for the card had to get through PAN, KYC and consent steps inside a WebView, on whatever phone and network they had, with a backend that reported 12 different KYC statuses.",
@@ -104,11 +104,11 @@ export const projects = [
     big: "20 apps",
     caption: "Depend on the shared library",
     points: [
-      "Built 22 of its 49 components from Figma tokens, in light and dark.",
+      "I own it: built 22 of its 49 components from Figma tokens, in light and dark.",
       "Tree-shakeable build; moved the Video KYC SDK onto it, 2.9 MB → 651 KB.",
     ],
     stack: ["React", "Material UI", "Storybook", "Vite"],
-    role: "Main contributor to a co-maintained library: 22 of its 49 components and about 40 releases.",
+    role: "Owner. I built 22 of its 49 components, shipped about 40 releases, and review and merge other contributors' work.",
     status: "In use. About 20 internal apps list it as a dependency.",
     problem:
       "Product teams were rebuilding the same inputs, dialogs and sheets from Figma by hand, and every release of the shared library reached about 20 apps, so one broken export broke other teams.",
@@ -136,8 +136,8 @@ export const projects = [
       "Top contributor to the E2E-encrypted HTTP SDK; built encrypted telemetry capturing Core Web Vitals.",
     ],
     stack: ["TypeScript", "WebCrypto", "Web Locks", "gRPC-Web"],
-    role: "Built the login, PAN and telemetry SDKs; top contributor to the encrypted HTTP SDK.",
-    status: "Login and PAN SDKs in use. The email page and the telemetry rebuild are built, not live yet.",
+    role: "Owned and developed the login, PAN and telemetry SDKs; top contributor to the encrypted HTTP SDK.",
+    status: "Login and PAN SDKs and the email-verification page are live.",
     problem:
       "The forex card and remittance web apps each needed login and PAN verification, and requests had to be end-to-end encrypted.",
     built: [
@@ -192,7 +192,7 @@ export const projects = [
     ],
     stack: ["Expo", "TanStack Query", "Reanimated", "Zustand"],
     role: "Built the homepage, debit card controls and push notifications in the rebuild from Flutter to React Native.",
-    status: "Built and merged. The app hasn't been released yet.",
+    status: "Released.",
     problem:
       "The consumer app was being rebuilt in React Native, and the product team wanted to change the homepage without shipping an app release.",
     built: [
@@ -203,7 +203,7 @@ export const projects = [
     ],
     hard:
       "A bad CMS document can break a server-driven screen. Every content read goes through one fetch function with a bundled fallback, and the mappers fail safe, so an unreadable response never downgrades an active user to the first-time view.",
-    result: "Merged and tested against the UAT backend. The app itself hasn't been released yet.",
+    result: "Live in the released app: homepage content and section order change from the CMS without an app release.",
   },
   {
     slug: "redcell",
@@ -235,8 +235,8 @@ export const projects = [
 ];
 
 export const experience = [
-  { when: "Aug 2025 — Now", role: "Software Development Engineer I", org: "Niyo", note: "Cards, forex & partner-bank products — web, React Native, Flutter." },
-  { when: "Jan — Jul 2025", role: "Project Trainee", org: "Niyo", note: "Converted to full-time." },
+  { when: "Aug 2025 — Now", role: "Software Development Engineer I", org: "Niyo", note: "Own the design system and the login, PAN and telemetry SDKs; led the onboarding PWA and co-built the Flutter credit card module." },
+  { when: "Jan — Jul 2025", role: "Project Trainee", org: "Niyo", note: "Started on the design system and built the PAN verification SDK; converted to full-time." },
   { when: "2021 — 2025", role: "B.E., Electronics & Communication", org: "Thapar Institute of Engineering & Technology", note: "Patiala, Punjab." },
 ];
 
