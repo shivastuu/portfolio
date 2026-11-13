@@ -29,7 +29,7 @@ export const domains = [
 
 // *wrapped* words render in the accent serif.
 export const about =
-  "I own features end to end, from *architecture* to *production monitoring.* Fail-closed *payment flows.* *KYC onboarding* in production. Embeddable *SDKs.* A *design system* 20 apps depend on.";
+  "I own features end to end, from *architecture* to *production monitoring.* A *credit card module* in Flutter. *KYC onboarding* in production. Embeddable *SDKs.* A *design system* 20 apps depend on.";
 
 export const stats = [
   { from: 0, to: 8, suffix: "+", label: "Products & SDKs built at Niyo" },
@@ -45,14 +45,14 @@ export const projects = [
     title: "Co-Branded Credit Card",
     kind: "Mobile · Flutter",
     hue: 75,
-    big: "Fail-closed",
-    caption: "Unconfirmed payments show pending, never failed",
+    big: "End to end",
+    caption: "From an empty Flutter plugin to a live card module",
     points: [
-      "Flutter plugin running a React PWA over a JS bridge, wired to live bank SDKs.",
-      "BBPS bill pay built behind a remote flag, so it can go live without an app release.",
+      "Scaffolded the Flutter plugin and built most of the card module: homepage, transactions, card controls, activation and statements on live bank APIs.",
+      "React PWA running inside Flutter over a JS bridge, plus BBPS bill pay ready behind a remote flag.",
     ],
-    stack: ["Flutter", "Kotlin", "BLoC", "Remote Config"],
-    role: "Co-built with a teammate. I scaffolded the plugin and built most of the screens after onboarding.",
+    stack: ["Flutter", "Dart", "Kotlin", "BLoC", "GetX", "Remote Config"],
+    role: "Co-built with one teammate. I scaffolded the Flutter plugin and owned most of the card module after onboarding, from bank API integration to host-app release.",
     status: "Card module live in the app. In-app bill pay is built; its flag is still off.",
     problem:
       "A partner bank's co-branded credit card needed a native home inside the company's super-app, right after users finished onboarding in a React web flow.",
@@ -60,6 +60,7 @@ export const projects = [
       "The Flutter plugin itself: routes, a WebView screen hosting the React onboarding PWA over a JavaScript bridge, an example host app and CI.",
       "A homepage on live bank APIs: balance tile, card widget, quick actions, and its own empty, loading and error state for every section.",
       "Card controls (lock, usage toggles, limits) behind one buffered, MPIN-gated save, plus statements and searchable transaction history.",
+      "Card activation rebuilt around PIN setup when the bank retired its activation API, and a smoother transaction list with rebuilds scoped per tab.",
       "In-app bill payment (BBPS): bill details, amount validation, and one result screen for success, partial, failed and pending.",
     ],
     hard:
