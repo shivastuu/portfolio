@@ -114,23 +114,22 @@ body::after {
 section { padding: clamp(96px, 14vw, 200px) var(--pad); }
 section > .label { margin-bottom: 32px; }
 
-/* ---------- Cursor: flare canvas + core dot ---------- */
-.flare { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 95; pointer-events: none; display: none; mix-blend-mode: screen; }
-[data-theme="light"] .flare { mix-blend-mode: multiply; }
+/* ---------- Cursor: dot + click-spark canvas ---------- */
+.sparks { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 95; pointer-events: none; display: none; }
 .cursor { position: fixed; top: 0; left: 0; z-index: 100; pointer-events: none; mix-blend-mode: difference; display: none; opacity: 0; }
 .cursor.is-on { opacity: 1; }
 .cursor span {
   display: block;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border: 1.5px solid #fff;
   border-radius: 50%;
   background: #fff;
   translate: -50% -50%;
   transition: width 0.4s var(--ease), height 0.4s var(--ease), background 0.3s;
 }
-.cursor.is-hover span { width: 64px; height: 64px; background: transparent; }
-html.has-cursor .cursor, html.has-cursor .flare { display: block; }
+.cursor.is-hover span { width: 40px; height: 40px; background: transparent; }
+html.has-cursor .cursor, html.has-cursor .sparks { display: block; }
 html.has-cursor, html.has-cursor * { cursor: none; }
 
 /* ---------- Preloader ---------- */

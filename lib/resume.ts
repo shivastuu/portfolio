@@ -1,6 +1,5 @@
 // Text of public/Shivastu_Shrivastava_Resume.pdf for the "Ask about me" AI. Update it whenever the PDF changes.
-// The phone number is left out on purpose; the AI points people to email and the PDF.
-export const resume = `Shivastu Shrivastava. shivastuu@gmail.com | LinkedIn | GitHub | Portfolio | Bangalore, India
+export const resume = `Shivastu Shrivastava. +91 7704025456 | shivastuu@gmail.com | LinkedIn | GitHub | Portfolio | Bangalore, India
 
 Summary
 Product-minded Software Engineer with nearly 2 years shipping fintech features end to end, from React/TypeScript UIs to Python LLM-agent tooling, owning architecture, deployment and performance monitoring.
