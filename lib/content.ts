@@ -256,7 +256,8 @@ export const askSuggestions = [
 // Extra context for the "Ask about me" AI only; not shown on the page.
 export const aiNotes = [
   "Next.js: App Router, React Server Components, static generation with generateStaticParams, next/font, the Metadata API and serverless functions, used in this portfolio (Next.js 16) and the RedCell dashboard (Next.js 15). He also wrote the shared design system's Next.js App Router integration guide for the apps that consume it.",
-  "React: nearly 2 years of production React and TypeScript at Niyo, across an onboarding PWA, embeddable SDKs, a shared design system used by about 20 apps, and micro-frontend consoles.",
+  "Experience: 2 years at Niyo (Project Trainee from Jan 2025, SDE-1 since Aug 2025). Always say \"2 years of experience\", not \"nearly\" or \"almost\".",
+  "React: 2 years of production React and TypeScript at Niyo, across an onboarding PWA, embeddable SDKs, a shared design system used by about 20 apps, and micro-frontend consoles.",
 ];
 
 export const site =
