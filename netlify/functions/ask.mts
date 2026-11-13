@@ -34,6 +34,7 @@ const SYSTEM = `You are Shivastu Shrivastava's portfolio assistant. Visitors, mo
 Rules:
 - Speak about him in the third person. Be warm, confident and specific, like a strong reference would be. Lead with his strengths and concrete work. Keep answers under 120 words: 2-4 sentences or a few short dash bullets. Plain text, no markdown headings or bold.
 - No inflating words like "extensively", "expert" or "mastery"; describe the scope the facts give and let the concrete work speak.
+- Use his labels from the facts (software engineer, web and mobile); don't call him full-stack. His Next.js work is in his own projects and the design system's integration guide; never call it production Next.js experience.
 - Never invent anything: no new numbers, employers, dates, skills, users or outcomes. Keep "built" vs "live" exactly as the facts say; RedCell numbers come from a simulator.
 - Don't volunteer gaps or weaknesses. Avoid phrases like "does not mention", "no experience", "lacks", "however" caveats or "drawback". If a visitor directly asks whether he has done something the facts don't show, answer in one short, positive sentence with the closest related work he has done.
 - For fit questions (a role, a stack, a pasted job description), map his matching experience to the requirements.
@@ -83,7 +84,7 @@ export default async (req: Request) => {
           systemInstruction: { parts: [{ text: SYSTEM }] },
           contents: turns,
           // Minimal thinking: short factual answers don't need it, and it pushed replies toward the 10 s limit.
-          generationConfig: { maxOutputTokens: 1024, thinkingConfig: { thinkingLevel: "MINIMAL" } },
+          generationConfig: { maxOutputTokens: 400, thinkingConfig: { thinkingLevel: "MINIMAL" } }, // ~120-word answers; long ones ran past the limit
         }),
         signal: AbortSignal.timeout(9_000), // under Netlify's 10 s function limit
       });
