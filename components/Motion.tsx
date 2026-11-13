@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger, useGSAP, MOTION } from "../lib/gsap";
 
@@ -15,6 +16,7 @@ export function Lines({ lines }: { lines: ReactNode[] }) {
 
 // Site-wide motion layer: Lenis smooth scroll, aurora backdrop, progress bar and [data-*] scroll effects.
 export default function Motion({ children }: { children: ReactNode }) {
+  const path = usePathname();
   useEffect(() => {
     if (!matchMedia(MOTION).matches) return;
     let lenis: Lenis | undefined;
@@ -71,7 +73,8 @@ export default function Motion({ children }: { children: ReactNode }) {
       ScrollTrigger.sort();
       document.fonts.ready.then(() => ScrollTrigger.refresh());
     });
-  });
+    // Re-run for each page: client-side navigation swaps the page but keeps this layout mounted.
+  }, { dependencies: [path], revertOnUpdate: true });
 
   return (
     <>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, type CSSProperties } from "react";
 import { gsap, ScrollTrigger, useGSAP, MOTION } from "../lib/gsap";
 import { projects } from "../lib/content";
@@ -91,7 +92,7 @@ export default function Work() {
             <Lines lines={["The roadmap", <em className="serif">so far</em>]} />
           </h2>
         </div>
-        <p className="muted" data-reveal="fade">Six shipped milestones in fintech and AI security. Scroll to unlock each one.</p>
+        <p className="muted" data-reveal="fade">Milestones in fintech, design systems and AI security. Scroll to unlock each one, then open the full case study.</p>
       </div>
 
       <div className="roadmap">
@@ -137,6 +138,9 @@ export default function Work() {
                     <li key={s}>{s}</li>
                   ))}
                 </ul>
+                <Link href={`/work/${p.slug}`} className="card__link">
+                  Read case study <span aria-hidden>→</span>
+                </Link>
               </article>
             </li>
           ))}

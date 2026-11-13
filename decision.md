@@ -73,3 +73,55 @@ flowchart TD
   class A1,A2,A3 chosen
   class R1,R2 rejected
 ```
+
+## 2026-11-13 — AI "Ask about me", case studies, light/dark mode
+
+```mermaid
+flowchart TD
+  Q1{"Which LLM for the chat?"} -->|"Gemini free tier<br/>(user's pick)"| A1["Chosen<br/>no cost; prompts may train Google models"]
+  Q1 -->|"Claude Haiku, paid key"| R1["Rejected<br/>user chose free tier"]
+  Q1 -->|"Preset Q&A only"| R2["Rejected<br/>visitors can't ask their own question"]
+
+  Q2{"Where does the API key live?"} -->|"Netlify Function at /api/ask,<br/>site stays a static export"| A2["Chosen<br/>key never reaches the browser"]
+  Q2 -->|"Drop output: export for Next API routes"| R3["Rejected<br/>bigger change, needs Netlify Next runtime"]
+
+  Q3{"Abuse control?"} -->|"Netlify code-based rate limit<br/>10 req/min per IP + input caps"| A3["Chosen<br/>works on free plan, no new deps"]
+  Q3 -->|"Captcha / auth"| R4["Rejected<br/>friction for recruiters"]
+
+  Q4{"What does the AI know?"} -->|"Prompt built from lib/content.ts<br/>(site copy + case studies)"| A4["Chosen<br/>one source of truth, stays in sync"]
+  Q4 -->|"RAG / vector store"| R5["Rejected<br/>~3k tokens fits in the prompt"]
+
+  Q5{"'More professional'?"} -->|"Case-study page per project,<br/>SSG via generateStaticParams"| A5["Chosen<br/>user's pick: keep look, add depth"]
+  Q5 -->|"Calmer redesign"| R6["Rejected<br/>user kept the bold look"]
+
+  Q6{"Theme switching?"} -->|"data-theme on html, set by an inline<br/>head script from localStorage or OS"| A6["Chosen<br/>no flash of wrong theme"]
+  Q6 -->|"next-themes"| R7["Rejected<br/>new dep for ~5 lines"]
+
+  Q7{"Preloader on new pages?"} -->|"Only on first home visit per session"| A7["Chosen<br/>back-navigation stays fast"]
+
+  classDef chosen fill:#d4edda,stroke:#28a745,color:#000
+  classDef rejected fill:#f8d7da,stroke:#dc3545,color:#000
+  class A1,A2,A3,A4,A5,A6,A7 chosen
+  class R1,R2,R3,R4,R5,R6,R7 rejected
+```
+
+- Case-study copy follows the resume talking points: "built" vs "launched" kept, partner names generic, RedCell numbers marked as simulator results.
+- Light mode splits the accent into a fill (`--accent`) and a darker text ink (`--accent-ink`), because lime text is unreadable on white.
+- Model name comes from `GEMINI_MODEL` (default `gemini-3.5-flash-lite`) because Gemini models are retired often.
+
+## 2026-11-13 — Chat answers from the full resume; no talk about its own model
+
+```mermaid
+flowchart TD
+  Q1{"How does the chat know the resume?"} -->|"lib/resume.ts: text of the public PDF,<br/>added to the prompt"| A1["Chosen<br/>same content visitors can download"]
+  Q1 -->|"Parse the PDF in the function"| R1["Rejected<br/>new dep for a file that rarely changes"]
+  Q1 -->|"Private talking-points notes"| R2["Rejected<br/>internal repo and commit details"]
+  Q2{"Questions about the chat's model,<br/>or his use of AI tools?"} -->|"Decline politely, point to email;<br/>never claim yes or no"| A2["Chosen<br/>user's request, stays honest"]
+  Q3{"Phone number in the prompt?"} -->|"Leave out; email + resume PDF"| A3["Chosen<br/>less spam via the bot"]
+  Q4{"Starter questions?"} -->|"3, recruiter-focused"| A4["Chosen<br/>user asked for 2-3"]
+
+  classDef chosen fill:#d4edda,stroke:#28a745,color:#000
+  classDef rejected fill:#f8d7da,stroke:#dc3545,color:#000
+  class A1,A2,A3,A4 chosen
+  class R1,R2 rejected
+```

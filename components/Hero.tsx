@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { gsap, useGSAP, MOTION } from "../lib/gsap";
 import { hero } from "../lib/content";
-import Magnetic from "./Magnetic";
+import Nav from "./Nav";
 
 const chars = (word: string) =>
   [...word].map((c, i) => (
@@ -17,26 +17,33 @@ export default function Hero() {
 
   useGSAP(
     () => {
+      // The layout's boot script sets is-loading only on the first home visit of a session.
+      const html = document.documentElement;
+      const preload = html.classList.contains("is-loading");
       const done = () => {
-        document.documentElement.classList.remove("is-loading");
+        html.classList.remove("is-loading");
+        try {
+          sessionStorage.setItem("intro", "1");
+        } catch {}
         dispatchEvent(new Event("intro:done"));
       };
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: reduce)", done);
       mm.add(MOTION, () => {
-        const counter = root.current!.querySelector(".preloader__count")!;
-        const n = { v: 0 };
-        gsap
-          .timeline({ onComplete: done })
-          .to(n, {
+        const tl = gsap.timeline({ onComplete: done });
+        if (preload) {
+          const counter = root.current!.querySelector(".preloader__count")!;
+          const n = { v: 0 };
+          tl.to(n, {
             v: 100,
             duration: 1.8,
             ease: "power2.inOut",
             onUpdate: () => void (counter.textContent = String(Math.round(n.v)).padStart(3, "0")),
           })
-          .to(".preloader__bar", { scaleX: 1, duration: 1.8, ease: "power2.inOut" }, 0)
-          .to(".preloader", { yPercent: -100, duration: 1.1, ease: "expo.inOut" })
-          .from(".hero__name .char", { yPercent: 115, rotate: 8, duration: 1.4, ease: "expo.out", stagger: 0.03 }, "-=0.55")
+            .to(".preloader__bar", { scaleX: 1, duration: 1.8, ease: "power2.inOut" }, 0)
+            .to(".preloader", { yPercent: -100, duration: 1.1, ease: "expo.inOut" });
+        }
+        tl.from(".hero__name .char", { yPercent: 115, rotate: 8, duration: 1.4, ease: "expo.out", stagger: 0.03 }, preload ? "-=0.55" : 0)
           .from("[data-intro]", { y: 24, autoAlpha: 0, duration: 1, ease: "power3.out", stagger: 0.08 }, "-=1.1");
 
         // Word rotator: each word slides up and out, the next slides in.
@@ -72,21 +79,7 @@ export default function Hero() {
         <i className="preloader__bar" />
       </div>
 
-      <header className="nav" data-intro>
-        <a href="#top" className="nav__logo" aria-label="Back to top">
-          SS<sup>©</sup>
-        </a>
-        <nav className="nav__links">
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-        </nav>
-        <Magnetic>
-          <a href="#contact" className="pill">
-            Let&apos;s talk
-          </a>
-        </Magnetic>
-      </header>
+      <Nav home />
 
       <section className="hero" id="top">
         <div className="hero__top">

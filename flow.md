@@ -53,3 +53,35 @@ flowchart TD
   D -->|"pass"| E{"Playwright: hero + skills"}
   E -->|"clean, 0 console errors"| F["commit + push → Netlify redeploy"]
 ```
+
+## 2026-11-13 — AI "Ask about me", case studies, light/dark mode
+
+```mermaid
+flowchart TD
+  A["Read talking-points.md<br/>for honest case-study copy"] --> B["lib/content.ts<br/>slugs + case studies, Design System milestone,<br/>bill-pay copy fixed to 'built'"]
+  B --> C["netlify/functions/ask.mts<br/>Gemini via fetch, prompt from content.ts,<br/>input caps + rate limit"]
+  C --> D["layout boot script (theme, intro once)<br/>Nav + ThemeToggle + Ask components<br/>Hero, Motion (per-page), Work links"]
+  D --> E["app/work/[slug]/page.tsx<br/>generateStaticParams + metadata"]
+  E --> F["globals.css<br/>tokens, light palette, case + chat styles"]
+  F --> G{"npm run build"}
+  G -->|"fail: await in arrow fn"| H["generateMetadata fix"]
+  H --> G2{"npm run build"}
+  G2 -->|"pass, 7 SSG case pages"| I{"esbuild bundle + mocked-fetch<br/>checks on the function"}
+  I -->|"all pass: 405/503/400/429/502,<br/>caps, thought parts dropped"| J{"Playwright + Chrome:<br/>both themes, mobile, chat stub"}
+  J -->|"Ask button covers scroll cue + footer"| K["--fab-room padding on hero + contact"]
+  J -->|"arrow overlaps case bullets"| L["case bullets padding 1.6em"]
+  K --> M{"rebuild + re-shoot"}
+  L --> M
+  M -->|"clean; only stubbed 429 errors"| N["Left uncommitted:<br/>needs GEMINI_API_KEY in Netlify"]
+```
+
+## 2026-11-13 — Chat answers from the full resume
+
+```mermaid
+flowchart TD
+  A["lib/resume.ts<br/>text from the public resume PDF"] --> B["ask.mts: resume in prompt,<br/>fit-question + no-model rules"]
+  B --> C["content.ts: 3 starter questions,<br/>site fact without model name<br/>Ask.tsx: greeting + subtitle"]
+  C --> D{"npm run build"}
+  D -->|"pass"| E{"function checks +<br/>no 'gemini' in client build"}
+  E -->|"all pass, ~4.5k-token prompt"| F["commit + push → Netlify deploy"]
+```
