@@ -143,3 +143,17 @@ flowchart TD
   class A1,A2,A3,A4 chosen
   class O1 open
 ```
+
+## 2026-11-13 — Calmer cursor; hiring questions get email + phone
+
+```mermaid
+flowchart TD
+  Q1{"Cursor feels cluttered"} -->|"Dot + 40px hover ring, tighter follow;<br/>click = 10 small sparks, ~0.4s"| A1["Chosen<br/>user: trail and flames distract while reading"]
+  Q1 -->|"Keep comet trail, halo, lens ghosts"| R1["Rejected"]
+  Q2{"'I want to hire you' in chat"} -->|"One short line with email + phone,<br/>both clickable (mailto / tel)"| A2["Chosen<br/>user asked; phone is on the public resume"]
+
+  classDef chosen fill:#d4edda,stroke:#28a745,color:#000
+  classDef rejected fill:#f8d7da,stroke:#dc3545,color:#000
+  class A1,A2 chosen
+  class R1 rejected
+```

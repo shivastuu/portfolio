@@ -98,3 +98,13 @@ flowchart TD
   F -->|"pass"| G{"Chrome against a local server<br/>that injects the same comment"}
   G -->|"theme kept, 1 icon, preloader plays,<br/>toggle works"| H["commit + push"]
 ```
+
+## 2026-11-13 — Calmer cursor; contact in chat
+
+```mermaid
+flowchart TD
+  A["Cursor.tsx rewrite: dot + click sparks only<br/>globals.css: .sparks, 8px dot, 40px ring"] --> B["content.ts links.phone, resume.ts phone,<br/>ask.mts hiring rule, Ask.tsx mailto/tel links"]
+  B --> C{"build + function checks"}
+  C -->|"pass"| D{"Chrome: move, hover, click, chat stub"}
+  D -->|"canvas clears after burst,<br/>mailto + tel links, 0 errors"| E["commit + push"]
+```

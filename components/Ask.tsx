@@ -8,8 +8,9 @@ type Msg = { role: "user" | "model"; text: string; failed?: boolean };
 
 const GREETING = "Hi! I'm Shivastu's portfolio assistant. Ask me anything about his work, projects, skills or resume.";
 const OOPS = "Something went wrong. Please try again in a moment.";
-// Case-study paths the AI mentions become links; unknown slugs stay plain text.
-const CASE = new RegExp(`(/work/(?:${projects.map((p) => p.slug).join("|")}))`, "g");
+// Case-study paths, the email and the phone number in answers become links; unknown slugs stay plain text.
+const escapeRe = (t: string) => t.replace(/[.+]/g, "\\$&");
+const LINKS = new RegExp(`(/work/(?:${projects.map((p) => p.slug).join("|")})|${escapeRe(links.email)}|${escapeRe(links.phone)})`, "g");
 
 // Floating "Ask AI about me" chat, mounted once in the layout so the conversation survives page changes.
 // Answers come from /api/ask (netlify/functions/ask.mts).
@@ -61,7 +62,10 @@ export default function Ask() {
     input.current!.value = "";
   };
 
-  const linkify = (t: string) => t.split(CASE).map((s, i) => (i % 2 ? <Link key={i} href={s}>{s}</Link> : s));
+  const linkify = (t: string) =>
+    t.split(LINKS).map((s, i) =>
+      i % 2 === 0 ? s : s.startsWith("/") ? <Link key={i} href={s}>{s}</Link> : <a key={i} href={s === links.email ? `mailto:${s}` : `tel:${s.replaceAll(" ", "")}`}>{s}</a>,
+    );
 
   return (
     <>
