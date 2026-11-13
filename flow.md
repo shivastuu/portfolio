@@ -119,3 +119,16 @@ flowchart TD
   D -->|"pass; og tags on all pages"| E{"Chrome: ring moving/hover,<br/>about section, share card"}
   E -->|"clean, 0 errors"| F["commit + push"]
 ```
+
+## 2026-11-13 — Stronger resume + site
+
+```mermaid
+flowchart TD
+  A["resume-main.tex: ownership + live wording,<br/>new wins (outage, Lighthouse, 24→0, activation)"] --> B{"pdfLaTeX"}
+  B -->|"2 pages"| C["trim summary, skills, 2 bullets"]
+  C --> B2{"pdfLaTeX"}
+  B2 -->|"1 page"| D["PDF → public/, lib/resume.ts text"]
+  D --> E["content.ts: lede, stats, roles, statuses,<br/>experience notes; Nav résumé link"]
+  E --> F{"build + function checks"}
+  F -->|"pass (stale test phrase updated)"| G["commit + push"]
+```

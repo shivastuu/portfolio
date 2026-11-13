@@ -170,3 +170,16 @@ flowchart TD
   classDef chosen fill:#d4edda,stroke:#28a745,color:#000
   class A1,A2,A3,A4 chosen
 ```
+
+## 2026-11-13 — Stronger resume + site: ownership and live status from the user
+
+```mermaid
+flowchart TD
+  Q1{"Ownership wording?"} -->|"User confirmed: owns design system,<br/>led onboarding PWA, owned + developed SDKs"| A1["Chosen<br/>credit card stays co-built (not confirmed as led)"]
+  Q2{"Live status?"} -->|"User confirmed: bill pay, email page,<br/>React Native app are live"| A2["Chosen<br/>'built' → 'launched / shipped / live'"]
+  Q3{"Site resume PDF"} -->|"New main resume (resume-main.tex),<br/>frontend + ownership led, 1 page"| A3["Chosen<br/>replaces the AnswerThis-tailored PDF"]
+  Q4{"Stats"} -->|"Lighthouse 97 replaces RedCell 0%<br/>(RedCell stays on the roadmap)"| A4["Chosen<br/>frontend audience"]
+
+  classDef chosen fill:#d4edda,stroke:#28a745,color:#000
+  class A1,A2,A3,A4 chosen
+```
