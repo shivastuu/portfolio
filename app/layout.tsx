@@ -5,6 +5,8 @@ import "./globals.css";
 import Motion from "../components/Motion";
 import Cursor from "../components/Cursor";
 import Ask from "../components/Ask";
+import Boot from "../components/Boot";
+import { boot } from "../lib/boot";
 
 const sans = Geist({ subsets: ["latin"], variable: "--font-sans" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
@@ -16,20 +18,15 @@ export const metadata: Metadata = {
     "Product-minded engineer at Niyo shipping React UIs, mobile apps and Python LLM tooling — payments, KYC and encrypted SDKs, end to end.",
 };
 
-// Runs before first paint: picks the saved or OS theme (no flash), and holds scroll for the
-// hero preloader only on the first home visit of a session.
-const boot = `(()=>{const d=document.documentElement;let t,s;try{t=localStorage.getItem("theme");s=sessionStorage.getItem("intro")}catch(e){}
-d.dataset.theme=t||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");
-if(location.pathname==="/"&&!s)d.classList.add("is-loading")})()`;
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // suppressHydrationWarning: the boot script sets data-theme and is-loading before React hydrates.
+    // suppressHydrationWarning: the boot script sets data-theme and is-loading before React hydrates (no theme flash).
     <html lang="en" className={`${sans.variable} ${mono.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: boot }} />
+        <script dangerouslySetInnerHTML={{ __html: `(${boot})()` }} />
       </head>
       <body>
+        <Boot />
         <Motion>{children}</Motion>
         <Cursor />
         <Ask />

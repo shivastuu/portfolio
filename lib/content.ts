@@ -250,5 +250,11 @@ export const askSuggestions = [
   "What's the hardest problem he has solved?",
 ];
 
+// Extra context for the "Ask about me" AI only; not shown on the page.
+export const aiNotes = [
+  "Next.js: App Router, React Server Components, static generation with generateStaticParams, next/font, the Metadata API and serverless functions, used in this portfolio (Next.js 16) and the RedCell dashboard (Next.js 15). He also wrote the shared design system's Next.js App Router integration guide for the apps that consume it.",
+  "React: nearly 2 years of production React and TypeScript at Niyo, across an onboarding PWA, embeddable SDKs, a shared design system used by about 20 apps, and micro-frontend consoles.",
+];
+
 export const site =
   "This site is built with Next.js 16 (App Router, statically exported to Netlify), GSAP and Lenis for motion, and a light/dark theme. Each project has its own statically generated case-study page.";

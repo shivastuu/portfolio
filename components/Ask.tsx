@@ -7,7 +7,7 @@ import { askSuggestions, links, projects } from "../lib/content";
 type Msg = { role: "user" | "model"; text: string; failed?: boolean };
 
 const GREETING = "Hi! I'm Shivastu's portfolio assistant. Ask me anything about his work, projects, skills or resume.";
-const OFFLINE = `I can't reach the AI right now. Email ${links.email} and Shivastu will answer directly.`;
+const OOPS = "Something went wrong. Please try again in a moment.";
 // Case-study paths the AI mentions become links; unknown slugs stay plain text.
 const CASE = new RegExp(`(/work/(?:${projects.map((p) => p.slug).join("|")}))`, "g");
 
@@ -47,9 +47,9 @@ export default function Ask() {
       const data = await res.json().catch(() => ({}));
       reply = data.answer
         ? { role: "model", text: data.answer }
-        : { role: "model", failed: true, text: res.status === 429 ? "That's a lot of questions at once. Give it a minute and try again." : OFFLINE };
+        : { role: "model", failed: true, text: res.status === 429 ? "Too many questions right now. Please try again in a minute." : OOPS };
     } catch {
-      reply = { role: "model", failed: true, text: OFFLINE };
+      reply = { role: "model", failed: true, text: OOPS };
     }
     setMsgs([...history, reply]);
     setBusy(false);
@@ -109,9 +109,24 @@ export default function Ask() {
           <p className="ask__note">AI can get things wrong. For anything important, email {links.email}.</p>
         </div>
       )}
-      <button type="button" className="ask-fab" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="ask">
-        <span className="dot" /> {open ? "Close chat" : "Ask AI about me"}
+      <button type="button" className="ask-fab" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="ask" aria-label={open ? "Close chat" : "Ask AI about Shivastu"}>
+        {open ? (
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12z" />
+            <path d="M8.5 12h.01M12 12h.01M15.5 12h.01" strokeWidth="2.6" />
+          </svg>
+        )}
       </button>
+      {!open && (
+        // CSS fades this in after a few seconds, then out (and on hover of the button above, which is the accessible control).
+        <button type="button" className="ask-teaser" onClick={() => setOpen(true)} tabIndex={-1} aria-hidden>
+          👋 Ask me about Shivastu
+        </button>
+      )}
     </>
   );
 }
