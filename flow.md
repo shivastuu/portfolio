@@ -85,3 +85,16 @@ flowchart TD
   D -->|"pass"| E{"function checks +<br/>no 'gemini' in client build"}
   E -->|"all pass, ~4.5k-token prompt"| F["commit + push → Netlify deploy"]
 ```
+
+## 2026-11-13 — Live-site fixes
+
+```mermaid
+flowchart TD
+  A{"Live checks:<br/>curl /api/ask + Chrome"} -->|"API 200 with key set;<br/>data-theme missing"| B["Found Netlify head comment<br/>→ hydration error #418"]
+  B --> C["lib/boot.ts shared by inline script<br/>+ components/Boot.tsx layout effect"]
+  C --> D["Ask.tsx: icon button, bubble,<br/>'Something went wrong' copy<br/>globals.css: warmer light theme"]
+  D --> E["content.ts aiNotes + ask.mts<br/>positive-framing rules"]
+  E --> F{"build + function checks"}
+  F -->|"pass"| G{"Chrome against a local server<br/>that injects the same comment"}
+  G -->|"theme kept, 1 icon, preloader plays,<br/>toggle works"| H["commit + push"]
+```

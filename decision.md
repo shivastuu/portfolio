@@ -125,3 +125,21 @@ flowchart TD
   class A1,A2,A3,A4 chosen
   class R1,R2 rejected
 ```
+
+## 2026-11-13 — Live-site fixes: theme lost after Netlify injection, chat button, positive answers
+
+```mermaid
+flowchart TD
+  Q1{"Live: both theme icons, no preloader.<br/>Why?"} -->|"Netlify injects a comment + newline into head<br/>→ hydration #418 → React re-creates html attrs"| A0["Root cause found"]
+  A0 --> Q2{"Fix?"}
+  Q2 -->|"Re-run the same boot() in a layout effect<br/>(Boot before Motion, so before Hero reads it)"| A1["Chosen<br/>works with or without the injection"]
+  Q2 -->|"Turn the injection off"| O1["Open<br/>no documented setting found"]
+  Q3{"Chat button"} -->|"Round icon + 'Ask me' bubble,<br/>CSS-timed, shows on hover"| A2["Chosen<br/>user asked; no JS timers"]
+  Q4{"Bot volunteering gaps (Next.js in prod)"} -->|"Lead with strengths, no unprompted gaps,<br/>closest related work if asked; never invent"| A3["Chosen<br/>positive but still truthful"]
+  Q5{"Light mode too white"} -->|"Warm stone bg, cards lighter, aurora 0.9"| A4["Chosen"]
+
+  classDef chosen fill:#d4edda,stroke:#28a745,color:#000
+  classDef open fill:#fff3cd,stroke:#e0a800,color:#000
+  class A1,A2,A3,A4 chosen
+  class O1 open
+```
