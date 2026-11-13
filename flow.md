@@ -132,3 +132,15 @@ flowchart TD
   E --> F{"build + function checks"}
   F -->|"pass (stale test phrase updated)"| G["commit + push"]
 ```
+
+## 2026-11-13 — Prepare a move to Cloudflare Pages
+
+```mermaid
+flowchart TD
+  A["git checkout -b cloudflare"] --> B["lib/ask.ts (shared logic)<br/>netlify/functions/ask.mts + functions/api/ask.ts<br/>public/_headers"]
+  B --> C{"npm run build"}
+  C -->|"TS2559 on process.env"| D["Env = Record of strings"]
+  D --> C2{"npm run build"}
+  C2 -->|"pass, out/_headers present"| E{"Netlify + Cloudflare entry checks"}
+  E -->|"all pass"| F["push branch 'cloudflare' (0 credits)"]
+```

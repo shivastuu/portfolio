@@ -1,0 +1,3 @@
+# Cloudflare Pages: the static export writes the share image without an extension.
+/opengraph-image
+  Content-Type: image/png

@@ -183,3 +183,21 @@ flowchart TD
   classDef chosen fill:#d4edda,stroke:#28a745,color:#000
   class A1,A2,A3,A4 chosen
 ```
+
+## 2026-11-13 — Prepare a move to Cloudflare Pages (Netlify credits)
+
+```mermaid
+flowchart TD
+  Q1{"Netlify free: 300 credits, 15 per deploy;<br/>site pauses at 0"} -->|"Cloudflare Pages: static free + unlimited,<br/>Functions 100k req/day free"| A1["Chosen (pending user setup)"]
+  Q1 -->|"Netlify Personal $9/mo"| R1["Rejected<br/>a free host covers a portfolio"]
+  Q2{"Chat function on two hosts?"} -->|"Logic in lib/ask.ts;<br/>thin Netlify + Cloudflare entries"| A2["Chosen<br/>Netlify keeps working until the switch"]
+  Q3{"Where to push?"} -->|"Branch 'cloudflare'<br/>(no Netlify production deploy)"| A3["Chosen<br/>0 credits"]
+  Q4{"Rate limit on Cloudflare?"} --> O1["Open<br/>no Netlify-style limit; Gemini free quota is the cap"]
+
+  classDef chosen fill:#d4edda,stroke:#28a745,color:#000
+  classDef rejected fill:#f8d7da,stroke:#dc3545,color:#000
+  classDef open fill:#fff3cd,stroke:#e0a800,color:#000
+  class A1,A2,A3 chosen
+  class R1 rejected
+  class O1 open
+```
