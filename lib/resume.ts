@@ -1,6 +1,6 @@
 // Text of public/Shivastu_Shrivastava_Resume.pdf (source: ~/Desktop/resume/resume-main.tex) for the "Ask about me" AI.
 // Update it whenever the PDF changes.
-export const resume = `Shivastu Shrivastava. +91 7704025456 | shivastuu@gmail.com | LinkedIn | GitHub | Portfolio | Bangalore, India
+export const resume = `Shivastu Shrivastava. shivastuu@gmail.com | LinkedIn | GitHub | Portfolio | Bangalore, India
 
 Summary
 Software Engineer with 2 years owning fintech products end to end at Niyo: React, Next.js and TypeScript on the web, Flutter and React Native on mobile, from architecture to production monitoring.

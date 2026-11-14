@@ -4,7 +4,6 @@
 export const links = {
   site: "https://shivastuu.netlify.app",
   email: "shivastuu@gmail.com",
-  phone: "+91 7704025456",
   linkedin: "https://www.linkedin.com/in/shivastu-srivastava-811248212",
   github: "https://github.com/shivastuu",
   resume: "/Shivastu_Shrivastava_Resume.pdf",

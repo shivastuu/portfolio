@@ -8,9 +8,9 @@ type Msg = { role: "user" | "model"; text: string; failed?: boolean };
 
 const GREETING = "Hi! I'm Shivastu's portfolio assistant. Ask me anything about his work, projects, skills or resume.";
 const OOPS = "Something went wrong. Please try again in a moment.";
-// Case-study paths, the email and the phone number in answers become links; unknown slugs stay plain text.
+// Case-study paths, the email and web links (e.g. a GitHub repo) in answers become links; unknown slugs stay plain text.
 const escapeRe = (t: string) => t.replace(/[.+]/g, "\\$&");
-const LINKS = new RegExp(`(/work/(?:${projects.map((p) => p.slug).join("|")})|${escapeRe(links.email)}|${escapeRe(links.phone)})`, "g");
+const LINKS = new RegExp(`(/work/(?:${projects.map((p) => p.slug).join("|")})|${escapeRe(links.email)}|https?://[^\\s)]+[^\\s).,])`, "g");
 
 // Floating "Ask AI about me" chat, mounted once in the layout so the conversation survives page changes.
 // Answers come from /api/ask (netlify/functions/ask.mts).
@@ -64,7 +64,10 @@ export default function Ask() {
 
   const linkify = (t: string) =>
     t.split(LINKS).map((s, i) =>
-      i % 2 === 0 ? s : s.startsWith("/") ? <Link key={i} href={s}>{s}</Link> : <a key={i} href={s === links.email ? `mailto:${s}` : `tel:${s.replaceAll(" ", "")}`}>{s}</a>,
+      i % 2 === 0 ? s
+        : s.startsWith("/") ? <Link key={i} href={s}>{s}</Link>
+        : s === links.email ? <a key={i} href={`mailto:${s}`}>{s}</a>
+        : <a key={i} href={s} target="_blank" rel="noreferrer">{s}</a>,
     );
 
   return (
@@ -105,7 +108,7 @@ export default function Ask() {
           </div>
 
           <form className="ask__form" onSubmit={submit}>
-            <input ref={input} name="q" maxLength={500} placeholder="Ask about his work…" aria-label="Your question" autoComplete="off" />
+            <input ref={input} name="q" maxLength={2000} placeholder="Ask about his work, or paste a job description…" aria-label="Your question" autoComplete="off" />
             <button type="submit" disabled={busy}>
               Send
             </button>
