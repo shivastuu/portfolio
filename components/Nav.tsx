@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Magnetic from "./Magnetic";
 import ThemeToggle from "./ThemeToggle";
-import { links } from "../lib/content";
 
 // home: same-page anchors. Elsewhere (case studies) links route back to the home sections;
 // "Let's talk" stays on-page because every page ends with the contact section.
@@ -18,9 +17,6 @@ export default function Nav({ home = false }: { home?: boolean }) {
         <A href={to("work")}>Work</A>
         <A href={to("about")}>About</A>
         <A href={to("experience")}>Experience</A>
-        <a href={links.resume} target="_blank" rel="noreferrer">
-          Résumé ↗
-        </a>
       </nav>
       <div className="nav__end">
         <ThemeToggle />

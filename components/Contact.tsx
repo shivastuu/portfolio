@@ -39,7 +39,6 @@ export default function Contact() {
         <nav className="footer__links">
           <a href={links.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
           <a href={links.github} target="_blank" rel="noreferrer">GitHub ↗</a>
-          <a href={links.resume} target="_blank" rel="noreferrer">Résumé ↗</a>
         </nav>
         <p className="label">Bangalore {time && `· ${time} IST`}</p>
         <p className="label" suppressHydrationWarning>© {new Date().getFullYear()} Shivastu Shrivastava</p>

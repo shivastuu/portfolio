@@ -1,4 +1,4 @@
-// Text of public/Shivastu_Shrivastava_Resume.pdf (source: ~/Desktop/resume/resume-main.tex) for the "Ask about me" AI.
+// Text of his resume (source: ~/Desktop/resume/resume-main.tex) for the "Ask about me" AI. The PDF itself isn't published on the site.
 // Update it whenever the PDF changes.
 export const resume = `Shivastu Shrivastava. shivastuu@gmail.com | LinkedIn | GitHub | Portfolio | Bangalore, India
 

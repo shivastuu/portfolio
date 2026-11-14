@@ -6,7 +6,6 @@ export const links = {
   email: "shivastuu@gmail.com",
   linkedin: "https://www.linkedin.com/in/shivastu-srivastava-811248212",
   github: "https://github.com/shivastuu",
-  resume: "/Shivastu_Shrivastava_Resume.pdf",
 };
 
 export const hero = {
