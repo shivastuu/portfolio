@@ -34,8 +34,8 @@ Compliance Workbench and React Native App | React, single-spa, Redux-Saga, Expo,
 - Shipped a server-driven React Native homepage (13 CMS sections) and OTP-verified debit card controls.
 
 Projects
-RedCell – Autonomous Red-Team for LLM Agents | Python, LangGraph, FastMCP, Next.js
-- Built a multi-agent LangGraph framework that attacks tool-using LLM agents and cut attack success from 59.5% to 0% on a fixed 42-attack replay (31% adaptive) with layered defences and a CI gate.
+RedCell – Red-Team and Guardrails for LLM Agents | Python, MCP, Claude API, Next.js
+- Built a harness that attacks LLM agents through real MCP servers: guardrails cut a 7B agent's attack success from 83% to 0%, and removing a system-prompt secret cut adaptive breaches from 10/27 to 0.
 Portfolio – shivastuu.netlify.app | Next.js 16, TypeScript, GSAP, Netlify Functions
 - Built a statically generated Next.js App Router site with per-project case studies and an AI assistant that answers recruiters from my resume via a rate-limited serverless function.
 

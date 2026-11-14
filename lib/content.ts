@@ -210,27 +210,27 @@ export const projects = [
     title: "RedCell",
     kind: "Side project · AI security",
     hue: 330,
-    big: "59.5% → 0%",
-    caption: "Attack success after hardening",
+    big: "83% → 0%",
+    caption: "Static attacks that got through on a 7B agent, without vs with guardrails",
     points: [
-      "Multi-agent LLM pipeline in LangGraph that red-teams tool-using LLM agents; every breach verified deterministically.",
-      "Layered defences + a CI/CD gate: 0% on a 42-attack replay (31% adaptive).",
+      "Red-teams real LLM agents (Claude Haiku, Qwen-7B) through real MCP servers: 189 attacks built from published research, across fintech, healthcare and email agents.",
+      "An adaptive attacker still got through 10 of 27 times by leaking a secret in the system prompt; moving the secret out took it to 0 of 27.",
     ],
-    stack: ["Python", "LangGraph", "FastMCP", "Next.js"],
+    stack: ["Python", "MCP", "Claude API", "Next.js"],
     role: "Solo side project.",
-    status: "Side project. All numbers come from its deterministic simulator, not a live model.",
+    status: "Side project. Every number comes from real model runs, reported with its sample size and confidence interval.",
     problem:
-      "Tool-using LLM agents in fintech can be talked into leaking data or calling tools they shouldn't. I wanted to measure that, not guess.",
+      "AI agents that can call tools can be talked into leaking data or doing things they shouldn't. I wanted to measure how often, and what actually stops it, instead of guessing.",
     built: [
-      "A LangGraph supervisor that sends attack agents (prompt injection, policy evasion) against a fintech-style agent whose tools sit behind a FastMCP server.",
-      "A deterministic verifier that confirms each breach from a server-recorded trace: leaked canaries, unauthorised tool calls, PII and schema checks. No LLM decides what counts as a breach.",
-      "Five layers of defences, a frozen corpus of 42 attacks, and a CI gate that fails if a blocked attack gets through again.",
-      "A results dashboard in Next.js 15, built entirely from React Server Components.",
+      "A harness that attacks real agents through real MCP servers: 9 attack goals × 7 published attack styles per agent, sent by the user, hidden in data the agent reads, or hidden in a poisoned tool description.",
+      "A deterministic verifier that decides every breach from what the MCP server recorded: leaked secrets (even encoded), forbidden tool calls, card numbers, auto-loading images. No LLM decides what counts.",
+      "Five real guardrails (Protect AI's injection classifier, datamarking, a tool allowlist, withholding confidential fields plus Presidio, and render-safe output), each measured on attack success, false alarms, useful answers and latency.",
+      "An adaptive attacker that reads the agent's refusal and rewrites the attack, a live leaderboard, and a cross-check on the official AgentDojo benchmark.",
     ],
     hard:
-      "An LLM judge can be fooled by the same obfuscation the attacks use, so verdicts come from deterministic checks instead. Measured against the verifier, an LLM judge agreed only moderately (Cohen's kappa about 0.68).",
+      "A defense that looks perfect on fixed attacks can still fail. The guardrails stopped every static attack on the 7B agent, but an adaptive attacker got through 10 of 27 times, each time by leaking a secret written in the system prompt, which no filter can protect.",
     result:
-      "Attack success fell from 59.5% to 0% on the frozen replay, and to 31% under adaptive attack. Structural controls held; probabilistic filters fell to encoding tricks.",
+      "Guardrails cut the 7B agent's attack success from 83% to 0% with no lost answers or false alarms on normal questions. Moving the secret out of the prompt took adaptive attacks from 10 of 27 to 0. Claude Haiku held at 0% throughout, including 0 of 144 on the official AgentDojo benchmark.",
   },
 ];
 
