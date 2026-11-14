@@ -371,6 +371,8 @@ html:not(.is-loading) .preloader { display: none; }
 .case__hero { margin-top: clamp(32px, 4vw, 56px); }
 .case__meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: clamp(48px, 6vw, 88px); padding-top: 28px; border-top: 1px solid var(--line); }
 .case__meta dd { margin-top: 12px; color: var(--fg-2); line-height: 1.55; }
+.case__repo { display: block; width: fit-content; margin-top: 12px; font: 500 12px var(--font-mono), monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--fg); border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+.case__repo:hover, .case__repo:focus-visible { border-color: currentColor; }
 .case__body { display: grid; gap: clamp(48px, 6vw, 88px); padding: clamp(80px, 10vw, 140px) var(--pad); }
 .case__block { display: grid; grid-template-columns: minmax(180px, 1fr) 2fr; gap: 32px; padding-top: 28px; border-top: 1px solid var(--line); }
 .case__text { max-width: 62ch; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.6; }

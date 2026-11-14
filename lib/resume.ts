@@ -35,7 +35,8 @@ Compliance Workbench and React Native App | React, single-spa, Redux-Saga, Expo,
 
 Projects
 RedCell – Red-Team and Guardrails for LLM Agents | Python, MCP, Claude API, Next.js
-- Built a harness that attacks LLM agents through real MCP servers: guardrails cut a 7B agent's attack success from 83% to 0%, and removing a system-prompt secret cut adaptive breaches from 10/27 to 0.
+- Built an open-source harness that attacks LLM agents through MCP servers with 189 published attacks.
+- Five guardrails cut a 7B agent's attack success from 83% to 0% with no lost answers; an adaptive LLM attacker still broke in 10 of 27 times via a system-prompt secret, and removing it took that to 0.
 Portfolio – shivastuu.netlify.app | Next.js 16, TypeScript, GSAP, Netlify Functions
 - Built a statically generated Next.js App Router site with per-project case studies and an AI assistant that answers recruiters from my resume via a rate-limited serverless function.
 

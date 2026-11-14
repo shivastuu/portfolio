@@ -217,6 +217,7 @@ export const projects = [
       "An adaptive attacker still got through 10 of 27 times by leaking a secret in the system prompt; moving the secret out took it to 0 of 27.",
     ],
     stack: ["Python", "MCP", "Claude API", "Next.js"],
+    repo: "https://github.com/shivastuu/redcell",
     role: "Solo side project.",
     status: "Side project. Every number comes from real model runs, reported with its sample size and confidence interval.",
     problem:

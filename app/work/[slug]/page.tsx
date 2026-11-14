@@ -67,7 +67,14 @@ export default async function CaseStudy({ params }: Props) {
           </div>
           <div>
             <dt className="label">Status</dt>
-            <dd>{p.status}</dd>
+            <dd>
+              {p.status}
+              {p.repo && (
+                <a className="case__repo" href={p.repo} target="_blank" rel="noreferrer">
+                  Code on GitHub <span aria-hidden>↗</span>
+                </a>
+              )}
+            </dd>
           </div>
           <div>
             <dt className="label">Stack</dt>
