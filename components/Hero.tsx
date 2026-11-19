@@ -34,16 +34,17 @@ export default function Hero() {
         if (preload) {
           const counter = root.current!.querySelector(".preloader__count")!;
           const n = { v: 0 };
+          // Short on purpose (~0.85 s): the hero text can't paint until it's done, and that's the page's LCP
           tl.to(n, {
             v: 100,
-            duration: 1.8,
+            duration: 0.5,
             ease: "power2.inOut",
             onUpdate: () => void (counter.textContent = String(Math.round(n.v)).padStart(3, "0")),
           })
-            .to(".preloader__bar", { scaleX: 1, duration: 1.8, ease: "power2.inOut" }, 0)
-            .to(".preloader", { yPercent: -100, duration: 1.1, ease: "expo.inOut" });
+            .to(".preloader__bar", { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 0)
+            .to(".preloader", { yPercent: -100, duration: 0.5, ease: "expo.inOut" }, "-=0.15");
         }
-        tl.from(".hero__name .char", { yPercent: 115, rotate: 8, duration: 1.4, ease: "expo.out", stagger: 0.03 }, preload ? "-=0.55" : 0)
+        tl.from(".hero__name .char", { yPercent: 115, rotate: 8, duration: 1.4, ease: "expo.out", stagger: 0.03 }, preload ? "-=0.3" : 0)
           // A mask reveal, not a fade: the text is always full contrast, even mid-animation
           .from("[data-intro]", { y: 24, clipPath: "inset(0 0 100% 0)", duration: 1, ease: "power3.out", stagger: 0.08, clearProps: "clipPath" }, "-=1.1");
 
