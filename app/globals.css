@@ -223,7 +223,7 @@ html:not(.is-loading) .preloader { display: none; }
 .hero__lede { font-size: clamp(17px, 1.6vw, 22px); line-height: 1.5; }
 .rotator { display: inline-grid; justify-items: start; vertical-align: bottom; overflow: hidden; padding-right: 0.15em; color: var(--accent-ink); font-family: var(--font-serif), serif; font-style: italic; font-size: 1.3em; line-height: 1.15; }
 .rotator > span { grid-area: 1 / 1; white-space: nowrap; }
-.rotator > span + span { opacity: 0; }
+.rotator > span + span { transform: translateY(100%); }
 .scroll-cue { color: var(--fg); white-space: nowrap; }
 .scroll-cue span { display: inline-block; animation: bob 1.6s ease-in-out infinite; }
 @keyframes bob { 50% { transform: translateY(5px); } }
@@ -240,6 +240,11 @@ html:not(.is-loading) .preloader { display: none; }
 /* ---------- About ---------- */
 .about__text { max-width: 22ch; font-size: clamp(30px, 4.6vw, 72px); line-height: 1.08; letter-spacing: -0.035em; font-weight: 500; }
 .about__text .serif { font-size: 1.06em; }
+/* Unread words are the text colour mixed toward the background, just above large-text contrast (3:1) in each theme */
+:root { --dim-fg: color-mix(in srgb, var(--fg) 40%, var(--bg)); --dim-accent: color-mix(in srgb, var(--accent-ink) 42%, var(--bg)); }
+:root[data-theme="light"] { --dim-fg: color-mix(in srgb, var(--fg) 52%, var(--bg)); --dim-accent: color-mix(in srgb, var(--accent-ink) 77%, var(--bg)); }
+.about__text .w { color: color-mix(in srgb, var(--fg) calc(var(--p, 1) * 100%), var(--dim-fg)); }
+.about__text .w.accent { color: color-mix(in srgb, var(--accent-ink) calc(var(--p, 1) * 100%), var(--dim-accent)); }
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(80px, 10vw, 160px); border-top: 1px solid var(--line); }
 .stat { display: flex; flex-direction: column; gap: 12px; padding: 32px 24px 0 0; }
 .stat + .stat { padding-left: 24px; border-left: 1px solid var(--line); }

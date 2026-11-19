@@ -14,11 +14,12 @@ export default function About() {
   useGSAP(
     () => {
       gsap.matchMedia().add(MOTION, () => {
-        // Words light up one by one as the paragraph scrolls through.
+        // Words light up one by one as the paragraph scrolls through. --p mixes from a dim colour that still
+        // passes large-text contrast (see .about__text .w in globals.css), so no word is ever unreadable.
         gsap.fromTo(
           ".about__text .w",
-          { opacity: 0.12 },
-          { opacity: 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: ".about__text", start: "top 75%", end: "bottom 45%", scrub: true } },
+          { "--p": 0 },
+          { "--p": 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: ".about__text", start: "top 75%", end: "bottom 45%", scrub: true } },
         );
         gsap.utils.toArray<HTMLElement>(".stat b").forEach((el) => {
           const { from, to } = el.dataset;

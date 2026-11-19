@@ -44,16 +44,17 @@ export default function Hero() {
             .to(".preloader", { yPercent: -100, duration: 1.1, ease: "expo.inOut" });
         }
         tl.from(".hero__name .char", { yPercent: 115, rotate: 8, duration: 1.4, ease: "expo.out", stagger: 0.03 }, preload ? "-=0.55" : 0)
-          .from("[data-intro]", { y: 24, autoAlpha: 0, duration: 1, ease: "power3.out", stagger: 0.08 }, "-=1.1");
+          // A mask reveal, not a fade: the text is always full contrast, even mid-animation
+          .from("[data-intro]", { y: 24, clipPath: "inset(0 0 100% 0)", duration: 1, ease: "power3.out", stagger: 0.08, clearProps: "clipPath" }, "-=1.1");
 
         // Word rotator: each word slides up and out, the next slides in.
         const words = gsap.utils.toArray<HTMLElement>(".rotator > span");
-        gsap.set(words.slice(1), { yPercent: 100, autoAlpha: 0 });
+        gsap.set(words.slice(1), { yPercent: 100 });
         const loop = gsap.timeline({ repeat: -1, delay: 4 });
         words.forEach((w, i) =>
           loop
-            .to(w, { yPercent: -100, autoAlpha: 0, duration: 0.6, ease: "power3.in" }, "+=1.6")
-            .fromTo(words[(i + 1) % words.length], { yPercent: 100, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.7, ease: "power3.out", immediateRender: false }, "<0.35"),
+            .to(w, { yPercent: -100, duration: 0.6, ease: "power3.in" }, "+=1.6")
+            .fromTo(words[(i + 1) % words.length], { yPercent: 100 }, { yPercent: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, "<0.35"),
         );
 
         // Name drifts and fades as the hero scrolls away.
