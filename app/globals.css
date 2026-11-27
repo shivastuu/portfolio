@@ -135,17 +135,18 @@ html.is-loading .pre { display: block; }
 .badge { display: inline-flex; align-items: center; gap: 10px; padding: 9px 13px; border-radius: 10px; background: var(--fg); color: var(--bg); font-size: 13px; font-weight: 500; white-space: nowrap; }
 
 /* ---------- Hero: name behind a phone that unfolds ---------- */
-.hero__stage { position: relative; height: 100vh; height: 100svh; min-height: 640px; overflow: hidden; perspective: 1600px; }
+.hero__stage { position: relative; height: 100vh; height: 100svh; min-height: 520px; overflow: hidden; perspective: 1600px; }
 .hero__stage::before { content: ""; position: absolute; inset: 0 var(--pad); border-right: 1px solid var(--line); background: linear-gradient(to right, var(--line) 1px, transparent 1px) 0 0 / 25% 100%; opacity: 0.5; pointer-events: none; }
 .hero__label { position: absolute; top: 88px; left: var(--pad); z-index: 3; }
 .hero__label--r { left: auto; right: var(--pad); }
-.hero__name { position: absolute; left: 0; right: 0; top: 50%; translate: 0 -50%; display: flex; flex-direction: column; padding: 0 var(--pad); font: 900 21.4vw/0.8 var(--font-display), sans-serif; text-transform: uppercase; pointer-events: none; }
+/* Centred with layout, not the translate property: GSAP re-reads transforms on resize and would drop a translate offset. */
+.hero__name { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--pad); font: 900 21.4vw/0.8 var(--font-display), sans-serif; text-transform: uppercase; pointer-events: none; }
 .hero__w { display: block; overflow: hidden; padding-top: 0.05em; }
 .hero__w > span { display: block; }
 .hero__w--b { text-align: right; margin-right: -0.03em; }
-.hero__glow { position: absolute; left: 50%; top: 53%; translate: -50% -50%; z-index: 1; width: min(720px, 60vw); aspect-ratio: 1; border-radius: 50%; pointer-events: none; background: conic-gradient(from 0deg, #f1e2c4, #d4a24c, #8a6a3d, #e9dcc6, #f1e2c4); filter: blur(80px); opacity: 0.42; animation: spin 14s linear infinite; will-change: rotate; }
+.hero__glow { position: absolute; inset: 60px 0 0; margin: auto; z-index: 1; width: min(720px, 60vw); height: min(720px, 60vw); border-radius: 50%; pointer-events: none; background: conic-gradient(from 0deg, #f1e2c4, #d4a24c, #8a6a3d, #e9dcc6, #f1e2c4); filter: blur(80px); opacity: 0.42; animation: spin 14s linear infinite; will-change: rotate; }
 
-.device { position: absolute; left: 50%; top: 53%; translate: -50% -50%; z-index: 2; width: var(--ow); height: var(--oh); padding: 10px; border-radius: 30px; background: #0b0b0b; box-shadow: 0 0 0 1px #3a3a3a, 0 2px 0 3px #1c1c1c, 0 60px 120px -20px rgb(0 0 0 / 0.45); }
+.device { position: absolute; inset: 60px 0 0; margin: auto; z-index: 2; width: var(--ow); height: var(--oh); padding: 10px; border-radius: 30px; background: #0b0b0b; box-shadow: 0 0 0 1px #3a3a3a, 0 2px 0 3px #1c1c1c, 0 60px 120px -20px rgb(0 0 0 / 0.45); }
 .device__screen { position: relative; height: 100%; overflow: hidden; border-radius: 22px; background: var(--screen); isolation: isolate; }
 @media (min-width: 900px) {
   html.motion .device, html.motion .lock__note, html.motion .hero [data-in], html.motion .hero__w > span { visibility: hidden; }
@@ -153,7 +154,7 @@ html.is-loading .pre { display: block; }
 @keyframes spin { to { rotate: 360deg; } }
 
 /* Lock screen (closed phone) */
-.lock { position: absolute; top: 0; bottom: 0; left: 50%; width: 340px; translate: -50% 0; display: flex; flex-direction: column; align-items: center; padding: 14px 16px 16px; color: #fff; text-align: center; visibility: hidden; opacity: 0; }
+.lock { position: absolute; inset: 0; margin: 0 auto; width: 340px; display: flex; flex-direction: column; align-items: center; padding: 14px 16px 16px; color: #fff; text-align: center; visibility: hidden; opacity: 0; }
 .lock__wall, .open__art { background: radial-gradient(circle at 22% 12%, #f1e2c4 0%, transparent 38%), radial-gradient(circle at 88% 30%, #b88a4e 0%, transparent 44%), radial-gradient(circle at 25% 90%, #4a3a26 0%, transparent 55%), radial-gradient(circle at 90% 92%, #d4a24c 0%, transparent 42%), #15130f; background-size: 140% 140%; animation: wall 16s ease-in-out infinite alternate; }
 .lock__wall { position: absolute; inset: 0; z-index: -1; }
 .lock__wall::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgb(0 0 0 / 0.1), transparent 40%, rgb(0 0 0 / 0.35)); }
@@ -182,18 +183,18 @@ html.is-loading .pre { display: block; }
 .lock__dock a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgb(255 255 255 / 0.22); backdrop-filter: blur(12px); }
 .lock__dock svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .lock__hint { padding: 9px 14px; border-radius: 999px; background: rgb(255 255 255 / 0.85); color: var(--ink); font-size: 11px; }
-.device__crease { position: absolute; top: 0; bottom: 0; left: 50%; width: 90px; translate: -50% 0; z-index: 5; pointer-events: none; opacity: 0; visibility: hidden; background: linear-gradient(90deg, transparent, rgb(0 0 0 / 0.28) 45%, rgb(255 255 255 / 0.35) 52%, transparent); }
+.device__crease { position: absolute; top: 0; bottom: 0; left: calc(50% - 45px); width: 90px; z-index: 5; pointer-events: none; opacity: 0; visibility: hidden; background: linear-gradient(90deg, transparent, rgb(0 0 0 / 0.28) 45%, rgb(255 255 255 / 0.35) 52%, transparent); }
 
 /* Unfolded screen */
-.open { position: absolute; top: 0; left: 50%; translate: -50% 0; width: calc(var(--ow) - 20px); height: calc(var(--oh) - 20px); display: grid; grid-template-columns: 1.1fr 1fr; grid-template-rows: 1fr auto; background: var(--screen); }
-.open__copy { display: flex; flex-direction: column; justify-content: flex-end; gap: 18px; padding: 36px 40px 32px; }
+.open { position: absolute; top: 0; left: 0; right: 0; margin: 0 auto; width: calc(var(--ow) - 20px); height: calc(var(--oh) - 20px); display: grid; grid-template-columns: 1.1fr 1fr; grid-template-rows: minmax(0, 1fr) auto; background: var(--screen); }
+.open__copy { display: flex; flex-direction: column; justify-content: flex-end; gap: 18px; min-height: 0; overflow: hidden; padding: 36px 40px 32px; }
 .open__copy .intro__role { margin-bottom: auto; }
-.intro__name { font: 900 clamp(64px, 7.4vw, 118px)/0.84 var(--font-display), sans-serif; text-transform: uppercase; }
+.intro__name { font: 900 clamp(52px, min(7.4vw, 12.5vh), 118px)/0.84 var(--font-display), sans-serif; text-transform: uppercase; }
 .intro__lede { max-width: 34ch; font-size: 17px; line-height: 1.45; color: var(--fg-2); }
 .intro__cta { display: flex; gap: 8px; flex-wrap: wrap; }
 .open__art { position: relative; overflow: hidden; }
 .open__art .lock__wall { z-index: 0; }
-.open__card { position: absolute; left: 50%; top: 48%; translate: -50% -50%; font-size: clamp(11px, 1.15vw, 16px); }
+.open__card { position: absolute; inset: 0 0 4%; display: grid; place-items: center; font-size: clamp(11px, 1.15vw, 16px); }
 .open__tag { position: absolute; left: 20px; bottom: 16px; color: #fff; }
 .band { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 32px; padding: 20px 40px 22px; background: var(--ink); color: #fff; }
 .band__head { opacity: 0.6; align-self: start; }
@@ -202,6 +203,16 @@ html.is-loading .pre { display: block; }
 .band__list b { font: 900 clamp(44px, 4.6vw, 72px)/0.85 var(--font-display), sans-serif; }
 .band__list li > span { font-size: 13px; line-height: 1.35; opacity: 0.75; }
 .hero__m { display: none; }
+
+/* Short laptop windows: a tighter unfolded screen so the stats band always fits. */
+@media (min-width: 900px) and (max-height: 780px) {
+  .open__copy { gap: 12px; padding: 22px 32px 20px; }
+  .intro__lede { font-size: 15px; line-height: 1.4; }
+  .open .btn { padding: 10px 16px; font-size: 14px; }
+  .band { gap: 24px; padding: 14px 32px 16px; }
+  .band__list b { font-size: clamp(34px, 6vh, 56px); }
+  .band__list li > span { font-size: 12px; }
+}
 
 /* Desktop with motion: start closed; GSAP unfolds it on scroll. */
 @media (min-width: 900px) {
@@ -756,9 +767,9 @@ html.menu-open .ask-fab { opacity: 0; pointer-events: none; }
   .hero__stage { height: auto; min-height: 0; padding: 120px var(--pad) 48px; overflow: visible; overflow-x: clip; }
   .hero__stage::before, .hero__label--r { display: none; }
   .hero__label { top: 76px; }
-  .hero__name { position: static; translate: none; padding: 0; font-size: 19.6vw; }
-  .hero__glow { top: 62%; width: 90vw; }
-  .device { position: relative; left: auto; top: auto; translate: none; width: min(360px, 100%); height: 680px; margin: 28px auto 0; border-radius: 46px; }
+  .hero__name { position: static; padding: 0; font-size: 19.6vw; }
+  .hero__glow { inset: 40% 0 0; width: 90vw; height: 90vw; }
+  .device { position: relative; inset: auto; width: min(360px, 100%); height: 680px; margin: 28px auto 0; border-radius: 46px; }
   .device__screen { border-radius: 36px; }
   .lock { visibility: visible; opacity: 1; width: 100%; }
   .open, .device__crease { display: none; }
@@ -769,8 +780,8 @@ html.menu-open .ask-fab { opacity: 0; pointer-events: none; }
   /* With motion: a one-screen hero that unfolds on scroll (Hero.tsx keeps the same numbers). */
   html.motion .hero__stage { height: 100vh; height: 100svh; min-height: 600px; padding: 0; overflow: hidden; perspective: 1400px; }
   html.motion .hero__label { top: 74px; }
-  html.motion .hero__name { position: absolute; top: 104px; left: 0; right: 0; padding: 0 var(--pad); }
-  html.motion .device { position: absolute; left: 0; right: 0; top: calc(118px + 34vw); width: min(300px, 76vw); height: calc(100svh - 132px - 34vw); margin: 0 auto; border-radius: 40px; animation: lift 1.2s var(--ease) both 0.1s; }
+  html.motion .hero__name { position: absolute; inset: 104px 0 auto; justify-content: flex-start; padding: 0 var(--pad); }
+  html.motion .device { position: absolute; inset: calc(118px + 34vw) 0 auto; top: calc(118px + 34vw); width: min(300px, 76vw); height: calc(100svh - 132px - 34vw); margin: 0 auto; border-radius: 40px; animation: lift 1.2s var(--ease) both 0.1s; }
   html.motion .lock { padding: 12px 12px 12px; }
   html.motion .lock__date { margin-top: 14px; font-size: 13px; }
   html.motion .lock__time { font-size: 64px; }
@@ -788,7 +799,7 @@ html.menu-open .ask-fab { opacity: 0; pointer-events: none; }
   html.motion .lock__note:nth-child(2) { animation-delay: 0.8s; }
   html.motion .lock__note:nth-child(3) { animation-delay: 0.9s; }
   html.motion .lock__note:nth-child(4) { animation-delay: 1s; }
-  html.motion .hero__glow { top: 64%; }
+  html.motion .hero__glow { inset: 46% 0 0; }
   html.motion .hero__m { display: none; }
   html.motion .open { display: grid; top: 0; width: calc(100vw - 36px); height: calc(100svh - 98px); grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr) auto; visibility: hidden; opacity: 0; }
   html.motion .open__copy { justify-content: flex-start; gap: 10px; padding: 20px 18px 14px; }
