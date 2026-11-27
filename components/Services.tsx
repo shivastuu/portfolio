@@ -39,7 +39,7 @@ export default function Services() {
         <i />
       </div>
       <div className="services__head">
-        <p className="mono">[04]</p>
+        <p className="mono">[05]</p>
         <h2 className="services__title">What I do</h2>
         <ul className="cloud" aria-label="Toolbox">
           {cloud.map((t, i) => (

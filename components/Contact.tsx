@@ -47,7 +47,7 @@ export default function Contact() {
     <section ref={root} className="contact" id="contact">
       <Shader className="contact__gl" />
       <div className="contact__top mono">
-        <span>[07] Contact</span>
+        <span>[08] Contact</span>
         <span>
           <span className="dot" aria-hidden /> {hero.status}
         </span>

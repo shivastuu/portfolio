@@ -35,6 +35,16 @@ export const moksha = {
   ],
   github: "https://github.com/shivastuu/moksha-ui",
   npm: "https://www.npmjs.com/package/@moksha-ui/core",
+  install: "npm i @moksha-ui/core @moksha-ui/tokens",
+  // Brand colours to start from; the prism picks any other.
+  swatches: [
+    { name: "Emerald", hex: "#0E9F7A" },
+    { name: "Cobalt", hex: "#1D3A8A" },
+    { name: "Gold", hex: "#D4A24C" },
+    { name: "Signal red", hex: "#C83223" },
+    { name: "Walnut", hex: "#7B4A2A" },
+    { name: "Graphite", hex: "#18181B" },
+  ],
 };
 
 // What I do: the stepped rows under About.

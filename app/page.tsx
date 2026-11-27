@@ -1,4 +1,5 @@
 import Hero from "../components/Hero";
+import Moksha from "../components/Moksha";
 import Work from "../components/Work";
 import Marquee from "../components/Marquee";
 import About from "../components/About";
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <Moksha />
       <Work />
       <Marquee />
       <About />

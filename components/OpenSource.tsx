@@ -28,7 +28,7 @@ export default function OpenSource() {
         <i />
       </div>
       <div className="oss__head">
-        <p className="mono">[05] Open source</p>
+        <p className="mono">[06] Open source</p>
         <h2 className="oss__title">
           Shipped
           <br />

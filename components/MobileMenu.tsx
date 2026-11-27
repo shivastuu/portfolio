@@ -6,6 +6,7 @@ import { hero, links } from "../lib/content";
 import { copy } from "../lib/theme";
 
 const ITEMS = [
+  ["moksha", "Moksha UI"],
   ["work", "Work"],
   ["about", "About"],
   ["open-source", "Open source"],

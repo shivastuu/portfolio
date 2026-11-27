@@ -40,7 +40,7 @@ export default function About() {
   return (
     <section ref={root} className="about" id="about">
       <div className="about__top mono">
-        <span>[03] About</span>
+        <span>[04] About</span>
         <span>Niyo · since 2025</span>
         <span>Bangalore, IN</span>
       </div>

@@ -30,6 +30,7 @@ export default function Palette() {
   const items = useMemo<Item[]>(
     () => [
       ...[
+        ["moksha", "Moksha UI: design system"],
         ["work", "Selected work"],
         ["about", "About"],
         ["open-source", "Open source"],
