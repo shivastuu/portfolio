@@ -15,28 +15,39 @@ export default function Work() {
 
   useGSAP(
     () => {
-      gsap.matchMedia().add(MOTION, (_ctx, contextSafe) =>
-        whenNear(root.current!, contextSafe!(() => {
-          const panels = gsap.utils.toArray<HTMLElement>(".panel");
-          gsap.from(".work__title .line > span", { yPercent: 105, duration: 1.2, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".work__head", start: "top 75%" } });
-          panels.forEach((p, i) => {
-            p.querySelectorAll<HTMLElement>("[data-depth]").forEach((el) => {
-              const d = Number(el.dataset.depth);
-              gsap.fromTo(el, { y: 90 * d }, { y: -50 * d, ease: "none", scrollTrigger: { trigger: p, start: "top bottom", end: "top top", scrub: true } });
-            });
-            gsap.from(p.querySelector(".panel__no span"), { yPercent: 100, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: p, start: "top 60%" } });
-            gsap.from(p.querySelectorAll(".panel__text > *"), { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.06, scrollTrigger: { trigger: p, start: "top 55%" } });
-            const next = panels[i + 1];
-            if (next)
-              gsap.to(p.querySelector(".panel__link"), {
-                scale: 0.9,
-                "--dim": 0.55,
-                ease: "none",
-                scrollTrigger: { trigger: next, start: "top bottom", end: "top 64px", scrub: true },
-              });
+      gsap.matchMedia().add(MOTION, (_ctx, contextSafe) => {
+        const timers: number[] = [];
+        const setupPanel = contextSafe!((p: HTMLElement, next: HTMLElement | undefined) => {
+          p.querySelectorAll<HTMLElement>("[data-depth]").forEach((el) => {
+            const d = Number(el.dataset.depth);
+            // Drift scales with the cover, so small phone covers don't push the mock out of frame.
+            const c = p.querySelector<HTMLElement>(".panel__cover")!;
+            gsap.fromTo(el, { y: () => 0.11 * d * c.offsetHeight }, { y: () => -0.06 * d * c.offsetHeight, ease: "none", scrollTrigger: { trigger: p, start: "top bottom", end: "top top", scrub: true, invalidateOnRefresh: true } });
           });
-        })),
-      );
+          gsap.from(p.querySelector(".panel__no span"), { yPercent: 100, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: p, start: "top 60%" } });
+          gsap.from(p.querySelectorAll(".panel__text > *"), { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.06, scrollTrigger: { trigger: p, start: "top 55%" } });
+          if (next)
+            gsap.to(p.querySelector(".panel__link"), {
+              scale: 0.9,
+              "--dim": 0.55,
+              ease: "none",
+              scrollTrigger: { trigger: next, start: "top bottom", end: "top 64px", scrub: true },
+            });
+        });
+        const stop = whenNear(
+          root.current!,
+          contextSafe!(() => {
+            gsap.from(".work__title .line > span", { yPercent: 105, duration: 1.2, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".work__head", start: "top 75%" } });
+            // One panel per task, so setting up all seven never blocks the page for long (this runs at load on phones).
+            const panels = gsap.utils.toArray<HTMLElement>(".panel");
+            panels.forEach((p, i) => timers.push(window.setTimeout(() => setupPanel(p, panels[i + 1]), i * 40)));
+          }),
+        );
+        return () => {
+          stop();
+          timers.forEach(clearTimeout);
+        };
+      });
     },
     { scope: root },
   );

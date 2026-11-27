@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { askSuggestions, links, projects } from "../lib/content";
 
@@ -18,6 +19,20 @@ export default function Ask() {
   const [open, setOpen] = useState(false);
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [busy, setBusy] = useState(false);
+  // The button stays out of the way while the home hero fills the screen (it covered the stats there), and fades in
+  // once you scroll past it. Pages without the hero show it straight away.
+  const [away, setAway] = useState(false);
+  const path = usePathname();
+  useEffect(() => {
+    const hero = document.querySelector(".hero__stage");
+    if (!hero) {
+      setAway(false);
+      return;
+    }
+    const io = new IntersectionObserver(([e]) => setAway(e.intersectionRatio > 0.4), { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] });
+    io.observe(hero);
+    return () => io.disconnect();
+  }, [path]);
   const input = useRef<HTMLInputElement>(null);
   const log = useRef<HTMLDivElement>(null);
 
@@ -122,7 +137,7 @@ export default function Ask() {
           <p className="ask__note">AI can get things wrong. For anything important, email {links.email}.</p>
         </div>
       )}
-      <button type="button" className="ask-fab" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="ask">
+      <button type="button" className={`ask-fab ${away && !open ? "is-away" : ""}`} onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="ask">
         <span className="dot" aria-hidden /> {open ? "Close" : "Ask AI about me"}
       </button>
     </>
