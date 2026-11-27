@@ -8,8 +8,8 @@ import Cover from "./Covers";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-// Full-height colour panels. On desktop each one sticks and the next slides over it while the one underneath
-// sinks back; inside, every mock element drifts at its own depth.
+// Full-height colour panels. Each one sticks and the next slides over it while the one underneath sinks back
+// (desktop and phones); inside, every mock element drifts at its own depth.
 export default function Work() {
   const root = useRef<HTMLElement>(null);
 
@@ -27,12 +27,12 @@ export default function Work() {
             gsap.from(p.querySelector(".panel__no span"), { yPercent: 100, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: p, start: "top 60%" } });
             gsap.from(p.querySelectorAll(".panel__text > *"), { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.06, scrollTrigger: { trigger: p, start: "top 55%" } });
             const next = panels[i + 1];
-            if (next && matchMedia("(min-width: 900px)").matches)
+            if (next)
               gsap.to(p.querySelector(".panel__link"), {
                 scale: 0.9,
                 "--dim": 0.55,
                 ease: "none",
-                scrollTrigger: { trigger: next, start: "top bottom", end: "top 72px", scrub: true },
+                scrollTrigger: { trigger: next, start: "top bottom", end: "top 64px", scrub: true },
               });
           });
         })),

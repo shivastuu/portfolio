@@ -14,6 +14,11 @@ const DESKTOP = "(min-width: 900px)";
 const openW = () => Math.min(1240, innerWidth * 0.92);
 const openH = () => Math.min(760, innerHeight * 0.82);
 const closedH = () => Math.min(700, innerHeight * 0.78);
+// Phones: the closed phone sits under the name (keep in sync with the max-width: 899px rules in globals.css).
+const PHONE = "(max-width: 899px)";
+const mTop = () => 118 + innerWidth * 0.34;
+const mW = () => Math.min(300, innerWidth * 0.76);
+const mH = () => innerHeight - mTop() - 14;
 
 function Stats() {
   return (
@@ -126,6 +131,54 @@ export default function Hero() {
           const to = Number(el.dataset.to), n = { v: 0 };
           tl.fromTo(n, { v: 0 }, { v: to, duration: 0.3, onUpdate: () => void (el.textContent = String(Math.round(n.v))) }, 0.6);
         });
+      });
+
+      // Phones: the same unfold in portrait. The phone grows to fill the screen and becomes the intro screen.
+      // The name stays painted from the first frame (it is the page's main content), and only fades once you scroll.
+      // Set up on the first touch or scroll rather than at load, which keeps the phone's start-up work small.
+      mm.add(`${MOTION} and ${PHONE}`, (_ctx, contextSafe) => {
+        const evs = ["touchstart", "wheel", "scroll", "keydown", "pointerdown"] as const;
+        const setup = contextSafe!(() => {
+          const stage = root.current!.querySelector<HTMLElement>(".hero__stage")!;
+          const nums = gsap.utils.toArray<HTMLElement>(".device .band [data-to]");
+          const tl = gsap.timeline({
+            defaults: { ease: "none" },
+            scrollTrigger: {
+              trigger: stage,
+              start: "top top",
+              end: "+=120%",
+              pin: true,
+              scrub: 0.6,
+              invalidateOnRefresh: true,
+              onUpdate: (st) => stage.classList.toggle("is-open", st.progress > 0.35),
+            },
+          });
+          tl.to(".hero__name", { y: -50, autoAlpha: 0, duration: 0.3 }, 0)
+            .to(".hero__label", { autoAlpha: 0, duration: 0.12 }, 0)
+            .to(".hero__glow", { scale: 1.8, autoAlpha: 0.2, duration: 0.4 }, 0)
+            .fromTo(
+              ".device",
+              { top: mTop, width: mW, height: mH, borderRadius: 40 },
+              { top: 70, width: () => innerWidth - 16, height: () => innerHeight - 78, borderRadius: 26, duration: 0.45, ease: "power2.inOut" },
+              0,
+            )
+            .to(".lock", { autoAlpha: 0, scale: 0.94, duration: 0.18 }, 0.1)
+            .fromTo(".open", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.25)
+            .from(".open .intro__name", { yPercent: 40, autoAlpha: 0, duration: 0.2 }, 0.3)
+            .from(".open__card", { yPercent: 50, rotate: -25, autoAlpha: 0, duration: 0.3 }, 0.3)
+            .fromTo(".device .band", { yPercent: 100 }, { yPercent: 0, duration: 0.25, ease: "power2.out" }, 0.55)
+            .add(() => {}, 1);
+          nums.forEach((el) => {
+            const to = Number(el.dataset.to), n = { v: 0 };
+            tl.fromTo(n, { v: 0 }, { v: to, duration: 0.3, onUpdate: () => void (el.textContent = String(Math.round(n.v))) }, 0.6);
+          });
+        });
+        const once = () => {
+          evs.forEach((e) => removeEventListener(e, once));
+          setup();
+        };
+        evs.forEach((e) => addEventListener(e, once, { passive: true }));
+        return () => evs.forEach((e) => removeEventListener(e, once));
       });
     },
     { scope: root },
