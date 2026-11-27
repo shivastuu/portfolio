@@ -32,19 +32,26 @@ function Window({ title, children, className = "", dark = false, ...rest }: Box 
   );
 }
 
-function CreditCard({ className = "" }: { className?: string }) {
+// A brushed-metal card. "black" is graphite metal, "steel" is a platinum finish. Layers, bottom to top:
+// base gradient, brushed grain, an engraved guilloché rosette, and a light that follows the pointer
+// (--mx / --my, set by Cursor.tsx on anything marked data-metal) plus a slow sheen.
+function CreditCard({ className = "", finish = "black" }: { className?: string; finish?: "black" | "steel" }) {
   return (
-    <div className={`cv-card ${className}`}>
+    <div className={`cv-card metal metal--${finish} ${className}`}>
+      <i className="metal__grain" />
+      <i className="metal__rosette" />
+      <i className="metal__light" />
       <div className="cv-card__top">
-        <span className="cv-card__chip" />
-        <span className="cv-card__wave">)))</span>
+        <span className="chip" />
+        <svg className="cv-card__wave" viewBox="0 0 24 24" aria-hidden>
+          <path d="M8 6.5a8 8 0 0 1 0 11M11.5 4.5a11 11 0 0 1 0 15M15 2.5a14 14 0 0 1 0 19" />
+        </svg>
       </div>
-      <p className="cv-card__num">•••• •••• •••• 4821</p>
+      <p className="cv-card__num engrave">•••• •••• •••• 4821</p>
       <div className="cv-card__bottom">
-        <span>CO-BRANDED</span>
-        <span className="cv-card__net">
-          <i />
-          <i />
+        <span className="engrave">Shivastu Shrivastava</span>
+        <span className="engrave cv-card__since">
+          <small>Since</small> 01/25
         </span>
       </div>
     </div>
@@ -79,7 +86,7 @@ const CardApp = () => (
         ))}
       </div>
     </Phone>
-    <div data-depth="1.4" className="cv-float cv-at-l">
+    <div data-depth="1.4" className="cv-float cv-at-l" data-metal>
       <CreditCard className="cv-card--hero" />
     </div>
   </>

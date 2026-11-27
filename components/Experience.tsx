@@ -4,7 +4,8 @@ import { useRef } from "react";
 import { gsap, useGSAP, MOTION } from "../lib/gsap";
 import { experience, skills } from "../lib/content";
 
-// Dark "how I got here" section: a 3D card turns in the middle as you scroll past the steps, oldest first.
+// Dark "how I got here" section: a steel metal card turns in the middle as you scroll past the steps, oldest first.
+// The card has real thickness: a few edge slabs sit between the front and back faces.
 const steps = [...experience].reverse();
 const short = ["Engineering", "Trainee", "SDE — I"];
 
@@ -31,24 +32,39 @@ export default function Experience() {
     <section ref={root} className="exp" id="experience">
       <div className="exp__head">
         <h2 className="exp__title">How I got here</h2>
-        <span className="mono">[05]</span>
+        <span className="mono">[06]</span>
       </div>
 
       <div className="exp__grid">
-        <div className="exp__card" aria-hidden>
+        <div className="exp__card" aria-hidden data-metal>
           <div className="idcard">
+            <div className="idcard__tilt">
             <div className="idcard__inner">
-              <div className="idcard__face idcard__front">
-                <span className="mono">Niyo · Engineering</span>
-                <span className="idcard__chip" />
-                <b>Shivastu Shrivastava</b>
-                <span className="mono">SDE-1 · at Niyo since Jan 2025</span>
+              {[1.5, 0.5, -0.5, -1.5].map((z) => (
+                <i key={z} className="idcard__edge" style={{ transform: `translateZ(${z}px)` }} />
+              ))}
+              <div className="idcard__face idcard__front metal metal--steel">
+                <i className="metal__grain" />
+                <i className="metal__rosette" />
+                <i className="metal__light" />
+                <div className="idcard__row">
+                  <span className="engrave idcard__brand">S/S</span>
+                  <span className="mono engrave">Engineering</span>
+                </div>
+                <span className="chip" />
+                <div>
+                  <b className="engrave">Shivastu Shrivastava</b>
+                  <span className="mono engrave idcard__sub">SDE-1 · Niyo · since 01/25</span>
+                </div>
               </div>
-              <div className="idcard__face idcard__back">
-                <i className="idcard__stripe" />
-                <span className="mono">React · Next.js · Flutter · React Native</span>
-                <b>S/S</b>
+              <div className="idcard__face idcard__back metal metal--black">
+                <i className="metal__grain" />
+                <i className="metal__light" />
+                <span className="idcard__stripe" />
+                <span className="mono engrave">React · Next.js · Flutter · React Native</span>
+                <b className="engrave">S/S</b>
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -59,7 +75,11 @@ export default function Experience() {
             <p className="step__role">
               {e.role} · {e.org}
             </p>
-            <p className="step__note">{e.note}</p>
+            <ul className="step__points">
+              {e.points.map((pt) => (
+                <li key={pt}>{pt}</li>
+              ))}
+            </ul>
             <p className="mono step__when">{e.when}</p>
           </article>
         ))}

@@ -118,7 +118,7 @@ export default function Hero() {
           .to(".lock", { autoAlpha: 0, scale: 0.94, duration: 0.18 }, 0.08)
           .fromTo(".open", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, 0.22)
           .from(".open .intro__name", { yPercent: 40, autoAlpha: 0, duration: 0.2 }, 0.3)
-          .from(".open__art .cv-card", { yPercent: 60, rotate: -30, autoAlpha: 0, duration: 0.3 }, 0.28)
+          .from(".open__card", { yPercent: 60, rotate: -30, autoAlpha: 0, duration: 0.3 }, 0.28)
           .fromTo(".device .band", { yPercent: 100 }, { yPercent: 0, duration: 0.25, ease: "power2.out" }, 0.55)
           .add(() => {}, 1);
         nums.forEach((el) => {
@@ -167,18 +167,31 @@ export default function Hero() {
                 <p className="lock__time tnum">{time || "--:--"}</p>
                 <p className="lock__role">{hero.role}</p>
                 <ul className="lock__notes">
-                  {hero.notes.map((n) => (
-                    <li key={n.app} className="lock__note">
-                      <Link href={`/work/${n.slug}`} data-cursor="Open">
-                        <i className={`lock__icon lock__icon--${n.slug}`} aria-hidden />
+                  {hero.notes.map((n) => {
+                    const body = (
+                      <>
+                        <i className={`lock__icon lock__icon--${n.icon}`} aria-hidden />
                         <span>
                           <b>{n.app}</b>
                           <small className="mono">{n.when}</small>
                           <span>{n.text}</span>
                         </span>
-                      </Link>
-                    </li>
-                  ))}
+                      </>
+                    );
+                    return (
+                      <li key={n.app} className="lock__note">
+                        {n.href.startsWith("#") ? (
+                          <a href={n.href} data-cursor="Open">
+                            {body}
+                          </a>
+                        ) : (
+                          <Link href={n.href} data-cursor="Open">
+                            {body}
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
                 <div className="lock__dock">
                   <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub">
@@ -195,9 +208,11 @@ export default function Hero() {
                 <div className="open__copy">
                   <Intro />
                 </div>
-                <div className="open__art" aria-hidden>
+                <div className="open__art" aria-hidden data-metal>
                   <div className="lock__wall" />
-                  <CreditCard className="cv-card--hero" />
+                  <div className="open__card">
+                    <CreditCard className="cv-card--hero" />
+                  </div>
                   <p className="open__tag mono">Fintech · end to end</p>
                 </div>
                 <Stats />

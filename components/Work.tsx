@@ -75,6 +75,11 @@ export default function Work() {
                   <p className="panel__cap">
                     <b>{p.big}</b> {p.caption}
                   </p>
+                  <ul className="panel__points">
+                    {p.points.map((pt) => (
+                      <li key={pt}>{pt}</li>
+                    ))}
+                  </ul>
                   <ul className="tags">
                     {p.stack.map((s) => (
                       <li key={s}>{s}</li>
