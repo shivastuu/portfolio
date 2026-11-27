@@ -1,11 +1,12 @@
 import type { Metadata, ResolvingMetadata } from "next";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "../../../lib/content";
 import Nav from "../../../components/Nav";
 import Contact from "../../../components/Contact";
 import { Lines } from "../../../components/Motion";
+import Cover from "../../../components/Covers";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -44,7 +45,7 @@ export default async function CaseStudy({ params }: Props) {
   const next = projects[(i + 1) % projects.length];
 
   return (
-    <main className="case">
+    <main className="case" style={{ "--c": p.color, "--on": p.on } as CSSProperties}>
       <Nav />
       <header className="case__head">
         <div className="case__top mono">
@@ -60,8 +61,13 @@ export default async function CaseStudy({ params }: Props) {
           <Lines lines={[p.title]} />
         </h1>
         <div className="case__hero" data-reveal="fade">
-          <p className="case__big">{p.big}</p>
-          <p className="case__cap">{p.caption}</p>
+          <div>
+            <p className="case__big">{p.big}</p>
+            <p className="case__cap">{p.caption}</p>
+          </div>
+          <div className="case__cover">
+            <Cover slug={p.slug} />
+          </div>
         </div>
         <dl className="case__meta" data-reveal="fade">
           <div>
@@ -111,7 +117,7 @@ export default async function CaseStudy({ params }: Props) {
         </Block>
       </div>
 
-      <Link href={`/work/${next.slug}`} className="case__next">
+      <Link href={`/work/${next.slug}`} className="case__next" data-cursor="Next" style={{ "--c": next.color, "--on": next.on } as CSSProperties}>
         <span className="mono">Next case study [{pad(((i + 1) % projects.length) + 1)}]</span>
         <span className="case__next-title">
           {next.title} <span aria-hidden>↗</span>

@@ -11,13 +11,24 @@ export const links = {
 export const hero = {
   eyebrow: "Software Engineer at Niyo — Bangalore",
   status: "Open to product, frontend & mobile roles",
+  role: "Software engineer · Bangalore",
   lede: "I build and own fintech products end to end: React & Next.js on the web, Flutter & React Native on mobile.",
-  facts: [
-    { k: "Now", v: "SDE-1 at Niyo" },
-    { k: "Since", v: "2025, fintech" },
-    { k: "Based", v: "Bangalore, IN" },
+  // Lock-screen notifications on the hero phone. Each one is a real result from the projects below.
+  notes: [
+    { app: "Design system", text: "Release shipped to 20 apps", when: "now", slug: "design-system" },
+    { app: "RedCell", text: "Attack success 83% → 0% with guardrails", when: "2h ago", slug: "redcell" },
+    { app: "Onboarding PWA", text: "12 KYC states → 6 clear screens", when: "1d ago", slug: "onboarding-pwa" },
   ],
 };
+
+// What I do: the stepped rows under About.
+export const services = [
+  { title: "Frontend", note: "React, Next.js, TypeScript, performance." },
+  { title: "Mobile", note: "Flutter, React Native, server-driven UI." },
+  { title: "SDKs & auth", note: "Embeddable SDKs, sessions, WebCrypto." },
+  { title: "Design systems", note: "Tokens, components, Storybook, 20 apps." },
+  { title: "AI agents", note: "LangGraph, MCP, red-teaming, guardrails." },
+];
 
 // Runs as the ticker under the hero.
 export const marquee = [
@@ -39,6 +50,8 @@ export const stats = [
 export const projects = [
   {
     slug: "credit-card-app",
+    color: "#2343f0", // panel colour on the home page and case study
+    on: "#ffffff", // text colour on that panel
     title: "Co-Branded Credit Card",
     kind: "Mobile · Flutter",
     big: "End to end",
@@ -66,6 +79,8 @@ export const projects = [
   },
   {
     slug: "onboarding-pwa",
+    color: "#f2a417",
+    on: "#111111",
     title: "Credit Card Onboarding PWA",
     kind: "Web · PWA",
     big: "12 → 6",
@@ -93,6 +108,8 @@ export const projects = [
   },
   {
     slug: "design-system",
+    color: "#f3b6a2",
+    on: "#111111",
     title: "Shared Design System",
     kind: "Library · React",
     big: "20 apps",
@@ -120,6 +137,8 @@ export const projects = [
   },
   {
     slug: "sdks",
+    color: "#22114f",
+    on: "#ffffff",
     title: "Auth & Encryption SDKs",
     kind: "Platform · SDKs",
     big: "1 call",
@@ -147,6 +166,8 @@ export const projects = [
   },
   {
     slug: "compliance-workbench",
+    color: "#f6d02e",
+    on: "#111111",
     title: "Forex Compliance Workbench",
     kind: "Web · Micro-frontends",
     big: "Maker–checker",
@@ -173,6 +194,8 @@ export const projects = [
   },
   {
     slug: "react-native-app",
+    color: "#0b7a56",
+    on: "#ffffff",
     title: "React Native App",
     kind: "Mobile · React Native",
     big: "13",
@@ -198,6 +221,8 @@ export const projects = [
   },
   {
     slug: "redcell",
+    color: "#d8261a",
+    on: "#ffffff",
     title: "RedCell",
     kind: "Side project · AI security",
     big: "83% → 0%",
