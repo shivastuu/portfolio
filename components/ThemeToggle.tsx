@@ -1,30 +1,15 @@
 "use client";
 
 import type { MouseEvent } from "react";
+import { switchTheme } from "../lib/theme";
 
 // Light / dark switch. Light mode shows a moon ("turn the lights off"); dark mode shows a glowing bulb ("turn them on").
-// Where the browser supports view transitions, the new theme spreads as a circle from the button.
-// CSS picks the icon from data-theme, so no React state is needed; the boot script re-applies the choice on load.
+// The new theme spreads as a circle from the button (lib/theme.ts). CSS picks the icon from data-theme, so no React
+// state is needed; the boot script re-applies the choice on load.
 export default function ThemeToggle() {
   const flip = (e: MouseEvent<HTMLButtonElement>) => {
-    const d = document.documentElement;
-    const next = d.dataset.theme === "dark" ? "light" : "dark";
-    const apply = () => {
-      d.dataset.theme = next;
-      try {
-        localStorage.setItem("theme", next);
-      } catch {}
-    };
-    if (!("startViewTransition" in document) || matchMedia("(prefers-reduced-motion: reduce)").matches) return apply();
     const r = e.currentTarget.getBoundingClientRect();
-    const x = r.left + r.width / 2, y = r.top + r.height / 2;
-    const end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-    document.startViewTransition(apply).ready.then(() =>
-      d.animate(
-        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${end}px at ${x}px ${y}px)`] },
-        { duration: 750, easing: "cubic-bezier(0.65, 0, 0.35, 1)", pseudoElement: "::view-transition-new(root)" },
-      ),
-    );
+    switchTheme(r.left + r.width / 2, r.top + r.height / 2);
   };
 
   return (

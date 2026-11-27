@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import CmdButton from "./CmdButton";
 
 // home: same-page anchors. Elsewhere (case studies) links route back to the home sections;
 // "Contact" stays on-page because every page ends with the contact section.
@@ -10,8 +11,9 @@ export default function Nav({ home = false }: { home?: boolean }) {
 
   return (
     <header className="nav">
-      <A href={home ? "#top" : "/"} className="nav__logo" aria-label={home ? "Back to top" : "Home"}>
+      <A href={home ? "#top" : "/"} className="nav__logo">
         S/S<sup>®</sup>
+        <span className="sr-only">{home ? " — back to top" : " — home"}</span>
       </A>
       <nav className="nav__links" aria-label="Sections">
         <A href={to("work")}>
@@ -31,6 +33,7 @@ export default function Nav({ home = false }: { home?: boolean }) {
         </a>
       </nav>
       <div className="nav__end">
+        <CmdButton />
         <a href="#contact" className="badge">
           Available for work <span className="dot" aria-hidden />
         </a>

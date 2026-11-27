@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap, useGSAP, MOTION } from "../lib/gsap";
-import { hero, links } from "../lib/content";
+import { useEffect, useRef, useState } from "react";
+import { gsap, useGSAP, MOTION, whenNear } from "../lib/gsap";
+import { hero, lighthouse, links } from "../lib/content";
 import { useClock } from "../lib/useClock";
+import { copy } from "../lib/theme";
 import Shader from "./Shader";
 
 const RING = "LET'S BUILD SOMETHING THAT SHIPS · SAY HELLO · ";
@@ -13,22 +14,30 @@ const RING = "LET'S BUILD SOMETHING THAT SHIPS · SAY HELLO · ";
 export default function Contact() {
   const root = useRef<HTMLElement>(null);
   const time = useClock();
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(t);
+  }, [copied]);
 
   useGSAP(
     () => {
-      gsap.matchMedia().add(MOTION, () => {
-        gsap.from(".ring__ch", {
-          x: () => gsap.utils.random(-260, 260),
-          y: () => gsap.utils.random(-200, 200),
-          rotate: () => gsap.utils.random(-180, 180),
-          autoAlpha: 0,
-          duration: 1.6,
-          ease: "expo.out",
-          stagger: { each: 0.012, from: "random" },
-          scrollTrigger: { trigger: ".ring", start: "top 80%" },
-        });
-        gsap.from(".contact__name .line > span", { yPercent: 105, duration: 1.3, ease: "expo.out", stagger: 0.1, scrollTrigger: { trigger: ".contact__name", start: "top 95%" } });
-      });
+      gsap.matchMedia().add(MOTION, (_ctx, contextSafe) =>
+        whenNear(root.current!, contextSafe!(() => {
+          gsap.from(".ring__ch", {
+            x: () => gsap.utils.random(-260, 260),
+            y: () => gsap.utils.random(-200, 200),
+            rotate: () => gsap.utils.random(-180, 180),
+            autoAlpha: 0,
+            duration: 1.6,
+            ease: "expo.out",
+            stagger: { each: 0.012, from: "random" },
+            scrollTrigger: { trigger: ".ring", start: "top 80%" },
+          });
+          gsap.from(".contact__name .line > span", { yPercent: 105, duration: 1.3, ease: "expo.out", stagger: 0.1, scrollTrigger: { trigger: ".contact__name", start: "top 95%" } });
+        })),
+      );
     },
     { scope: root },
   );
@@ -68,8 +77,11 @@ export default function Contact() {
           </span>
         </p>
         <ul className="contact__links">
-          <li>
+          <li className="contact__mail">
             <a href={`mailto:${links.email}`}>{links.email}</a>
+            <button type="button" className="copy mono" onClick={async () => setCopied(await copy(links.email))} aria-live="polite">
+              {copied ? "Copied ✓" : "Copy"}
+            </button>
           </li>
           <li>
             <a href={links.linkedin} target="_blank" rel="noreferrer">
@@ -90,7 +102,9 @@ export default function Contact() {
       <footer className="footer mono">
         <span suppressHydrationWarning>© {new Date().getFullYear()} Shivastu Shrivastava</span>
         <span>Bangalore {time && `· ${time} IST`}</span>
-        <span>Built by hand with Next.js</span>
+        <span title="Lighthouse lab scores for the home page on desktop">
+          Lighthouse {lighthouse.performance} perf · {lighthouse.accessibility} a11y · {lighthouse.bestPractices} practices · {lighthouse.seo} SEO
+        </span>
       </footer>
     </section>
   );

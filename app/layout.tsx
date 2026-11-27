@@ -6,6 +6,8 @@ import Motion from "../components/Motion";
 import Ask from "../components/Ask";
 import Cursor from "../components/Cursor";
 import Preloader from "../components/Preloader";
+import Palette from "../components/Palette";
+import Wipe from "../components/Wipe";
 import Boot from "../components/Boot";
 import { boot } from "../lib/boot";
 import { links } from "../lib/content";
@@ -39,6 +41,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Motion>{children}</Motion>
         <Cursor />
         <Ask />
+        <Palette />
+        <Wipe />
       </body>
     </html>
   );

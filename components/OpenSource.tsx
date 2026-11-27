@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP, MOTION } from "../lib/gsap";
+import { gsap, useGSAP, MOTION, whenNear } from "../lib/gsap";
 import { openSource } from "../lib/content";
 
 // Open-source work as pull-request cards, with the Storybook star count as the big number.
@@ -10,16 +10,23 @@ export default function OpenSource() {
 
   useGSAP(
     () => {
-      gsap.matchMedia().add(MOTION, () => {
-        gsap.from(".oss__card", { y: 90, rotate: (i) => [-4, 2, -2][i % 3], autoAlpha: 0, duration: 1.3, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".oss__cards", start: "top 82%" } });
-        gsap.from(".oss__stars span", { yPercent: 100, duration: 1.3, ease: "expo.out", scrollTrigger: { trigger: ".oss__stars", start: "top 85%" } });
-      });
+      gsap.matchMedia().add(MOTION, (_ctx, contextSafe) =>
+        whenNear(root.current!, contextSafe!(() => {
+          gsap.from(".oss__card", { y: 90, rotate: (i) => [-4, 2, -2][i % 3], opacity: 0, duration: 1.3, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".oss__cards", start: "top 82%" } });
+          gsap.from(".oss__stars span", { yPercent: 100, duration: 1.3, ease: "expo.out", scrollTrigger: { trigger: ".oss__stars", start: "top 85%" } });
+        })),
+      );
     },
     { scope: root },
   );
 
   return (
     <section ref={root} className="oss" id="open-source">
+      <div className="blobs" aria-hidden>
+        <i />
+        <i />
+        <i />
+      </div>
       <div className="oss__head">
         <p className="mono">[05] Open source</p>
         <h2 className="oss__title">

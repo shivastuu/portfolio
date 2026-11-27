@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP, MOTION } from "../lib/gsap";
+import { gsap, useGSAP, MOTION, whenNear } from "../lib/gsap";
 import { about, hero, links, projects } from "../lib/content";
 
 // *wrapped* phrases are the highlights; every word brightens in turn as the paragraph scrolls through.
@@ -23,14 +23,16 @@ export default function About() {
 
   useGSAP(
     () => {
-      gsap.matchMedia().add(MOTION, () => {
-        gsap.fromTo(
-          ".about__text .w",
-          { "--p": 0 },
-          { "--p": 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: ".about__text", start: "top 80%", end: "bottom 50%", scrub: true } },
-        );
-        gsap.from(".about__card", { y: 80, rotate: (i) => (i ? 3 : -3), autoAlpha: 0, duration: 1.2, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".about__cards", start: "top 80%" } });
-      });
+      gsap.matchMedia().add(MOTION, (_ctx, contextSafe) =>
+        whenNear(root.current!, contextSafe!(() => {
+          gsap.fromTo(
+            ".about__text .w",
+            { "--p": 0 },
+            { "--p": 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: ".about__text", start: "top 80%", end: "bottom 50%", scrub: true } },
+          );
+          gsap.from(".about__card", { y: 80, rotate: (i) => (i ? 3 : -3), opacity: 0, duration: 1.2, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".about__cards", start: "top 80%" } });
+        })),
+      );
     },
     { scope: root },
   );

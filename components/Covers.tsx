@@ -169,7 +169,7 @@ const DesignSystem = () => (
     <div className="cv-tile cv-tile--c" data-depth="0.9">
       <p className="cv-mono">Tokens</p>
       <div className="cv-swatches">
-        {["#111", "#2343f0", "#f2a417", "#f3b6a2", "#0b7a56", "#fff"].map((c) => (
+        {["#111", "#1d3a8a", "#d4a24c", "#e9dcc6", "#0e6b4f", "#fff"].map((c) => (
           <i key={c} style={{ background: c }} />
         ))}
       </div>
@@ -259,7 +259,7 @@ const Compliance = () => (
   </Window>
 );
 
-const sections = ["#2343f0", "#f2a417", "#f3b6a2", "#0b7a56", "#22114f", "#d8261a"];
+const sections = ["#1d3a8a", "#d4a24c", "#e9dcc6", "#0e6b4f", "#7b4a2a", "#c83223"];
 const NativeApp = () => (
   <>
     <Phone className="cv-at-l" data-depth="0.6">

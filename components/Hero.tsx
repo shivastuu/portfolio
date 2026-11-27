@@ -80,7 +80,8 @@ export default function Hero() {
           .to(q("[data-in]"), { y: 0, autoAlpha: 1, duration: 1, stagger: 0.05 }, 0.5);
       };
 
-      mm.add(MOTION, () => {
+      // Phones skip the entrance: the hero paints immediately, which keeps first load fast.
+      mm.add(`${MOTION} and ${DESKTOP}`, () => {
         gsap.set(".hero__w > span", { yPercent: 105, visibility: "visible" });
         gsap.set(".device", { y: "35vh", rotateX: 28, autoAlpha: 0, transformPerspective: 1600 });
         gsap.set(".lock__note", { y: 30, autoAlpha: 0 });
@@ -195,11 +196,16 @@ export default function Hero() {
                 </ul>
                 <div className="lock__dock">
                   <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub">
-                    GH
+                    <svg viewBox="0 0 24 24" aria-hidden>
+                      <path d="M8 7l-5 5 5 5M16 7l5 5-5 5" />
+                    </svg>
                   </a>
                   <span className="lock__hint mono">Scroll to unfold</span>
                   <a href={links.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
-                    in
+                    <svg viewBox="0 0 24 24" aria-hidden>
+                      <circle cx="12" cy="8" r="3.5" />
+                      <path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5" />
+                    </svg>
                   </a>
                 </div>
               </div>

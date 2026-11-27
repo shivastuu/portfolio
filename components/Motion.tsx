@@ -50,11 +50,12 @@ export default function Motion({ children }: { children: ReactNode }) {
         }),
       );
       if (document.querySelector("[data-reveal=fade]")) {
-        gsap.set("[data-reveal=fade]", { y: 24, autoAlpha: 0 });
+        // Opacity, not visibility: hidden content would drop out of the Tab order until scrolled to.
+        gsap.set("[data-reveal=fade]", { y: 24, opacity: 0 });
         ScrollTrigger.batch("[data-reveal=fade]", {
           start: "top 92%",
           once: true,
-          onEnter: (els) => gsap.to(els, { y: 0, autoAlpha: 1, duration: 0.9, ease: "power3.out", stagger: 0.06 }),
+          onEnter: (els) => gsap.to(els, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", stagger: 0.06 }),
         });
       }
       ScrollTrigger.sort();

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, ScrollTrigger, useGSAP, MOTION } from "../lib/gsap";
+import { gsap, ScrollTrigger, useGSAP, MOTION, whenNear } from "../lib/gsap";
 import { highlights, marquee, projects } from "../lib/content";
 
 // Two running lines: achievements (big, with colour tiles) and the stack (smaller, the other way).
@@ -12,6 +12,9 @@ export default function Marquee() {
   useGSAP(
     () => {
       gsap.matchMedia().add(MOTION, () => {
+        let stop = () => {};
+        const unwatch = whenNear(root.current!, () => void (stop = start()));
+        const start = () => {
         const setA = gsap.quickSetter(".ticker__track--a", "xPercent");
         const setB = gsap.quickSetter(".ticker__track--b", "xPercent");
         const wrap = gsap.utils.wrap(-50, 0);
@@ -35,6 +38,11 @@ export default function Marquee() {
         return () => {
           st.kill();
           gsap.ticker.remove(tick);
+        };
+        };
+        return () => {
+          unwatch();
+          stop();
         };
       });
     },

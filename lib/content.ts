@@ -51,7 +51,8 @@ export const stats = [
 export const projects = [
   {
     slug: "credit-card-app",
-    color: "#2343f0", // panel colour on the home page and case study
+    flow: ["Super-app (Flutter)", "Card plugin", "React PWA over a JS bridge", "Bank APIs", "Remote Config flags"], // the case study's "how it fits together" diagram
+    color: "#1d3a8a", // sapphire; panel colour on the home page and case study
     on: "#ffffff", // text colour on that panel
     title: "Co-Branded Credit Card",
     kind: "Mobile · Flutter",
@@ -81,7 +82,8 @@ export const projects = [
   },
   {
     slug: "onboarding-pwa",
-    color: "#f2a417",
+    flow: ["WebView", "PAN check", "Video KYC", "CKYC router: 12 states → 6 screens", "Consent", "Card offer"],
+    color: "#d4a24c", // gold
     on: "#111111",
     title: "Credit Card Onboarding PWA",
     kind: "Web · PWA",
@@ -112,7 +114,8 @@ export const projects = [
   },
   {
     slug: "design-system",
-    color: "#f3b6a2",
+    flow: ["Figma tokens", "Typed MUI theme", "49 components", "Storybook previews in CI", "Tree-shakeable build", "20 apps"],
+    color: "#e9dcc6", // champagne
     on: "#111111",
     title: "Shared Design System",
     kind: "Library · React",
@@ -142,8 +145,9 @@ export const projects = [
   },
   {
     slug: "sdks",
-    color: "#22114f",
-    on: "#ffffff",
+    flow: ["Host app", "AuthModal() / openPanModal()", "OTP + HttpOnly cookie session", "Single-flight refresh (Web Locks)", "Encrypted HTTP client", "APIs"],
+    color: "#c9ccd1", // platinum
+    on: "#111111",
     title: "Auth & Encryption SDKs",
     kind: "Platform · SDKs",
     big: "1 call",
@@ -172,8 +176,9 @@ export const projects = [
   },
   {
     slug: "compliance-workbench",
-    color: "#f6d02e",
-    on: "#111111",
+    flow: ["Maker edits rules", "Change request", "Readable change rows", "Checker approves", "New version", "Bulk re-score"],
+    color: "#0e6b4f", // emerald
+    on: "#ffffff",
     title: "Forex Compliance Workbench",
     kind: "Web · Micro-frontends",
     big: "Maker–checker",
@@ -202,7 +207,8 @@ export const projects = [
   },
   {
     slug: "react-native-app",
-    color: "#0b7a56",
+    flow: ["CMS layout", "One fetch + bundled fallback", "Fail-safe mappers", "13 section renderers", "Home screen"],
+    color: "#7b4a2a", // cognac
     on: "#ffffff",
     title: "React Native App",
     kind: "Mobile · React Native",
@@ -230,7 +236,8 @@ export const projects = [
   },
   {
     slug: "redcell",
-    color: "#d8261a",
+    flow: ["189 published attacks", "Real MCP servers", "Agent under test", "Guardrails", "Deterministic verifier", "Leaderboard"],
+    color: "#c83223", // signal red
     on: "#ffffff",
     title: "RedCell",
     kind: "Side project · AI security",
@@ -352,5 +359,8 @@ export const aiNotes = [
   "Open source: contributor to Storybook (90k+ GitHub stars). A bug fix where Docs story blocks stayed stuck on an error after the code was fixed was merged upstream; a second pull request adds alternative component names to sidebar search, with ranking, tests and docs, and is open.",
 ];
 
+// Lighthouse lab scores for the home page on desktop (production build, measured before release). Re-measure after big changes.
+export const lighthouse = { performance: 98, accessibility: 100, bestPractices: 100, seo: 100 };
+
 export const site =
-  "This site is built with Next.js 16 (App Router, statically exported to Netlify), GSAP and Lenis for restrained motion, and a light/dark theme. Each project has its own statically generated case-study page.";
+  "This site is built with Next.js 16 (App Router, statically exported to Netlify), GSAP and Lenis for restrained motion, and a light/dark theme. Each project has its own statically generated case-study page. It has a command palette (Cmd/Ctrl+K), live demos inside the case studies, light and dark themes, and scores 98 performance and 100 accessibility, best practices and SEO in Lighthouse on desktop.";

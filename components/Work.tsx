@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef, type CSSProperties } from "react";
-import { gsap, useGSAP, MOTION } from "../lib/gsap";
+import { gsap, useGSAP, MOTION, whenNear } from "../lib/gsap";
 import { projects } from "../lib/content";
 import Cover from "./Covers";
 
@@ -15,26 +15,28 @@ export default function Work() {
 
   useGSAP(
     () => {
-      gsap.matchMedia().add(MOTION, () => {
-        const panels = gsap.utils.toArray<HTMLElement>(".panel");
-        gsap.from(".work__title .line > span", { yPercent: 105, duration: 1.2, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".work__head", start: "top 75%" } });
-        panels.forEach((p, i) => {
-          p.querySelectorAll<HTMLElement>("[data-depth]").forEach((el) => {
-            const d = Number(el.dataset.depth);
-            gsap.fromTo(el, { y: 90 * d }, { y: -50 * d, ease: "none", scrollTrigger: { trigger: p, start: "top bottom", end: "top top", scrub: true } });
-          });
-          gsap.from(p.querySelector(".panel__no span"), { yPercent: 100, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: p, start: "top 60%" } });
-          gsap.from(p.querySelectorAll(".panel__text > *"), { y: 30, autoAlpha: 0, duration: 1, ease: "power3.out", stagger: 0.06, scrollTrigger: { trigger: p, start: "top 55%" } });
-          const next = panels[i + 1];
-          if (next && matchMedia("(min-width: 900px)").matches)
-            gsap.to(p.querySelector(".panel__link"), {
-              scale: 0.9,
-              "--dim": 0.55,
-              ease: "none",
-              scrollTrigger: { trigger: next, start: "top bottom", end: "top 72px", scrub: true },
+      gsap.matchMedia().add(MOTION, (_ctx, contextSafe) =>
+        whenNear(root.current!, contextSafe!(() => {
+          const panels = gsap.utils.toArray<HTMLElement>(".panel");
+          gsap.from(".work__title .line > span", { yPercent: 105, duration: 1.2, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".work__head", start: "top 75%" } });
+          panels.forEach((p, i) => {
+            p.querySelectorAll<HTMLElement>("[data-depth]").forEach((el) => {
+              const d = Number(el.dataset.depth);
+              gsap.fromTo(el, { y: 90 * d }, { y: -50 * d, ease: "none", scrollTrigger: { trigger: p, start: "top bottom", end: "top top", scrub: true } });
             });
-        });
-      });
+            gsap.from(p.querySelector(".panel__no span"), { yPercent: 100, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: p, start: "top 60%" } });
+            gsap.from(p.querySelectorAll(".panel__text > *"), { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.06, scrollTrigger: { trigger: p, start: "top 55%" } });
+            const next = panels[i + 1];
+            if (next && matchMedia("(min-width: 900px)").matches)
+              gsap.to(p.querySelector(".panel__link"), {
+                scale: 0.9,
+                "--dim": 0.55,
+                ease: "none",
+                scrollTrigger: { trigger: next, start: "top bottom", end: "top 72px", scrub: true },
+              });
+          });
+        })),
+      );
     },
     { scope: root },
   );

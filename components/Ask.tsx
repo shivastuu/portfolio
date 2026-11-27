@@ -29,6 +29,12 @@ export default function Ask() {
     return () => removeEventListener("keydown", esc);
   }, [open]);
 
+  useEffect(() => {
+    const show = () => setOpen(true);
+    addEventListener("ask:open", show);
+    return () => removeEventListener("ask:open", show);
+  }, []);
+
   useEffect(() => void log.current?.scrollTo({ top: log.current.scrollHeight, behavior: "smooth" }), [msgs, busy]);
 
   const ask = async (text: string) => {

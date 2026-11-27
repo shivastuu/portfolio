@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -7,6 +7,19 @@ import Nav from "../../../components/Nav";
 import Contact from "../../../components/Contact";
 import { Lines } from "../../../components/Motion";
 import Cover from "../../../components/Covers";
+import Flow from "../../../components/Flow";
+import OtpDemo from "../../../components/demos/OtpDemo";
+import RefreshDemo from "../../../components/demos/RefreshDemo";
+import BillDemo from "../../../components/demos/BillDemo";
+import SduiDemo from "../../../components/demos/SduiDemo";
+
+// Projects with a live, in-browser re-creation of one piece of the work.
+const DEMOS: Record<string, () => ReactNode> = {
+  "credit-card-app": BillDemo,
+  "design-system": OtpDemo,
+  sdks: RefreshDemo,
+  "react-native-app": SduiDemo,
+};
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -14,14 +27,13 @@ type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 export const generateStaticParams = () => projects.map((p) => ({ slug: p.slug }));
 
-export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = projects.find((x) => x.slug === slug);
   if (!p) return {};
   const title = `${p.title} — Case study · Shivastu Shrivastava`;
-  // A page-level openGraph replaces the layout's, so carry over the shared preview image.
-  const images = (await parent).openGraph?.images;
-  return { title, description: p.problem, openGraph: { title, description: p.problem, url: `/work/${p.slug}`, images } };
+  // The share image is the project's own card (opengraph-image.tsx in this folder).
+  return { title, description: p.problem, openGraph: { title, description: p.problem, url: `/work/${p.slug}` } };
 }
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -43,6 +55,7 @@ export default async function CaseStudy({ params }: Props) {
   if (i < 0) notFound();
   const p = projects[i];
   const next = projects[(i + 1) % projects.length];
+  const Demo = DEMOS[p.slug];
 
   return (
     <main className="case" style={{ "--c": p.color, "--on": p.on } as CSSProperties}>
@@ -57,10 +70,10 @@ export default async function CaseStudy({ params }: Props) {
           </span>
           <span>{p.kind}</span>
         </div>
-        <h1 className="case__title" data-reveal="line">
+        <h1 className="case__title">
           <Lines lines={[p.title]} />
         </h1>
-        <div className="case__hero" data-reveal="fade">
+        <div className="case__hero">
           <div>
             <p className="case__big">{p.big}</p>
             <p className="case__cap">{p.caption}</p>
@@ -69,7 +82,7 @@ export default async function CaseStudy({ params }: Props) {
             <Cover slug={p.slug} />
           </div>
         </div>
-        <dl className="case__meta" data-reveal="fade">
+        <dl className="case__meta">
           <div>
             <dt className="mono">Role</dt>
             <dd>{p.role}</dd>
@@ -99,22 +112,25 @@ export default async function CaseStudy({ params }: Props) {
       </header>
 
       <div className="case__body">
-        <Block n={1} title="The problem">
-          <p>{p.problem}</p>
-        </Block>
-        <Block n={2} title="What I built">
-          <ul className="case__list">
-            {p.built.map((b) => (
-              <li key={b}>{b}</li>
-            ))}
-          </ul>
-        </Block>
-        <Block n={3} title="The hard part">
-          <p>{p.hard}</p>
-        </Block>
-        <Block n={4} title="Result">
-          <p>{p.result}</p>
-        </Block>
+        {[
+          ["The problem", <p key="p">{p.problem}</p>],
+          [
+            "What I built",
+            <ul key="b" className="case__list">
+              {p.built.map((x) => (
+                <li key={x}>{x}</li>
+              ))}
+            </ul>,
+          ],
+          ["How it fits together", <Flow key="f" steps={p.flow} />],
+          ...(Demo ? [["Try it", <Demo key="d" />] as const] : []),
+          ["The hard part", <p key="h">{p.hard}</p>],
+          ["Result", <p key="r">{p.result}</p>],
+        ].map(([title, body], n) => (
+          <Block key={String(title)} n={n + 1} title={String(title)}>
+            {body}
+          </Block>
+        ))}
       </div>
 
       <Link href={`/work/${next.slug}`} className="case__next" data-cursor="Next" style={{ "--c": next.color, "--on": next.on } as CSSProperties}>

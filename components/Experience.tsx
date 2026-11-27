@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP, MOTION } from "../lib/gsap";
+import { gsap, useGSAP, MOTION, whenNear } from "../lib/gsap";
 import { experience, skills } from "../lib/content";
 
 // Dark "how I got here" section: a steel metal card turns in the middle as you scroll past the steps, oldest first.
@@ -14,16 +14,18 @@ export default function Experience() {
 
   useGSAP(
     () => {
-      gsap.matchMedia().add(MOTION, () => {
-        gsap.fromTo(
-          ".idcard__inner",
-          { rotateY: -25, rotateX: 12 },
-          { rotateY: 335, rotateX: -8, ease: "none", scrollTrigger: { trigger: ".exp__grid", start: "top 70%", end: "bottom 40%", scrub: 1 } },
-        );
-        gsap.utils.toArray<HTMLElement>(".step").forEach((el) =>
-          gsap.from(el.children, { y: 50, autoAlpha: 0, duration: 1.1, ease: "expo.out", stagger: 0.07, scrollTrigger: { trigger: el, start: "top 75%" } }),
-        );
-      });
+      gsap.matchMedia().add(MOTION, (_ctx, contextSafe) =>
+        whenNear(root.current!, contextSafe!(() => {
+          gsap.fromTo(
+            ".idcard__inner",
+            { rotateY: -25, rotateX: 12 },
+            { rotateY: 335, rotateX: -8, ease: "none", scrollTrigger: { trigger: ".exp__grid", start: "top 70%", end: "bottom 40%", scrub: 1 } },
+          );
+          gsap.utils.toArray<HTMLElement>(".step").forEach((el) =>
+            gsap.from(el.children, { y: 50, autoAlpha: 0, duration: 1.1, ease: "expo.out", stagger: 0.07, scrollTrigger: { trigger: el, start: "top 75%" } }),
+          );
+        })),
+      );
     },
     { scope: root },
   );

@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { gsap, useGSAP } from "../lib/gsap";
 
 // First home visit of a session: a fold line draws down the page, the name slides in from both sides
-// while a counter runs, then the page parts along the fold. Finishes in about 2 s and fires "intro:done".
+// while a counter runs, then the page parts along the fold. Finishes in about 1.7 s and fires "intro:done".
 export default function Preloader() {
   const root = useRef<HTMLDivElement>(null);
 
@@ -24,13 +24,13 @@ export default function Preloader() {
       const n = { v: 0 };
       gsap
         .timeline({ onComplete: done })
-        .to(".pre__fold", { scaleY: 1, duration: 0.6, ease: "power3.inOut" })
-        .from(".pre__name--a", { xPercent: -60, autoAlpha: 0, duration: 0.9, ease: "expo.out" }, 0.25)
-        .from(".pre__name--b", { xPercent: 60, autoAlpha: 0, duration: 0.9, ease: "expo.out" }, 0.25)
-        .to(n, { v: 100, duration: 1.1, ease: "power2.inOut", onUpdate: () => void (count.textContent = String(Math.round(n.v)).padStart(3, "0")) }, 0)
-        .to(".pre__half--l", { xPercent: -100, duration: 0.9, ease: "expo.inOut" }, 1.25)
-        .to(".pre__half--r", { xPercent: 100, duration: 0.9, ease: "expo.inOut" }, 1.25)
-        .to(".pre__fold, .pre__count, .pre__meta", { autoAlpha: 0, duration: 0.3 }, 1.2);
+        .to(".pre__fold", { scaleY: 1, duration: 0.45, ease: "power3.inOut" })
+        .from(".pre__name--a", { xPercent: -60, autoAlpha: 0, duration: 0.75, ease: "expo.out" }, 0.15)
+        .from(".pre__name--b", { xPercent: 60, autoAlpha: 0, duration: 0.75, ease: "expo.out" }, 0.15)
+        .to(n, { v: 100, duration: 0.85, ease: "power2.inOut", onUpdate: () => void (count.textContent = String(Math.round(n.v)).padStart(3, "0")) }, 0)
+        .to(".pre__half--l", { xPercent: -100, duration: 0.75, ease: "expo.inOut" }, 0.95)
+        .to(".pre__half--r", { xPercent: 100, duration: 0.75, ease: "expo.inOut" }, 0.95)
+        .to(".pre__fold, .pre__count, .pre__meta", { autoAlpha: 0, duration: 0.25 }, 0.9);
     },
     { scope: root },
   );
