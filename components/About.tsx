@@ -1,66 +1,88 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP, MOTION } from "../lib/gsap";
-import { about, stats } from "../lib/content";
+import { gsap, useGSAP, MOTION, whenNear } from "../lib/gsap";
+import { about, hero, links, projects } from "../lib/content";
 
+// *wrapped* phrases are the highlights; every word brightens in turn as the paragraph scrolls through.
 const words = about
   .split(/(\*[^*]+\*)/)
   .flatMap((seg) => seg.replaceAll("*", "").split(/\s+/).filter(Boolean).map((w) => ({ w, em: seg.startsWith("*") })));
+
+// Disciplines index: how many projects fall under each kind (the part before " · ").
+const disciplines = Object.entries(
+  projects.reduce<Record<string, number>>((acc, p) => {
+    const k = p.kind.split(" · ")[0];
+    acc[k] = (acc[k] ?? 0) + 1;
+    return acc;
+  }, {}),
+);
 
 export default function About() {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
-      gsap.matchMedia().add(MOTION, () => {
-        // Words light up one by one as the paragraph scrolls through. --p mixes from a dim colour that still
-        // passes large-text contrast (see .about__text .w in globals.css), so no word is ever unreadable.
-        gsap.fromTo(
-          ".about__text .w",
-          { "--p": 0 },
-          { "--p": 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: ".about__text", start: "top 75%", end: "bottom 45%", scrub: true } },
-        );
-        gsap.utils.toArray<HTMLElement>(".stat b").forEach((el) => {
-          const { from, to } = el.dataset;
-          const n = { v: Number(from) };
-          gsap.to(n, {
-            v: Number(to),
-            duration: 2,
-            ease: "power3.out",
-            scrollTrigger: { trigger: el, start: "top 90%" },
-            onUpdate: () => void (el.textContent = n.v.toFixed(Number(from) % 1 ? 1 : 0)),
-            onComplete: () => void (el.textContent = String(to)),
-          });
-        });
-      });
+      gsap.matchMedia().add(MOTION, (_ctx, contextSafe) =>
+        whenNear(root.current!, contextSafe!(() => {
+          gsap.fromTo(
+            ".about__text .w",
+            { "--p": 0 },
+            { "--p": 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: ".about__text", start: "top 80%", end: "bottom 50%", scrub: true } },
+          );
+          gsap.from(".about__card", { y: 80, rotate: (i) => (i ? 3 : -3), opacity: 0, duration: 1.2, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".about__cards", start: "top 80%" } });
+        })),
+      );
     },
     { scope: root },
   );
 
   return (
     <section ref={root} className="about" id="about">
-      <p className="label" data-scramble>(About)</p>
+      <div className="about__top mono">
+        <span>[03] About</span>
+        <span>Niyo · since 2025</span>
+        <span>Bangalore, IN</span>
+      </div>
       <p className="about__text">
         {words.map(({ w, em }, i) => (
-          <span key={i} className={em ? "w serif accent" : "w"}>
+          <span key={i} className={em ? "w em" : "w"}>
             {w}{" "}
           </span>
         ))}
       </p>
-      <ul className="stats">
-        {stats.map((s) => (
-          <li className="stat" key={s.label} data-reveal="fade">
-            <span className="stat__num">
-              <b data-from={s.from} data-to={s.to}>
-                {s.to}
-              </b>
-              <span className="accent">{s.suffix}</span>
-            </span>
-            <span className="stat__label">{s.label}</span>
-          </li>
-        ))}
-      </ul>
+
+      <div className="about__cards">
+        <div className="about__card">
+          <p className="mono about__card-head">
+            <span>Currently</span>
+            <span>[SDE-1]</span>
+          </p>
+          <p className="about__big">Software engineer at Niyo</p>
+          <p className="about__note">
+            <span className="dot" aria-hidden /> {hero.status}
+          </p>
+          <a href={`mailto:${links.email}`} className="about__btn" data-cursor="Email">
+            <span className="dot dot--w" aria-hidden /> Email me
+          </a>
+        </div>
+        <div className="about__card">
+          <p className="mono about__card-head">
+            <span>Disciplines</span>
+            <span>[{String(projects.length).padStart(2, "0")}]</span>
+          </p>
+          <ul className="about__disc">
+            {disciplines.map(([k, n]) => (
+              <li key={k}>
+                <a href="#work">
+                  <span>{k}</span>
+                  <span className="mono">[{String(n).padStart(2, "0")}]</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </section>
   );
 }

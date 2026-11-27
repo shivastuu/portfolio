@@ -29,6 +29,12 @@ export default function Ask() {
     return () => removeEventListener("keydown", esc);
   }, [open]);
 
+  useEffect(() => {
+    const show = () => setOpen(true);
+    addEventListener("ask:open", show);
+    return () => removeEventListener("ask:open", show);
+  }, []);
+
   useEffect(() => void log.current?.scrollTo({ top: log.current.scrollHeight, behavior: "smooth" }), [msgs, busy]);
 
   const ask = async (text: string) => {
@@ -77,7 +83,7 @@ export default function Ask() {
           <div className="ask__head">
             <div>
               <h2 id="ask-title">Ask about Shivastu</h2>
-              <p className="label">AI · answers from his portfolio &amp; resume</p>
+              <p className="mono">AI · answers from his portfolio &amp; resume</p>
             </div>
             <button type="button" className="ask__close" onClick={() => setOpen(false)} aria-label="Close chat">
               ×
@@ -116,24 +122,9 @@ export default function Ask() {
           <p className="ask__note">AI can get things wrong. For anything important, email {links.email}.</p>
         </div>
       )}
-      <button type="button" className="ask-fab" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="ask" aria-label={open ? "Close chat" : "Ask AI about Shivastu"}>
-        {open ? (
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
-            <path d="M6 6l12 12M18 6L6 18" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12z" />
-            <path d="M8.5 12h.01M12 12h.01M15.5 12h.01" strokeWidth="2.6" />
-          </svg>
-        )}
+      <button type="button" className="ask-fab" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="ask">
+        <span className="dot" aria-hidden /> {open ? "Close" : "Ask AI about me"}
       </button>
-      {!open && (
-        // CSS fades this in after a few seconds, then out (and on hover of the button above, which is the accessible control).
-        <button type="button" className="ask-teaser" onClick={() => setOpen(true)} tabIndex={-1} aria-hidden>
-          👋 Ask me about Shivastu
-        </button>
-      )}
     </>
   );
 }

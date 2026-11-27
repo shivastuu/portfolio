@@ -14,7 +14,7 @@ export function Lines({ lines }: { lines: ReactNode[] }) {
   ));
 }
 
-// Site-wide motion layer: Lenis smooth scroll, aurora backdrop, progress bar and [data-*] scroll effects.
+// Site-wide motion layer: Lenis smooth scroll plus the shared [data-reveal] effects.
 export default function Motion({ children }: { children: ReactNode }) {
   const path = usePathname();
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Motion({ children }: { children: ReactNode }) {
       gsap.ticker.lagSmoothing(0);
       ScrollTrigger.refresh();
     };
-    // Hero's preloader holds the page; it fires intro:done when finished.
+    // The preloader holds the page on a first visit and fires intro:done when it has parted.
     if (document.documentElement.classList.contains("is-loading")) addEventListener("intro:done", start, { once: true });
     else start();
     return () => {
@@ -40,51 +40,29 @@ export default function Motion({ children }: { children: ReactNode }) {
 
   useGSAP(() => {
     gsap.matchMedia().add(MOTION, () => {
-      const page = { start: 0, end: "max", scrub: 0.4 };
-      gsap.to(".page-progress", { scaleX: 1, ease: "none", scrollTrigger: page });
-      // Aurora blobs wander as you scroll, so every section gets its own light.
-      gsap.to(".aurora i:nth-child(1)", { yPercent: 160, xPercent: 40, ease: "none", scrollTrigger: { ...page, scrub: 1.5 } });
-      gsap.to(".aurora i:nth-child(2)", { yPercent: -80, xPercent: -70, ease: "none", scrollTrigger: { ...page, scrub: 1.5 } });
-      gsap.to(".aurora i:nth-child(3)", { yPercent: -150, xPercent: 50, ease: "none", scrollTrigger: { ...page, scrub: 1.5 } });
-
       gsap.utils.toArray<HTMLElement>("[data-reveal=line]").forEach((el) =>
         gsap.from(el.querySelectorAll(".line > span"), {
-          yPercent: 110,
-          rotate: 3,
-          duration: 1.2,
+          yPercent: 105,
+          duration: 1.1,
           ease: "expo.out",
-          stagger: 0.08,
+          stagger: 0.07,
           scrollTrigger: { trigger: el, start: "top 88%" },
         }),
       );
-      gsap.utils.toArray<HTMLElement>("[data-scramble]").forEach((el) =>
-        gsap.to(el, {
-          duration: 1.4,
-          scrambleText: { text: el.textContent ?? "", chars: "01<>/#*+", revealDelay: 0.3, speed: 0.5 },
-          scrollTrigger: { trigger: el, start: "top 90%" },
-        }),
-      );
-      gsap.set("[data-reveal=fade]", { y: 40, autoAlpha: 0 });
-      ScrollTrigger.batch("[data-reveal=fade]", {
-        start: "top 92%",
-        once: true,
-        onEnter: (els) => gsap.to(els, { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out", stagger: 0.08 }),
-      });
+      if (document.querySelector("[data-reveal=fade]")) {
+        // Opacity, not visibility: hidden content would drop out of the Tab order until scrolled to.
+        gsap.set("[data-reveal=fade]", { y: 24, opacity: 0 });
+        ScrollTrigger.batch("[data-reveal=fade]", {
+          start: "top 92%",
+          once: true,
+          onEnter: (els) => gsap.to(els, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", stagger: 0.06 }),
+        });
+      }
       ScrollTrigger.sort();
       document.fonts.ready.then(() => ScrollTrigger.refresh());
     });
     // Re-run for each page: client-side navigation swaps the page but keeps this layout mounted.
   }, { dependencies: [path], revertOnUpdate: true });
 
-  return (
-    <>
-      <div className="aurora" aria-hidden>
-        <i />
-        <i />
-        <i />
-      </div>
-      {children}
-      <div className="page-progress" aria-hidden />
-    </>
-  );
+  return <>{children}</>;
 }

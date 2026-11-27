@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Sofia_Sans_Extra_Condensed } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import Motion from "../components/Motion";
-import Cursor from "../components/Cursor";
 import Ask from "../components/Ask";
+import Cursor from "../components/Cursor";
+import Preloader from "../components/Preloader";
+import Palette from "../components/Palette";
+import Wipe from "../components/Wipe";
 import Boot from "../components/Boot";
 import { boot } from "../lib/boot";
 import { links } from "../lib/content";
 
 const sans = Geist({ subsets: ["latin"], variable: "--font-sans" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
-const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif" });
+const display = Sofia_Sans_Extra_Condensed({ subsets: ["latin"], weight: ["700", "800", "900"], variable: "--font-display" });
 
 const description =
   "Software engineer at Niyo owning fintech features end to end: React and Next.js UIs, payments, KYC onboarding, embeddable SDKs and a design system 20 apps depend on.";
@@ -27,16 +30,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // suppressHydrationWarning: the boot script sets data-theme and is-loading before React hydrates (no theme flash).
-    <html lang="en" className={`${sans.variable} ${mono.variable} ${serif.variable}`} suppressHydrationWarning>
+    // suppressHydrationWarning: the boot script adds the motion / is-loading classes before React hydrates.
+    <html lang="en" className={`${sans.variable} ${mono.variable} ${display.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: `(${boot})()` }} />
       </head>
       <body>
         <Boot />
+        <Preloader />
         <Motion>{children}</Motion>
         <Cursor />
         <Ask />
+        <Palette />
+        <Wipe />
       </body>
     </html>
   );

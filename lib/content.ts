@@ -11,43 +11,57 @@ export const links = {
 export const hero = {
   eyebrow: "Software Engineer at Niyo — Bangalore",
   status: "Open to product, frontend & mobile roles",
+  role: "Software engineer · Bangalore",
   lede: "I build and own fintech products end to end: React & Next.js on the web, Flutter & React Native on mobile.",
-  rotator: ["payment flows", "KYC journeys", "encrypted SDKs", "LLM agent pipelines", "design systems"],
+  // Lock-screen notifications on the hero phone. Each one is a real result from the projects below.
+  notes: [
+    { app: "Design system", text: "Release shipped to 20 apps", when: "now", icon: "ds", href: "/work/design-system" },
+    { app: "RedCell", text: "Attack success 83% → 0% with guardrails", when: "2h ago", icon: "rc", href: "/work/redcell" },
+    { app: "Storybook", text: "Your fix was merged upstream", when: "1d ago", icon: "sb", href: "#open-source" },
+    { app: "Onboarding PWA", text: "12 KYC states → 6 clear screens", when: "2d ago", icon: "pwa", href: "/work/onboarding-pwa" },
+  ],
 };
 
+// What I do: the stepped rows under About.
+export const services = [
+  { title: "Frontend", note: "React, Next.js, TypeScript, performance." },
+  { title: "Mobile", note: "Flutter, React Native, server-driven UI." },
+  { title: "SDKs & auth", note: "Embeddable SDKs, sessions, WebCrypto." },
+  { title: "Design systems", note: "Tokens, components, Storybook, 20 apps." },
+  { title: "AI agents", note: "LangGraph, MCP, red-teaming, guardrails." },
+];
+
+// Runs as the ticker under the hero.
 export const marquee = [
   "TypeScript", "React", "Next.js", "React Native", "Flutter", "Python",
   "LangGraph", "Tailwind CSS", "TanStack Query", "Zustand", "WebCrypto", "gRPC-Web",
 ];
 
-export const domains = [
-  "Payments", "KYC onboarding", "Encryption", "Design systems", "Micro-frontends",
-  "Offline-first", "Server-driven UI", "Performance", "LLM agents", "AI security",
-];
-
-// *wrapped* words render in the accent serif.
+// *wrapped* words render at full contrast; the rest of the sentence sits in the muted tone.
 export const about =
   "I own features end to end, from *architecture* to *production monitoring.* A *credit card module* in Flutter. *KYC onboarding* in production. Embeddable *SDKs.* A *design system* 20 apps depend on.";
 
 export const stats = [
-  { from: 0, to: 8, suffix: "+", label: "Products & SDKs built at Niyo" },
-  { from: 0, to: 20, suffix: "", label: "Apps on the design system I own" },
-  { from: 0, to: 78, suffix: "%", label: "Lighter Video KYC SDK" },
-  { from: 0, to: 97, suffix: "", label: "Lighthouse performance on Slow 4G, with 100 accessibility" },
+  { to: 8, suffix: "+", label: "Products & SDKs built at Niyo" },
+  { to: 20, suffix: "", label: "Apps on the design system I own" },
+  { to: 78, suffix: "%", label: "Lighter Video KYC SDK" },
+  { to: 97, suffix: "", label: "Lighthouse performance on Slow 4G, with 100 accessibility" },
 ];
 
-// Card copy (big, caption, points, stack) shows on the home roadmap; the rest is the case study at /work/<slug>.
 export const projects = [
   {
     slug: "credit-card-app",
+    flow: ["Super-app (Flutter)", "Card plugin", "React PWA over a JS bridge", "Bank APIs", "Remote Config flags"], // the case study's "how it fits together" diagram
+    color: "#1d3a8a", // sapphire; panel colour on the home page and case study
+    on: "#ffffff", // text colour on that panel
     title: "Co-Branded Credit Card",
     kind: "Mobile · Flutter",
-    hue: 75,
     big: "End to end",
     caption: "From an empty Flutter plugin to a live card module",
     points: [
-      "Scaffolded the Flutter plugin and built most of the card module: homepage, transactions, card controls, activation and statements on live bank APIs.",
-      "React PWA running inside Flutter over a JS bridge, plus in-app BBPS bill pay launched via a remote flag.",
+      "Set up the Flutter plugin and co-built the card module end to end on live bank APIs.",
+      "In-app bill payment with status tracking that prevents duplicate payments.",
+      "Rebuilt card activation when the bank retired its activation API.",
     ],
     stack: ["Flutter", "Dart", "Kotlin", "BLoC", "GetX", "Remote Config"],
     role: "Co-built with one teammate. I scaffolded the Flutter plugin and owned most of the card module after onboarding, from bank API integration to host-app release.",
@@ -68,14 +82,17 @@ export const projects = [
   },
   {
     slug: "onboarding-pwa",
+    flow: ["WebView", "PAN check", "Video KYC", "CKYC router: 12 states → 6 screens", "Consent", "Card offer"],
+    color: "#d4a24c", // gold
+    on: "#111111",
     title: "Credit Card Onboarding PWA",
     kind: "Web · PWA",
-    hue: 262,
     big: "12 → 6",
     caption: "CKYC states → clear screens",
     points: [
-      "Led it from empty repo to production; owned the PAN, Video KYC and CKYC flows.",
-      "Ops change downtime notices and agent hours from the CMS — no redeploy.",
+      "Led it from an empty repo to production; owned the PAN, Video KYC and CKYC flows.",
+      "Fixed a production outage that stopped key screens loading, and a KYC redirect loop.",
+      "Turned rejection into a secured-card offer; ops edit content from the CMS, no redeploy.",
     ],
     stack: ["React", "TypeScript", "Workbox", "Strapi"],
     role: "Led it from an empty repo to production, working with one other frontend engineer. I owned the PAN, Video KYC, CKYC, consent and downtime screens.",
@@ -88,6 +105,7 @@ export const projects = [
       "CMS-driven config (Strapi) for downtime notices and Video KYC agent hours. It fails open, so a CMS outage can't block onboarding.",
       "A secured-card offer on the rejection screen, so a rejected applicant gets a next step instead of a dead end.",
       "Sentry error monitoring with no session replay, because replay would record PAN and Aadhaar details.",
+      "A fix for a KYC redirect loop that left users stuck between the bank's page and the app.",
     ],
     hard:
       "Four onboarding screens suddenly failed to load for every user. I ruled out a Safari gap and a stale deploy, then probed the CDN directly and found a firewall rule blocking some of the JS chunk names the build generated. Switching the build's content hashes to hex removed the whole class of problem, instead of asking for a firewall exception.",
@@ -96,14 +114,17 @@ export const projects = [
   },
   {
     slug: "design-system",
+    flow: ["Figma tokens", "Typed MUI theme", "49 components", "Storybook previews in CI", "Tree-shakeable build", "20 apps"],
+    color: "#e9dcc6", // champagne
+    on: "#111111",
     title: "Shared Design System",
     kind: "Library · React",
-    hue: 45,
     big: "20 apps",
     caption: "Depend on the shared library",
     points: [
-      "I own it: built 22 of its 49 components from Figma tokens, in light and dark.",
-      "Tree-shakeable build; moved the Video KYC SDK onto it, 2.9 MB → 651 KB.",
+      "Own the shared React design system used by 20 internal apps.",
+      "Built 22 of its 49 components from Figma; review and merge other contributors' code.",
+      "Made it tree-shakeable: the Video KYC SDK went 78% lighter. Storybook previews in CI.",
     ],
     stack: ["React", "Material UI", "Storybook", "Vite"],
     role: "Owner. I built 22 of its 49 components, shipped about 40 releases, and review and merge other contributors' work.",
@@ -124,14 +145,17 @@ export const projects = [
   },
   {
     slug: "sdks",
+    flow: ["Host app", "AuthModal() / openPanModal()", "OTP + HttpOnly cookie session", "Single-flight refresh (Web Locks)", "Encrypted HTTP client", "APIs"],
+    color: "#c9ccd1", // platinum
+    on: "#111111",
     title: "Auth & Encryption SDKs",
     kind: "Platform · SDKs",
-    hue: 168,
     big: "1 call",
     caption: "Login or PAN check in any host app",
     points: [
-      "OTP login with HttpOnly sessions and one token refresh shared across tabs.",
-      "Top contributor to the E2E-encrypted HTTP SDK; built encrypted telemetry capturing Core Web Vitals.",
+      "Embeddable OTP login and PAN verification SDKs: any host app integrates with one call.",
+      "Secure sessions across browser tabs, with one shared token refresh.",
+      "Top contributor to the end-to-end encrypted HTTP client: per-domain keys and bug fixes.",
     ],
     stack: ["TypeScript", "WebCrypto", "Web Locks", "gRPC-Web"],
     role: "Owned and developed the login, PAN and telemetry SDKs; top contributor to the encrypted HTTP SDK.",
@@ -152,14 +176,17 @@ export const projects = [
   },
   {
     slug: "compliance-workbench",
+    flow: ["Maker edits rules", "Change request", "Readable change rows", "Checker approves", "New version", "Bulk re-score"],
+    color: "#0e6b4f", // emerald
+    on: "#ffffff",
     title: "Forex Compliance Workbench",
     kind: "Web · Micro-frontends",
-    hue: 28,
     big: "Maker–checker",
     caption: "Approvals with gated PII",
     points: [
-      "Micro-frontend consoles for customer risk scoring and KYC review.",
-      "Permission-gated PII and correlation IDs across the API layer.",
+      "Data-heavy admin consoles: customer 360 view and KYC review with maker-checker approvals.",
+      "Restructured the API layer into domain services with consistent auth and request tracing.",
+      "Combined separate transaction tables into one unified search.",
     ],
     stack: ["React", "single-spa", "Redux-Saga", "Tailwind"],
     role: "Built the risk-scoring and KYC review consoles.",
@@ -171,6 +198,7 @@ export const projects = [
       "KYC review pages with document viewers (image, PDF, video, XML) and identity-match results.",
       "A customer 360 view with permission-gated PII unmasking, PEP review and one transaction search across three products.",
       "A per-domain API layer that adds fresh auth and a correlation ID to every request.",
+      "Separate transaction tables combined into one unified search.",
     ],
     hard:
       "Change requests came back as nested before-and-after configs that no reviewer could read. I flattened them into readable change rows, matching risk bands by flag instead of array position, so a checker sees exactly what they are approving.",
@@ -179,14 +207,17 @@ export const projects = [
   },
   {
     slug: "react-native-app",
+    flow: ["CMS layout", "One fetch + bundled fallback", "Fail-safe mappers", "13 section renderers", "Home screen"],
+    color: "#7b4a2a", // cognac
+    on: "#ffffff",
     title: "React Native App",
     kind: "Mobile · React Native",
-    hue: 205,
     big: "13",
     caption: "Home sections the product team edits live",
     points: [
-      "Server-driven home: 13 CMS sections, reordered without an app release.",
-      "Debit card lock, block and limits — every change OTP-verified.",
+      "Server-driven home screen that updates from the CMS without an app release.",
+      "13 CMS sections the product team can reorder live.",
+      "Debit card lock, block and limits, every change verified with OTP.",
     ],
     stack: ["Expo", "TanStack Query", "Reanimated", "Zustand"],
     role: "Built the homepage, debit card controls and push notifications in the rebuild from Flutter to React Native.",
@@ -205,14 +236,17 @@ export const projects = [
   },
   {
     slug: "redcell",
+    flow: ["189 published attacks", "Real MCP servers", "Agent under test", "Guardrails", "Deterministic verifier", "Leaderboard"],
+    color: "#c83223", // signal red
+    on: "#ffffff",
     title: "RedCell",
     kind: "Side project · AI security",
-    hue: 330,
     big: "83% → 0%",
     caption: "Static attacks that got through on a 7B agent, without vs with guardrails",
     points: [
-      "Red-teams real LLM agents (Claude Haiku, Qwen-7B) through real MCP servers: 189 attacks built from published research, across fintech, healthcare and email agents.",
-      "An adaptive attacker still got through 10 of 27 times by leaking a secret in the system prompt; moving the secret out took it to 0 of 27.",
+      "Open-source tool that attacks real AI agents through MCP servers: 189 published attacks.",
+      "Its guardrails cut a 7B agent's attack success from 83% to 0%, with no lost answers.",
+      "An adaptive attacker still got in 10 of 27 times; moving a system-prompt secret out made it 0.",
     ],
     stack: ["Python", "MCP", "Claude API", "Next.js"],
     repo: "https://github.com/shivastuu/redcell",
@@ -234,15 +268,80 @@ export const projects = [
 ];
 
 export const experience = [
-  { when: "Aug 2025 — Now", role: "Software Development Engineer I", org: "Niyo", note: "Own the design system and the login, PAN and telemetry SDKs; led the onboarding PWA and co-built the Flutter credit card module." },
-  { when: "Jan — Jul 2025", role: "Project Trainee", org: "Niyo", note: "Started on the design system and built the PAN verification SDK; converted to full-time." },
-  { when: "2021 — 2025", role: "B.E., Electronics & Communication", org: "Thapar Institute of Engineering & Technology", note: "Patiala, Punjab." },
+  {
+    when: "Aug 2025 — Now",
+    role: "Software Development Engineer I",
+    org: "Niyo",
+    note: "Own the design system and the login, PAN and telemetry SDKs; led the onboarding PWA and co-built the Flutter credit card module.",
+    points: [
+      "Own the shared React design system used by 20 internal apps.",
+      "Led the credit card onboarding PWA from an empty repo to production.",
+      "Co-built the Flutter credit card module and in-app bill payment.",
+      "Built data-heavy compliance consoles and a server-driven React Native home.",
+    ],
+  },
+  {
+    when: "Jan — Jul 2025",
+    role: "Project Trainee",
+    org: "Niyo",
+    note: "Started on the design system and built the PAN verification SDK; converted to full-time.",
+    points: ["Started on the shared design system.", "Built the PAN verification SDK.", "Converted to a full-time SDE-1 role."],
+  },
+  {
+    when: "Oct 2021 — Oct 2025",
+    role: "B.E., Electronics & Communication",
+    org: "Thapar Institute of Engineering & Technology",
+    note: "Patiala, Punjab.",
+    points: ["Bachelor of Engineering, Patiala, Punjab."],
+  },
 ];
 
 export const skills = [
-  { group: "Languages", items: ["TypeScript", "JavaScript", "Python", "Dart", "HTML", "CSS"] },
-  { group: "Frameworks & tools", items: ["React", "Next.js", "React Native", "Flutter", "Tailwind CSS", "Redux Toolkit", "TanStack Query", "BLoC", "Vite", "Webpack", "Jest", "Vitest", "Sentry", "Firebase", "LangGraph", "Claude API", "CI/CD"] },
-  { group: "Concepts", items: ["REST APIs", "LLM agent pipelines", "Auth & session security", "Encryption", "Performance & monitoring", "Micro-frontends", "Design systems", "Server-driven UI", "UI/UX", "Unit testing"] },
+  { group: "Languages", items: ["TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3", "Python", "Dart"] },
+  { group: "Frontend & mobile", items: ["React", "Next.js", "React Native", "Flutter", "Redux", "Redux-Saga", "Zustand", "TanStack Query"] },
+  { group: "Testing & tools", items: ["Jest", "Vitest", "Storybook", "Material UI", "Tailwind CSS", "Vite", "Webpack", "Git", "CI/CD", "Claude Code"] },
+  { group: "Concepts", items: ["Component design", "State management", "Responsive design", "Accessibility", "Performance", "Code reviews", "Micro-frontends", "LLM agents"] },
+];
+
+// Open-source work. Storybook links go to a GitHub search of his pull requests there, so anyone can check them.
+export const openSource = [
+  {
+    repo: "storybookjs/storybook",
+    about: "UI component workshop · 90k+ stars",
+    state: "Merged",
+    title: "Docs blocks recover after an error is fixed",
+    text: "Fixed a bug where Docs story blocks stayed stuck on an error after the code was fixed. Merged upstream.",
+    stack: ["React", "TypeScript"],
+    href: "https://github.com/storybookjs/storybook/pulls?q=is%3Apr+author%3Ashivastuu",
+  },
+  {
+    repo: "storybookjs/storybook",
+    about: "UI component workshop · 90k+ stars",
+    state: "Open",
+    title: "Find components by their other names",
+    text: "Pull request adding alternative component names to sidebar search, with ranking, tests and docs.",
+    stack: ["React", "TypeScript", "Vitest"],
+    href: "https://github.com/storybookjs/storybook/pulls?q=is%3Apr+author%3Ashivastuu",
+  },
+  {
+    repo: "shivastuu/redcell",
+    about: "Red-team and guardrails for LLM agents",
+    state: "Public",
+    title: "RedCell",
+    text: "An open-source tool that attacks AI agents through MCP. Its guardrails cut attack success from 83% to 0%.",
+    stack: ["Python", "MCP", "Claude API", "Next.js"],
+    href: "https://github.com/shivastuu/redcell",
+  },
+];
+
+// The big achievements line in the ticker.
+export const highlights = [
+  "Design system used by 20 apps",
+  "Fix merged into Storybook",
+  "Video KYC SDK 78% lighter",
+  "PWA: empty repo → production",
+  "Attack success 83% → 0%",
+  "Lighthouse 97 on Slow 4G",
 ];
 
 // Starter questions in the "Ask about me" chat.
@@ -257,7 +356,11 @@ export const aiNotes = [
   "Next.js: App Router, React Server Components, static generation with generateStaticParams, next/font, the Metadata API and serverless functions, used in this portfolio (Next.js 16) and the RedCell dashboard (Next.js 15). He also wrote the shared design system's Next.js App Router integration guide for the apps that consume it.",
   "Experience: 2 years at Niyo (Project Trainee from Jan 2025, SDE-1 since Aug 2025). Always say \"2 years of experience\", not \"nearly\" or \"almost\".",
   "React: 2 years of production React and TypeScript at Niyo, across an onboarding PWA, embeddable SDKs, a shared design system used by about 20 apps, and micro-frontend consoles.",
+  "Open source: contributor to Storybook (90k+ GitHub stars). A bug fix where Docs story blocks stayed stuck on an error after the code was fixed was merged upstream; a second pull request adds alternative component names to sidebar search, with ranking, tests and docs, and is open.",
 ];
 
+// Lighthouse lab scores for the home page on desktop (production build, measured before release). Re-measure after big changes.
+export const lighthouse = { performance: 98, accessibility: 100, bestPractices: 100, seo: 100 };
+
 export const site =
-  "This site is built with Next.js 16 (App Router, statically exported to Netlify), GSAP and Lenis for motion, and a light/dark theme. Each project has its own statically generated case-study page.";
+  "This site is built with Next.js 16 (App Router, statically exported to Netlify), GSAP and Lenis for restrained motion, and a light/dark theme. Each project has its own statically generated case-study page. It has a command palette (Cmd/Ctrl+K), live demos inside the case studies, light and dark themes, and scores 98 performance and 100 accessibility, best practices and SEO in Lighthouse on desktop.";

@@ -1,50 +1,51 @@
-// Text of his resume (source: ~/Desktop/resume/resume-main.tex) for the "Ask about me" AI. The PDF itself isn't published on the site.
-// Update it whenever the PDF changes.
+// Text of his resume (Shivastu_Shrivastava_SDE.pdf) for the "Ask about me" AI. The PDF itself isn't published on the site,
+// and the phone number is left out on purpose. Update this whenever the PDF changes.
 export const resume = `Shivastu Shrivastava. shivastuu@gmail.com | LinkedIn | GitHub | Portfolio | Bangalore, India
 
 Summary
-Software Engineer with 2 years owning fintech products end to end at Niyo: React, Next.js and TypeScript on the web, Flutter and React Native on mobile, from architecture to production monitoring.
+Frontend Engineer with 2 years of experience building production React and TypeScript applications at Niyo, a fintech company. Led a credit card onboarding PWA from scratch to production, owned a design system used by 20 internal apps, and built reusable SDKs and enterprise admin consoles.
 
 Experience
 Niyo – Indian Fintech: Cards, Forex and Partner-Bank Products, Bangalore, India
 Software Development Engineer I (SDE-1), Aug 2025 – Present
 Project Trainee, Jan 2025 – Jul 2025
 
-Co-Branded Credit Card Module | Flutter, Dart, BLoC, GetX, Kotlin, Firebase Remote Config
-- Scaffolded the Flutter plugin and co-built the card module end to end with one teammate: homepage, transactions, card controls, activation and statements on live bank APIs, hosting a React PWA over a JS bridge.
-- Built and launched in-app credit card bill payment (BBPS) with fail-closed status polling that prevents duplicate payments, shipped via a Remote Config flag without an app update.
-- Rebuilt card activation around PIN setup when the bank retired its activation API, and removed transaction-list lag by scoping BLoC rebuilds per tab.
+Credit Card Onboarding PWA | React, TypeScript, Vite, Zustand, Workbox, Sentry, Strapi CMS
+- Led the development of the credit card onboarding PWA from an empty repository to production, owning the PAN, Video KYC and CKYC verification flows.
+- Diagnosed and fixed a production outage that stopped key onboarding screens from loading for all users, and resolved a KYC redirect loop that left users stuck.
+- Turned the rejection screen into a secured-card offer, and built CMS-driven settings that let the operations team update content without a redeploy.
 
-Credit Card Onboarding PWA | React, TypeScript, Vite, Workbox, Zustand, Sentry, Strapi CMS
-- Led the onboarding PWA from an empty repo to production, owning the PAN, Video KYC and CKYC flows and a status router mapping 12 CKYC states to 6 screens.
-- Built CMS-driven remote config (Strapi) so ops change downtime notices and Video KYC agent hours without a redeploy, plus a secured-card offer on the rejection screen.
-- Root-caused a production outage where a firewall rule blocked some generated JS chunk names and fixed it at the build level; fixed iOS WebKit cross-browser bugs.
+Co-Branded Credit Card Module | Flutter, Dart, BLoC, Kotlin, Firebase Remote Config
+- Set up the Flutter plugin and co-built the credit card module end to end on live bank APIs, covering transactions, card controls, activation and statements.
+- Built in-app credit card bill payment with status tracking that prevents duplicate payments, and rebuilt card activation when the bank retired its activation API.
 
 Design System | React, TypeScript, Material UI, Storybook, Vite
-- Owned the company's shared React design system used by 20 internal apps: built 22 of its 49 components from Figma tokens, shipped about 40 releases and wrote its adoption guide, incl. Next.js.
-- Made it tree-shakeable; moving the Video KYC SDK onto it cut that SDK by 78% (2.9 MB to 651 KB).
+- Owned the company's shared React design system, used by 20 internal apps; built 22 of its 49 reusable components from Figma and reviewed and merged code from other contributors.
+- Made the library tree-shakeable, cutting the Video KYC SDK bundle by 78%, and added Storybook previews in CI.
 
-Authentication, KYC and Platform SDKs | React, TypeScript, Axios, WebCrypto, Web Locks API, gRPC-Web
-- Owned and developed embeddable OTP login and PAN verification SDKs that mount in any host app with one call, with HttpOnly-cookie sessions and single-flight token refresh across tabs (Web Locks API).
-- Top contributor to the company's end-to-end encrypted HTTP SDK: per-domain key routing and encrypted error handling, and took npm audit from 24 vulnerabilities to 0.
-- Owned and developed an encrypted telemetry SDK capturing Core Web Vitals over gRPC-Web, and shipped a page scoring Lighthouse 97 Performance / 100 Accessibility on Slow 4G.
+Authentication, KYC and Platform SDKs | React, TypeScript, Axios, WebCrypto, Vitest
+- Built embeddable OTP login and PAN verification SDKs that any host app can integrate with a single call, with secure session handling across browser tabs.
+- As the top contributor to the company's end-to-end encrypted HTTP client, added per-domain encryption keys and fixed bugs that caused successful API calls to fail.
 
-Compliance Workbench and React Native App | React, single-spa, Redux-Saga, Expo, TanStack Query
-- Built micro-frontend consoles for KYC review and risk scoring with maker-checker approvals and gated PII.
-- Shipped a server-driven React Native homepage (13 CMS sections) and OTP-verified debit card controls.
+Compliance Workbench (Enterprise Admin Consoles) | React, TypeScript, single-spa, Redux-Saga
+- Built data-heavy admin consoles for compliance teams, including a customer 360 view and KYC review screens with maker-checker approvals.
+- Restructured the API layer into domain-based services with consistent authentication and request tracing, and combined separate transaction tables into one unified search.
 
-Projects
+React Native App | React Native, Expo, TanStack Query, Reanimated
+- Built a server-driven home screen that updates from the CMS without an app release.
+
+Open Source and Projects
+Storybook (open-source UI component workshop, 90k+ GitHub stars) | React, TypeScript, Vitest
+- Fixed a bug, merged upstream, where Docs story blocks stayed stuck on an error after the code was fixed.
+- Opened a pull request adding alternative component names to sidebar search, with ranking, tests and docs.
 RedCell – Red-Team and Guardrails for LLM Agents | Python, MCP, Claude API, Next.js
-- Built an open-source harness that attacks LLM agents through MCP servers with 189 published attacks.
-- Five guardrails cut a 7B agent's attack success from 83% to 0% with no lost answers; an adaptive LLM attacker still broke in 10 of 27 times via a system-prompt secret, and removing it took that to 0.
-Portfolio – shivastuu.netlify.app | Next.js 16, TypeScript, GSAP, Netlify Functions
-- Built a statically generated Next.js App Router site with per-project case studies and an AI assistant that answers recruiters from my resume via a rate-limited serverless function.
+- Built an open-source tool that attacks AI agents via MCP; its guardrails cut attack success from 83% to 0%.
 
 Technical Skills
 Languages: TypeScript, JavaScript (ES6+), HTML5, CSS3, Python, Dart
-Frontend & Mobile: React, Next.js (App Router, SSG), React Native, Flutter, Redux, Zustand, TanStack Query
-UI & Tools: Material UI, Tailwind CSS, Storybook, Vite, Webpack, Jest, Vitest, Sentry, Lighthouse, Git, CI/CD
-Concepts: REST APIs, Web Performance, Core Web Vitals, Accessibility, Design Systems, Micro-Frontends, PWAs
+Frontend & Mobile: React, Next.js, React Native, Flutter, Redux, Redux-Saga, Zustand, TanStack Query
+Testing & Tools: Jest, Vitest, Storybook, Material UI, Tailwind CSS, Vite, Webpack, Git, CI/CD, Claude Code
+Concepts: Component Design, State Management, Responsive Design, Accessibility, Performance, Code Reviews
 
 Education
 Thapar Institute of Engineering and Technology, Patiala, Punjab
