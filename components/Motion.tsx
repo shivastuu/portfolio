@@ -58,6 +58,21 @@ export default function Motion({ children }: { children: ReactNode }) {
           onEnter: (els) => gsap.to(els, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", stagger: 0.06 }),
         });
       }
+      // Touch screens have no cursor to move the light on metal cards (see Cursor.tsx), so scrolling moves it.
+      if (matchMedia("(hover: none)").matches)
+        gsap.utils.toArray<HTMLElement>("[data-metal]").forEach((el) =>
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top bottom",
+            end: "bottom top",
+            onUpdate: (s) => {
+              el.style.setProperty("--mx", `${(10 + s.progress * 80).toFixed(1)}%`);
+              el.style.setProperty("--my", `${(70 - s.progress * 60).toFixed(1)}%`);
+              el.style.setProperty("--ry", `${((s.progress - 0.5) * 22).toFixed(2)}deg`);
+              el.style.setProperty("--rx", `${((0.5 - s.progress) * 10).toFixed(2)}deg`);
+            },
+          }),
+        );
       ScrollTrigger.sort();
       document.fonts.ready.then(() => ScrollTrigger.refresh());
     });

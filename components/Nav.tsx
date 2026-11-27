@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import CmdButton from "./CmdButton";
+import MobileMenu from "./MobileMenu";
 
 // home: same-page anchors. Elsewhere (case studies) links route back to the home sections;
 // "Contact" stays on-page because every page ends with the contact section.
@@ -38,6 +39,7 @@ export default function Nav({ home = false }: { home?: boolean }) {
           Available for work <span className="dot" aria-hidden />
         </a>
         <ThemeToggle />
+        <MobileMenu home={home} />
       </div>
       <i className="nav__progress" aria-hidden />
     </header>
