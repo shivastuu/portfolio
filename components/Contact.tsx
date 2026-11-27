@@ -1,47 +1,64 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { links } from "../lib/content";
-import { Lines } from "./Motion";
-import Magnetic from "./Magnetic";
-
-const clock = () =>
-  new Intl.DateTimeFormat("en-IN", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" }).format(new Date());
+import { hero, links } from "../lib/content";
+import { useClock } from "../lib/useClock";
+import { SectionHead } from "./Motion";
 
 export default function Contact() {
-  // Client-only so server and client HTML match.
-  const [time, setTime] = useState("");
-  useEffect(() => {
-    setTime(clock());
-    const id = setInterval(() => setTime(clock()), 30_000);
-    return () => clearInterval(id);
-  }, []);
+  const time = useClock();
 
   return (
-    <section className="contact" id="contact">
-      <p className="label" data-scramble>(Hiring? Let&apos;s talk)</p>
-      <h2 className="contact__title" data-reveal="line">
-        <Lines lines={["Let's build", <><em className="serif">something</em> that ships.</>]} />
-      </h2>
+    <section className="section contact" id="contact">
+      <SectionHead title="Contact" n="04" />
 
-      <div className="contact__cta" data-reveal="fade">
-        <Magnetic>
-          <a href={`mailto:${links.email}`} className="orb">
-            Say hello <span aria-hidden>↗</span>
-          </a>
-        </Magnetic>
-        <a href={`mailto:${links.email}`} className="contact__email">
-          {links.email}
+      <a href={`mailto:${links.email}`} className="contact__big" data-reveal="fade">
+        <span>Let&apos;s talk</span>
+        <span className="contact__arrow" aria-hidden>
+          ↗
+        </span>
+      </a>
+
+      <dl className="contact__grid" data-reveal="fade">
+        <div>
+          <dt>Email</dt>
+          <dd>
+            <a href={`mailto:${links.email}`} className="u">
+              {links.email}
+            </a>
+          </dd>
+        </div>
+        <div>
+          <dt>Elsewhere</dt>
+          <dd>
+            <a href={links.linkedin} target="_blank" rel="noreferrer" className="u">
+              LinkedIn
+            </a>
+            ,{" "}
+            <a href={links.github} target="_blank" rel="noreferrer" className="u">
+              GitHub
+            </a>
+          </dd>
+        </div>
+        <div>
+          <dt>Based</dt>
+          <dd>
+            Bangalore, IN <span className="tnum">{time && `· ${time} IST`}</span>
+          </dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>
+            <span className="dot" aria-hidden /> {hero.status}
+          </dd>
+        </div>
+      </dl>
+
+      <footer className="footer mono">
+        <span suppressHydrationWarning>© {new Date().getFullYear()} Shivastu Shrivastava</span>
+        <span>Built by hand with Next.js</span>
+        <a href="#top" className="u">
+          Back to top ↑
         </a>
-      </div>
-
-      <footer className="footer">
-        <nav className="footer__links">
-          <a href={links.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
-          <a href={links.github} target="_blank" rel="noreferrer">GitHub ↗</a>
-        </nav>
-        <p className="label">Bangalore {time && `· ${time} IST`}</p>
-        <p className="label" suppressHydrationWarning>© {new Date().getFullYear()} Shivastu Shrivastava</p>
       </footer>
     </section>
   );

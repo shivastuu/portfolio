@@ -1,61 +1,24 @@
-"use client";
-
-import { useRef } from "react";
-import { gsap, useGSAP, MOTION } from "../lib/gsap";
 import { about, stats } from "../lib/content";
+import { SectionHead } from "./Motion";
 
-const words = about
-  .split(/(\*[^*]+\*)/)
-  .flatMap((seg) => seg.replaceAll("*", "").split(/\s+/).filter(Boolean).map((w) => ({ w, em: seg.startsWith("*") })));
+// *wrapped* phrases stay full contrast; everything else is muted, so the sentence reads as its highlights.
+const parts = about.split(/(\*[^*]+\*)/).filter(Boolean);
 
 export default function About() {
-  const root = useRef<HTMLElement>(null);
-
-  useGSAP(
-    () => {
-      gsap.matchMedia().add(MOTION, () => {
-        // Words light up one by one as the paragraph scrolls through. --p mixes from a dim colour that still
-        // passes large-text contrast (see .about__text .w in globals.css), so no word is ever unreadable.
-        gsap.fromTo(
-          ".about__text .w",
-          { "--p": 0 },
-          { "--p": 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: ".about__text", start: "top 75%", end: "bottom 45%", scrub: true } },
-        );
-        gsap.utils.toArray<HTMLElement>(".stat b").forEach((el) => {
-          const { from, to } = el.dataset;
-          const n = { v: Number(from) };
-          gsap.to(n, {
-            v: Number(to),
-            duration: 2,
-            ease: "power3.out",
-            scrollTrigger: { trigger: el, start: "top 90%" },
-            onUpdate: () => void (el.textContent = n.v.toFixed(Number(from) % 1 ? 1 : 0)),
-            onComplete: () => void (el.textContent = String(to)),
-          });
-        });
-      });
-    },
-    { scope: root },
-  );
-
   return (
-    <section ref={root} className="about" id="about">
-      <p className="label" data-scramble>(About)</p>
-      <p className="about__text">
-        {words.map(({ w, em }, i) => (
-          <span key={i} className={em ? "w serif accent" : "w"}>
-            {w}{" "}
-          </span>
-        ))}
+    <section className="section about" id="about">
+      <SectionHead title="About" n="01" />
+      <p className="about__text" data-reveal="fade">
+        {parts.map((seg, i) =>
+          seg.startsWith("*") ? <strong key={i}>{seg.slice(1, -1)}</strong> : <span key={i}>{seg}</span>,
+        )}
       </p>
       <ul className="stats">
         {stats.map((s) => (
           <li className="stat" key={s.label} data-reveal="fade">
             <span className="stat__num">
-              <b data-from={s.from} data-to={s.to}>
-                {s.to}
-              </b>
-              <span className="accent">{s.suffix}</span>
+              {s.to}
+              {s.suffix}
             </span>
             <span className="stat__label">{s.label}</span>
           </li>

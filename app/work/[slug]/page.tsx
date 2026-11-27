@@ -1,5 +1,5 @@
 import type { Metadata, ResolvingMetadata } from "next";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "../../../lib/content";
@@ -28,9 +28,9 @@ const pad = (n: number) => String(n).padStart(2, "0");
 function Block({ n, title, children }: { n: number; title: string; children: ReactNode }) {
   return (
     <div className="case__block" data-reveal="fade">
-      <p className="label">
-        ({pad(n)}) {title}
-      </p>
+      <h2 className="case__label mono">
+        [{pad(n)}] {title}
+      </h2>
       <div className="case__text">{children}</div>
     </div>
   );
@@ -44,42 +44,45 @@ export default async function CaseStudy({ params }: Props) {
   const next = projects[(i + 1) % projects.length];
 
   return (
-    <main className="case" style={{ "--h": p.hue } as CSSProperties}>
+    <main className="case">
       <Nav />
       <header className="case__head">
-        <Link href="/#work" className="label case__back">
-          ← All work
-        </Link>
-        <p className="label" data-scramble>
-          (Case study {pad(i + 1)} / {pad(projects.length)} — {p.kind})
-        </p>
+        <div className="case__top mono">
+          <Link href="/#work" className="u">
+            ← All work
+          </Link>
+          <span>
+            Case study [{pad(i + 1)}/{pad(projects.length)}]
+          </span>
+          <span>{p.kind}</span>
+        </div>
         <h1 className="case__title" data-reveal="line">
           <Lines lines={[p.title]} />
         </h1>
         <div className="case__hero" data-reveal="fade">
-          <p className="milestone__big">{p.big}</p>
-          <p className="milestone__caption">{p.caption}</p>
+          <p className="case__big">{p.big}</p>
+          <p className="case__cap">{p.caption}</p>
         </div>
         <dl className="case__meta" data-reveal="fade">
           <div>
-            <dt className="label">Role</dt>
+            <dt className="mono">Role</dt>
             <dd>{p.role}</dd>
           </div>
           <div>
-            <dt className="label">Status</dt>
+            <dt className="mono">Status</dt>
             <dd>
               {p.status}
               {p.repo && (
-                <a className="case__repo" href={p.repo} target="_blank" rel="noreferrer">
-                  Code on GitHub <span aria-hidden>↗</span>
+                <a className="case__repo mono u" href={p.repo} target="_blank" rel="noreferrer">
+                  Code on GitHub ↗
                 </a>
               )}
             </dd>
           </div>
           <div>
-            <dt className="label">Stack</dt>
+            <dt className="mono">Stack</dt>
             <dd>
-              <ul className="chips">
+              <ul className="tags">
                 {p.stack.map((s) => (
                   <li key={s}>{s}</li>
                 ))}
@@ -94,7 +97,7 @@ export default async function CaseStudy({ params }: Props) {
           <p>{p.problem}</p>
         </Block>
         <Block n={2} title="What I built">
-          <ul className="card__points">
+          <ul className="case__list">
             {p.built.map((b) => (
               <li key={b}>{b}</li>
             ))}
@@ -109,9 +112,9 @@ export default async function CaseStudy({ params }: Props) {
       </div>
 
       <Link href={`/work/${next.slug}`} className="case__next">
-        <span className="label">Next case study</span>
+        <span className="mono">Next case study [{pad(((i + 1) % projects.length) + 1)}]</span>
         <span className="case__next-title">
-          {next.title} <span aria-hidden>→</span>
+          {next.title} <span aria-hidden>↗</span>
         </span>
       </Link>
 

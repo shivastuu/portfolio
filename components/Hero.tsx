@@ -1,70 +1,26 @@
 "use client";
 
+import Link from "next/link";
 import { useRef } from "react";
 import { gsap, useGSAP, MOTION } from "../lib/gsap";
-import { hero } from "../lib/content";
+import { hero, projects } from "../lib/content";
+import { useClock } from "../lib/useClock";
 import Nav from "./Nav";
 
-const chars = (word: string) =>
-  [...word].map((c, i) => (
-    <span className="char" key={i}>
-      {c}
-    </span>
-  ));
+const pad = (n: number) => String(n).padStart(2, "0");
 
 export default function Hero() {
   const root = useRef<HTMLDivElement>(null);
+  const time = useClock();
 
   useGSAP(
     () => {
-      // The layout's boot script sets is-loading only on the first home visit of a session.
-      const html = document.documentElement;
-      const preload = html.classList.contains("is-loading");
-      const done = () => {
-        html.classList.remove("is-loading");
-        try {
-          sessionStorage.setItem("intro", "1");
-        } catch {}
-        dispatchEvent(new Event("intro:done"));
-      };
-      const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: reduce)", done);
-      mm.add(MOTION, () => {
-        const tl = gsap.timeline({ onComplete: done });
-        if (preload) {
-          const counter = root.current!.querySelector(".preloader__count")!;
-          const n = { v: 0 };
-          // Short on purpose (~0.85 s): the hero text can't paint until it's done, and that's the page's LCP
-          tl.to(n, {
-            v: 100,
-            duration: 0.5,
-            ease: "power2.inOut",
-            onUpdate: () => void (counter.textContent = String(Math.round(n.v)).padStart(3, "0")),
-          })
-            .to(".preloader__bar", { scaleX: 1, duration: 0.5, ease: "power2.inOut" }, 0)
-            .to(".preloader", { yPercent: -100, duration: 0.5, ease: "expo.inOut" }, "-=0.15");
-        }
-        tl.from(".hero__name .char", { yPercent: 115, rotate: 8, duration: 1.4, ease: "expo.out", stagger: 0.03 }, preload ? "-=0.3" : 0)
-          // A mask reveal, not a fade: the text is always full contrast, even mid-animation
-          .from("[data-intro]", { y: 24, clipPath: "inset(0 0 100% 0)", duration: 1, ease: "power3.out", stagger: 0.08, clearProps: "clipPath" }, "-=1.1");
-
-        // Word rotator: each word slides up and out, the next slides in.
-        const words = gsap.utils.toArray<HTMLElement>(".rotator > span");
-        gsap.set(words.slice(1), { yPercent: 100 });
-        const loop = gsap.timeline({ repeat: -1, delay: 4 });
-        words.forEach((w, i) =>
-          loop
-            .to(w, { yPercent: -100, duration: 0.6, ease: "power3.in" }, "+=1.6")
-            .fromTo(words[(i + 1) % words.length], { yPercent: 100 }, { yPercent: 0, duration: 0.7, ease: "power3.out", immediateRender: false }, "<0.35"),
-        );
-
-        // Name drifts and fades as the hero scrolls away.
-        gsap.to(".hero__name", {
-          yPercent: 35,
-          autoAlpha: 0.15,
-          ease: "none",
-          scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
-        });
+      gsap.matchMedia().add(MOTION, () => {
+        // One entrance, then the hero sits still: the name rises out of its own baseline, the rest follows.
+        gsap
+          .timeline({ defaults: { ease: "expo.out" } })
+          .from(".hero__word > span", { yPercent: 102, duration: 1.3, stagger: 0.09 })
+          .from(".hero [data-in]", { y: 16, autoAlpha: 0, duration: 1, stagger: 0.05 }, 0.25);
       });
     },
     { scope: root },
@@ -72,49 +28,58 @@ export default function Hero() {
 
   return (
     <div ref={root}>
-      <div className="preloader" aria-hidden>
-        <div className="preloader__row">
-          <span>Shivastu Shrivastava</span>
-          <span>Frontend &amp; Mobile</span>
-        </div>
-        <span className="preloader__count">000</span>
-        <i className="preloader__bar" />
-      </div>
-
       <Nav home />
 
       <section className="hero" id="top">
-        <div className="hero__top">
-          <p className="label" data-intro>
-            {hero.eyebrow}
-          </p>
-          <p className="label status" data-intro>
-            <span className="dot" /> {hero.status}
-          </p>
+        <h1 className="sr-only">Shivastu Shrivastava, software engineer</h1>
+
+        <div className="hero__meta mono">
+          <span data-in>[ Software engineer ]</span>
+          <span data-in>Niyo — Bangalore</span>
+          <span data-in>
+            IST <span className="tnum">{time || "--:--"}</span>
+          </span>
+          <span data-in>Selected work [{pad(projects.length)}]</span>
         </div>
-        <h1 className="hero__name" aria-label="Shivastu Shrivastava">
-          <span className="line" aria-hidden>
-            {chars("Shivastu")}
-          </span>
-          <span className="line serif" aria-hidden>
-            {chars("Shrivastava")}
-          </span>
-        </h1>
-        <div className="hero__bottom">
-          <p className="hero__lede" data-intro>
+
+        <div className="hero__mid">
+          <dl className="hero__facts" data-in>
+            {hero.facts.map((f) => (
+              <div key={f.k}>
+                <dt>{f.k}</dt>
+                <dd>{f.v}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="hero__lede" data-in>
             {hero.lede}
-            <br />I ship{" "}
-            <span className="rotator" aria-hidden>
-              {hero.rotator.map((w) => (
-                <span key={w}>{w}</span>
-              ))}
-            </span>
-            <span className="sr-only">{hero.rotator.join(", ")}</span>
           </p>
-          <a href="#about" className="label scroll-cue" data-intro>
-            Scroll <span aria-hidden>↓</span>
-          </a>
         </div>
+
+        <div className="hero__row">
+          <p className="hero__word" aria-hidden>
+            <span>Shivastu</span>
+          </p>
+          <nav className="hero__index" aria-label="Case studies" data-in>
+            <p className="hero__index-head mono">
+              <span>Index</span>
+              <span>[{pad(projects.length)}]</span>
+            </p>
+            <ol>
+              {projects.map((p, i) => (
+                <li key={p.slug}>
+                  <Link href={`/work/${p.slug}`}>
+                    <span>{p.title}</span>
+                    <span className="mono">{pad(i + 1)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </div>
+        <p className="hero__word hero__word--last" aria-hidden>
+          <span>Shrivastava</span>
+        </p>
       </section>
     </div>
   );

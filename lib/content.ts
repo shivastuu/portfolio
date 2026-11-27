@@ -12,37 +12,35 @@ export const hero = {
   eyebrow: "Software Engineer at Niyo — Bangalore",
   status: "Open to product, frontend & mobile roles",
   lede: "I build and own fintech products end to end: React & Next.js on the web, Flutter & React Native on mobile.",
-  rotator: ["payment flows", "KYC journeys", "encrypted SDKs", "LLM agent pipelines", "design systems"],
+  facts: [
+    { k: "Now", v: "SDE-1 at Niyo" },
+    { k: "Since", v: "2025, fintech" },
+    { k: "Based", v: "Bangalore, IN" },
+  ],
 };
 
+// Runs as the ticker under the hero.
 export const marquee = [
   "TypeScript", "React", "Next.js", "React Native", "Flutter", "Python",
   "LangGraph", "Tailwind CSS", "TanStack Query", "Zustand", "WebCrypto", "gRPC-Web",
 ];
 
-export const domains = [
-  "Payments", "KYC onboarding", "Encryption", "Design systems", "Micro-frontends",
-  "Offline-first", "Server-driven UI", "Performance", "LLM agents", "AI security",
-];
-
-// *wrapped* words render in the accent serif.
+// *wrapped* words render at full contrast; the rest of the sentence sits in the muted tone.
 export const about =
   "I own features end to end, from *architecture* to *production monitoring.* A *credit card module* in Flutter. *KYC onboarding* in production. Embeddable *SDKs.* A *design system* 20 apps depend on.";
 
 export const stats = [
-  { from: 0, to: 8, suffix: "+", label: "Products & SDKs built at Niyo" },
-  { from: 0, to: 20, suffix: "", label: "Apps on the design system I own" },
-  { from: 0, to: 78, suffix: "%", label: "Lighter Video KYC SDK" },
-  { from: 0, to: 97, suffix: "", label: "Lighthouse performance on Slow 4G, with 100 accessibility" },
+  { to: 8, suffix: "+", label: "Products & SDKs built at Niyo" },
+  { to: 20, suffix: "", label: "Apps on the design system I own" },
+  { to: 78, suffix: "%", label: "Lighter Video KYC SDK" },
+  { to: 97, suffix: "", label: "Lighthouse performance on Slow 4G, with 100 accessibility" },
 ];
 
-// Card copy (big, caption, points, stack) shows on the home roadmap; the rest is the case study at /work/<slug>.
 export const projects = [
   {
     slug: "credit-card-app",
     title: "Co-Branded Credit Card",
     kind: "Mobile · Flutter",
-    hue: 75,
     big: "End to end",
     caption: "From an empty Flutter plugin to a live card module",
     points: [
@@ -70,7 +68,6 @@ export const projects = [
     slug: "onboarding-pwa",
     title: "Credit Card Onboarding PWA",
     kind: "Web · PWA",
-    hue: 262,
     big: "12 → 6",
     caption: "CKYC states → clear screens",
     points: [
@@ -98,7 +95,6 @@ export const projects = [
     slug: "design-system",
     title: "Shared Design System",
     kind: "Library · React",
-    hue: 45,
     big: "20 apps",
     caption: "Depend on the shared library",
     points: [
@@ -126,7 +122,6 @@ export const projects = [
     slug: "sdks",
     title: "Auth & Encryption SDKs",
     kind: "Platform · SDKs",
-    hue: 168,
     big: "1 call",
     caption: "Login or PAN check in any host app",
     points: [
@@ -154,7 +149,6 @@ export const projects = [
     slug: "compliance-workbench",
     title: "Forex Compliance Workbench",
     kind: "Web · Micro-frontends",
-    hue: 28,
     big: "Maker–checker",
     caption: "Approvals with gated PII",
     points: [
@@ -181,7 +175,6 @@ export const projects = [
     slug: "react-native-app",
     title: "React Native App",
     kind: "Mobile · React Native",
-    hue: 205,
     big: "13",
     caption: "Home sections the product team edits live",
     points: [
@@ -207,7 +200,6 @@ export const projects = [
     slug: "redcell",
     title: "RedCell",
     kind: "Side project · AI security",
-    hue: 330,
     big: "83% → 0%",
     caption: "Static attacks that got through on a 7B agent, without vs with guardrails",
     points: [
@@ -260,4 +252,4 @@ export const aiNotes = [
 ];
 
 export const site =
-  "This site is built with Next.js 16 (App Router, statically exported to Netlify), GSAP and Lenis for motion, and a light/dark theme. Each project has its own statically generated case-study page.";
+  "This site is built with Next.js 16 (App Router, statically exported to Netlify), GSAP and Lenis for restrained motion, and a light/dark theme. Each project has its own statically generated case-study page.";
