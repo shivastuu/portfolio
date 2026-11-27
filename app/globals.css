@@ -346,8 +346,8 @@ html.is-loading .pre { display: block; }
 .cv-map svg { width: 100%; height: 100%; }
 .cv-map path { fill: none; stroke: #111; stroke-width: 1; opacity: 0.35; vector-effect: non-scaling-stroke; }
 
-.cv-board { position: absolute; inset: 9% 8%; display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(6, 1fr); gap: 1em; }
-.cv-tile { display: flex; flex-direction: column; gap: 0.7em; padding: 1.1em; border-radius: 1.2em; background: #fff; box-shadow: 0 1.5em 3em rgb(0 0 0 / 0.18); }
+.cv-board { position: absolute; inset: 9% 8%; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-template-rows: repeat(6, minmax(0, 1fr)); gap: 1em; }
+.cv-tile { display: flex; flex-direction: column; gap: 0.7em; min-height: 0; overflow: hidden; padding: 1.1em; border-radius: 1.2em; background: #fff; box-shadow: 0 1.5em 3em rgb(0 0 0 / 0.18); }
 .cv-tile--a { grid-area: 1 / 1 / 3 / 4; }
 .cv-tile--b { grid-area: 1 / 4 / 3 / 7; }
 .cv-tile--c { grid-area: 3 / 1 / 5 / 3; }
@@ -369,7 +369,7 @@ html.is-loading .pre { display: block; }
 .cv-sheet { display: grid; gap: 0.5em; padding: 1em; border-radius: 1em 1em 0.4em 0.4em; background: #f4f4f4; }
 .cv-sheet i { justify-self: center; width: 3em; height: 0.3em; border-radius: 1em; background: #ccc; }
 .cv-sheet span:not(.cv-btn) { color: #5e5e5e; font-size: 0.85em; }
-.cv-stamp { grid-area: 5 / 1 / 7 / 5; align-self: end; display: grid; color: var(--on); font: 900 7em/0.8 var(--font-display), sans-serif; }
+.cv-stamp { grid-area: 5 / 1 / 7 / 5; align-self: end; min-height: 0; display: grid; color: var(--on); font: 900 7em/0.8 var(--font-display), sans-serif; }
 .cv-stamp small { font: 500 0.11em var(--font-mono), monospace; text-transform: uppercase; letter-spacing: 0.06em; }
 
 .cv-win { width: 31em; overflow: hidden; border-radius: 1em; background: #fff; box-shadow: 0 2.5em 5em rgb(0 0 0 / 0.38); }

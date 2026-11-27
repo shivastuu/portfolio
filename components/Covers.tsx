@@ -189,7 +189,7 @@ const DesignSystem = () => (
         <span className="cv-btn">Pay</span>
       </div>
     </div>
-    <p className="cv-stamp" data-depth="1.8">
+    <p className="cv-stamp">
       22/49
       <small>components built</small>
     </p>
