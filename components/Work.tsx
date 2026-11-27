@@ -22,7 +22,9 @@ export default function Work() {
           panels.forEach((p, i) => {
             p.querySelectorAll<HTMLElement>("[data-depth]").forEach((el) => {
               const d = Number(el.dataset.depth);
-              gsap.fromTo(el, { y: 90 * d }, { y: -50 * d, ease: "none", scrollTrigger: { trigger: p, start: "top bottom", end: "top top", scrub: true } });
+              // Drift scales with the cover, so small phone covers don't push the mock out of frame.
+              const c = p.querySelector<HTMLElement>(".panel__cover")!;
+              gsap.fromTo(el, { y: () => 0.11 * d * c.offsetHeight }, { y: () => -0.06 * d * c.offsetHeight, ease: "none", scrollTrigger: { trigger: p, start: "top bottom", end: "top top", scrub: true, invalidateOnRefresh: true } });
             });
             gsap.from(p.querySelector(".panel__no span"), { yPercent: 100, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: p, start: "top 60%" } });
             gsap.from(p.querySelectorAll(".panel__text > *"), { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.06, scrollTrigger: { trigger: p, start: "top 55%" } });

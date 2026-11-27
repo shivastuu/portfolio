@@ -4,7 +4,8 @@ import { useRef } from "react";
 import { gsap, useGSAP, MOTION, whenNear } from "../lib/gsap";
 import { services, skills } from "../lib/content";
 
-// Stepped rows that slide in from alternating sides as you scroll, plus a floating cloud of the toolbox.
+// Stepped rows that drift in from alternating sides as you scroll (by less than the page margin, so text never
+// leaves the screen; they simply rise on phones), plus a floating cloud of the toolbox.
 const cloud = skills.flatMap((s) => s.items).slice(0, 22);
 
 export default function Services() {
@@ -16,7 +17,7 @@ export default function Services() {
         whenNear(root.current!, contextSafe!(() => {
           gsap.utils.toArray<HTMLElement>(".svc").forEach((row, i) =>
             gsap.from(row, {
-              xPercent: i % 2 ? 30 : -30,
+              ...(innerWidth < 900 ? { y: 60 } : { x: (i % 2 ? 1 : -1) * Math.min(40, innerWidth * 0.03), y: 40 }),
               ease: "none",
               scrollTrigger: { trigger: row, start: "top bottom", end: "top 55%", scrub: true },
             }),

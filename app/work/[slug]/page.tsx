@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { projects } from "../../../lib/content";
 import Nav from "../../../components/Nav";
 import Contact from "../../../components/Contact";
-import { Lines } from "../../../components/Motion";
 import Cover from "../../../components/Covers";
 import Flow from "../../../components/Flow";
 import OtpDemo from "../../../components/demos/OtpDemo";
@@ -70,9 +69,7 @@ export default async function CaseStudy({ params }: Props) {
           </span>
           <span>{p.kind}</span>
         </div>
-        <h1 className="case__title">
-          <Lines lines={[p.title]} />
-        </h1>
+        <h1 className="case__title">{p.title}</h1>
         <div className="case__hero">
           <div>
             <p className="case__big">{p.big}</p>

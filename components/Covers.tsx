@@ -267,7 +267,7 @@ const NativeApp = () => (
         <p className="cv-title">Home</p>
         <div className="cv-stack">
           {sections.map((c, i) => (
-            <i key={c} style={{ background: c, height: i === 0 ? 64 : i % 2 ? 34 : 46 }} />
+            <i key={c} style={{ background: c, height: i === 0 ? "5.8em" : i % 2 ? "3.1em" : "4.2em" }} />
           ))}
         </div>
         <p className="cv-mono">13 sections · from CMS</p>
