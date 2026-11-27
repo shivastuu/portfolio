@@ -15,10 +15,35 @@ export const hero = {
   lede: "I build and own fintech products end to end: React & Next.js on the web, Flutter & React Native on mobile.",
   // Lock-screen notifications on the hero phone. Each one is a real result from the projects below.
   notes: [
-    { app: "Design system", text: "Release shipped to 20 apps", when: "now", icon: "ds", href: "/work/design-system" },
+    { app: "Moksha UI", text: "Prism colour picker shipped: real optics", when: "now", icon: "mk", href: "#moksha" },
+    { app: "Design system", text: "Release shipped to 20 apps", when: "1h ago", icon: "ds", href: "/work/design-system" },
     { app: "RedCell", text: "Attack success 83% → 0% with guardrails", when: "2h ago", icon: "rc", href: "/work/redcell" },
     { app: "Storybook", text: "Your fix was merged upstream", when: "1d ago", icon: "sb", href: "#open-source" },
-    { app: "Onboarding PWA", text: "12 KYC states → 6 clear screens", when: "2d ago", icon: "pwa", href: "/work/onboarding-pwa" },
+  ],
+};
+
+// The featured piece, shown right after the hero: his open-source design system and its prism colour picker.
+export const moksha = {
+  name: "Moksha UI",
+  line: "One design system for React and React Native.",
+  pitch:
+    "Pick a brand colour from real light. A torch beam splits through a 3D glass prism, every wavelength bent by Snell's law, and the colour you catch re-themes the whole design system, kept at WCAG AA contrast.",
+  facts: [
+    { k: "One API", v: "The same component renders a real <button> on the web and Pressable on iOS and Android." },
+    { k: "One line", v: "createTheme({ brandColor }) builds a 10-step OKLCH scale and light and dark tokens at WCAG AA." },
+    { k: "Real optics", v: "Snell's law per wavelength and Fresnel reflections, drawn with three.js." },
+  ],
+  github: "https://github.com/shivastuu/moksha-ui",
+  npm: "https://www.npmjs.com/package/@moksha-ui/core",
+  install: "npm i @moksha-ui/core @moksha-ui/tokens",
+  // Brand colours to start from; the prism picks any other.
+  swatches: [
+    { name: "Emerald", hex: "#0E9F7A" },
+    { name: "Cobalt", hex: "#1D3A8A" },
+    { name: "Gold", hex: "#D4A24C" },
+    { name: "Signal red", hex: "#C83223" },
+    { name: "Walnut", hex: "#7B4A2A" },
+    { name: "Graphite", hex: "#18181B" },
   ],
 };
 
@@ -336,6 +361,7 @@ export const openSource = [
 
 // The big achievements line in the ticker.
 export const highlights = [
+  "Moksha UI: a design system lit by a prism",
   "Design system used by 20 apps",
   "Fix merged into Storybook",
   "Video KYC SDK 78% lighter",
@@ -356,6 +382,7 @@ export const aiNotes = [
   "Next.js: App Router, React Server Components, static generation with generateStaticParams, next/font, the Metadata API and serverless functions, used in this portfolio (Next.js 16) and the RedCell dashboard (Next.js 15). He also wrote the shared design system's Next.js App Router integration guide for the apps that consume it.",
   "Experience: 2 years at Niyo (Project Trainee from Jan 2025, SDE-1 since Aug 2025). Always say \"2 years of experience\", not \"nearly\" or \"almost\".",
   "React: 2 years of production React and TypeScript at Niyo, across an onboarding PWA, embeddable SDKs, a shared design system used by about 20 apps, and micro-frontend consoles.",
+  "Moksha UI (github.com/shivastuu/moksha-ui, npm @moksha-ui/core and @moksha-ui/tokens): his own open-source design system for React and React Native with one component API: a real <button> with CSS on the web and Pressable with StyleSheet on iOS and Android, no react-native-web. createTheme({ brandColor }) generates a 10-step OKLCH colour scale and light and dark tokens kept at WCAG AA. Its PrismColorPicker lets you pick the brand colour from real light: a torch beam splits through a 3D glass prism in three.js, each wavelength bent by Snell's law with Fresnel reflections, and the picked colour re-themes the whole system. It is the first section on the home page (#moksha), where visitors can try it live.",
   "Open source: contributor to Storybook (90k+ GitHub stars). A bug fix where Docs story blocks stayed stuck on an error after the code was fixed was merged upstream; a second pull request adds alternative component names to sidebar search, with ranking, tests and docs, and is open.",
 ];
 

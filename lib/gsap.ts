@@ -25,3 +25,18 @@ export function whenNear(el: Element, setup: Function) {
 }
 
 export { gsap, ScrollTrigger, useGSAP };
+
+// Runs fn on the visitor's first scroll, touch, click or key press (at once if the page is already scrolled), so
+// set-up for sections just below the fold stays out of the first load. Returns a function that cancels it.
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+export function onFirstMove(fn: Function) {
+  const events = ["scroll", "wheel", "touchstart", "pointerdown", "keydown"];
+  const off = () => events.forEach((e) => removeEventListener(e, go));
+  const go = () => {
+    off();
+    fn();
+  };
+  if (scrollY > 0) fn();
+  else events.forEach((e) => addEventListener(e, go, { passive: true }));
+  return off;
+}

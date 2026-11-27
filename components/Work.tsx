@@ -55,7 +55,7 @@ export default function Work() {
   return (
     <section ref={root} className="work" id="work">
       <div className="work__head">
-        <p className="mono">[02] Selected work</p>
+        <p className="mono">[03] Selected work</p>
         <h2 className="work__title">
           <span className="line">
             <span>Selected</span>

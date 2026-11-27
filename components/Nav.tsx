@@ -17,6 +17,9 @@ export default function Nav({ home = false }: { home?: boolean }) {
         <span className="sr-only">{home ? " — back to top" : " — home"}</span>
       </A>
       <nav className="nav__links" aria-label="Sections">
+        <A href={to("moksha")}>
+          <span>Moksha UI</span>
+        </A>
         <A href={to("work")}>
           <span>Work</span>
         </A>

@@ -34,7 +34,7 @@ export default function Experience() {
     <section ref={root} className="exp" id="experience">
       <div className="exp__head">
         <h2 className="exp__title">How I got here</h2>
-        <span className="mono">[06]</span>
+        <span className="mono">[07]</span>
       </div>
 
       <div className="exp__grid">
